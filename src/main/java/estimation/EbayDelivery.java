@@ -1,5 +1,12 @@
 package estimation;
 
+/**
+* 배송내역
+* @author sanghuncho
+*
+* @since  27.06.2020
+*
+*/
 public class EbayDelivery {
     private int inputItemNumber;
     private String arrivalTitle;

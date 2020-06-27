@@ -1,6 +1,10 @@
-package estimation;
+package application;
 
 import java.io.IOException;
+import estimation.DeliveryRegister;
+import estimation.EbayCalculator;
+import estimation.EbayDelivery;
+import estimation.TransferMoney;
 
 public class EbayAuctionService {
     public static double excahgeRateEuro = 1420;
@@ -8,35 +12,44 @@ public class EbayAuctionService {
     public static void main( String[] args ) throws IOException
     {
         //날짜
-        String paramDate = "24.06.2020";
-        //아이템 및 독일배송비 == 판매자 송금액
-        double paramItemPriceEuro = 33.89;
-        //지쿠 아이템 아이디
-        int paramItemNumber = 166;
-        //적립금
-        int pramLastSaved = 544600;
-        //아이템 이름
-        String paramItemName = "used Fostex FHT5/Foster parts of speaker";
-        //배송 도착 이름
-        String paramArrivalTitle = "Trackis";
-        //결제수단 송금 : 1, 페이팔 : 2
-        int paramPaymentArt = 2;
-        //판매자 이베이 아이디
-        String paramSellerId = "trackis";
-        //아이템 브랜드 이름
-        String paramBrandName = "ISOPHON";
-        //아이템 구매사이트
-        String paramSite = "www.ebay.de";
-        //아이템 개수
-        int paramNumberItem = 1;
+        var paramDate = "26.06.2020";
         
-        //송금시만 작성
-        //송금 수취인이름
-        String parmaMoneyReceiver = "Barclaycard";
+        //아이템 가격 + 아이템 배송비 == 구매대행 송금액
+        var paramItemPriceEuro = 105;
+        
+        //지쿠 아이템아이디
+        var paramItemNumber = 164;
+        
+        //적립금
+        var pramLastSaved =  1048600;
+        
+        //아이템 이름
+        var paramItemName = "Isophon DKT 11 used speaker";
+        //아이템 브랜드 이름
+        var paramBrandName = "ISOPHON";
+        
+        //이베이 셀러 아이디
+        var paramSellerId = "v2apeter";
+        //배송
+        var paramArrivalTitle = "V2ap";
+
+        //결제수단 송금 : 1, 페이팔 : 2
+        var paramPaymentArt = 1;
+        //아이템 구매 사이트
+        var paramSite = "www.ebay.de";
+        //아이템 개수
+        var paramNumberItem = 1;
+        
+        
+        ////////////////////
+        ////  송금시만 작성  ///
+        ///////////////////
+        //송금 수취인 이름
+        String parmaMoneyReceiver = "Peter Gräbner";
         //IBAN
-        String paramIBAN = "DE69201306002012655803";
+        String paramIBAN = "DE97254621600253898900";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "2012655803"; 
+        String paramEbayItemnumber = "193535869286"; 
         
         
         //정산내역 변수
@@ -66,24 +79,29 @@ public class EbayAuctionService {
         System.out.println("## 배송내역");
         System.out.println(delivery.convertRowExcel());
         
+        System.out.println('\n');
+        System.out.println("## 셀러 배송 메세지");
+        System.out.println(getDeliverySellerMessage(paramArrivalTitle));
+
         DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle);
         System.out.println('\n');
         System.out.println("## 배송등록");
         System.out.println(delRegi.convertRowExcel());
         
-        System.out.println('\n');
-        System.out.println("## 셀러 배송 메세지");
-        System.out.println(getDeliverySellerMessage(paramArrivalTitle));
-        
-        TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle);
-        System.out.println('\n');
-        System.out.println("## 송금신청");
-        System.out.println(transMoney.convertTransferMoneyData());
+        if(paramPaymentArt == 1) {
+            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle);
+            System.out.println('\n');
+            System.out.println("## 송금신청");
+            System.out.println(transMoney.convertTransferMoneyData());
+        } else {
+            System.out.println('\n');
+            System.out.println("## 페이팔 결제");
+        }
     }
     
     public static String getDeliverySellerMessage(String arrivalTitle) {
-        return "Bitte schreiben Sie richtig [ ilogexpress " + arrivalTitle +
-                " ] auf Empfänger, damit unserer Mitarbeiter dieses Paket sortieren kann";
+        return "Hallo," + '\n' + "Bitte schreiben Sie richtig [ ilogexpress " + arrivalTitle +
+                " ] auf Empfänger im Paket, " + '\n' + "damit unserer Mitarbeiter dieses Paket sortieren kann." + '\n' + "Danke im Voraus!" + '\n' + "Mit freundlichen Grüßen";
     }
     
     public static double priceFormat(double price) {
@@ -101,10 +119,9 @@ public class EbayAuctionService {
         //한화
         private double currentEurToKRW;
         
-        //배송비 포함 구매대행 유로 금액 
         private double totalPriceEuro;
         
-        //2자리 내림 ex. 10511원 -> 10500원
+        //2자리리 내림 ex. 10511원? -> 10500원?
         private final int ROUNDED_DIGIT = 2;
         
         public int getResult(double currentEurToKRW, double totalPriceEuro) {
@@ -118,7 +135,7 @@ public class EbayAuctionService {
             return ceiledResult;
         }
         
-        // 최저수수료 체크
+        // 최저수수료 체�?�
         private boolean isMinimumCommision(double currentEurToKRW, double totalPriceEuro) {
             double commision = (currentEurToKRW*totalPriceEuro)*(feePercent/100);
             if(commision >= minimumCommision) {
@@ -130,7 +147,7 @@ public class EbayAuctionService {
         
         private int mathCeilDigit(int digit, double price) {
             int power = (int) Math.pow(10, digit);
-            int newPrice = (int) Math.ceil(price/power);
+            int newPrice = (int) Math.round(price/power);
             return (newPrice*power);
         }
     }

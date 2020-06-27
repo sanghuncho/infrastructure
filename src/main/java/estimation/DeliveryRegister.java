@@ -1,5 +1,14 @@
 package estimation;
 
+/**
+*
+* 배송회사 등록 정보 
+* 
+* @author sanghuncho
+*
+* @since  27.06.2020
+*
+*/
 public class DeliveryRegister {
     private String itemName;
     private String brandName;
