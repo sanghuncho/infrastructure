@@ -14,7 +14,7 @@ public class TransferMoney {
     }
     
     private String getUsageMessage(String ebayItemnumber, String arrivalTitle) {
-        return "Ebay_id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse: ilogexpress " + arrivalTitle;
+        return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse: ilogexpress " + arrivalTitle;
     }
     
     public String convertTransferMoneyData() {
