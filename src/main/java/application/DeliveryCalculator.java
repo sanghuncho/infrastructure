@@ -23,15 +23,20 @@ public class DeliveryCalculator {
         
         //지쿠 아이템번호
         var paramItemNumber = 132;
+        
+        //송장번호
+        var paramTrackingNumber = "";
+        
         //배송무게
         var paramDeliveryWeight = 5;
         
         System.out.println("## 배송비 정산내역");
-        System.out.println(convertRowExcelDeliveryWeight(paramDate, pramLastSaved, paramDeliveryWeight, paramItemNumber));
+        System.out.println(convertRowExcelDeliveryWeight(paramDate, pramLastSaved, paramDeliveryWeight,
+                paramItemNumber, paramTrackingNumber));
     }
     
     public static String convertRowExcelDeliveryWeight(String deliveryDate, int lastSaved,
-            int deliveryWeight, int itemNumber) {
+            int deliveryWeight, int itemNumber, String trackingNumber) {
         int deliveryPrice = (ONE_KG_PRICE + (deliveryWeight-1)*PRO_KG_PRICE);
         int lastRemainedMoney = lastSaved - deliveryPrice;
         //날짜
@@ -79,6 +84,9 @@ public class DeliveryCalculator {
         sb.append(", ");
         
         //송장번호
+        if(trackingNumber != "") {
+            sb.append(trackingNumber);
+        }
         sb.append(", ");
         
         //실, 부피무게
