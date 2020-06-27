@@ -1,6 +1,7 @@
 package estimation;
 
-import estimation.EbayAuctionService.BuyingserviceCommision;
+import application.EbayAuctionService;
+import application.EbayAuctionService.BuyingserviceCommision;
 
 public class EbayCalculator {
    
