@@ -22,7 +22,7 @@ public class ApiApp {
     public static void main( String[] args ) throws IOException {
         OAuth2Api oauth2Api = new OAuth2Api();
         CredentialUtil.load(new FileInputStream("/infrastructure/src/java/resources/ebay-config.yaml"));
-        OAuth2Api.getApplicationToken();
+        //OAuth2Api.getApplicationToken();
     }
     
 }

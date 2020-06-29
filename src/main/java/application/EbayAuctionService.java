@@ -11,34 +11,39 @@ public class EbayAuctionService {
     
     public static void main( String[] args ) throws IOException
     {
+/////////////////
+//// Parameter ///
+//////////////////
+        
         //날짜
-        var paramDate = "26.06.2020";
+        var paramDate = "28.06.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 105;
-        
-        //지쿠 아이템아이디
-        var paramItemNumber = 164;
-        
-        //적립금
-        var pramLastSaved =  1048600;
-        
-        //아이템 이름
-        var paramItemName = "Isophon DKT 11 used speaker";
-        //아이템 브랜드 이름
-        var paramBrandName = "ISOPHON";
+        var paramItemPriceEuro = 117.99;
         
         //이베이 셀러 아이디
-        var paramSellerId = "v2apeter";
+        var paramSellerId = "schneebaer";
         //배송
-        var paramArrivalTitle = "V2ap";
+        var paramArrivalTitle = "Schneebaer";
+
+        //지쿠 아이템아이디
+        var paramItemNumber = 166;
+        
+        //적립금
+        var pramLastSaved = 535700;
+        
+        //아이템 이름
+        var paramItemName = "Speaker FOSTEX BREITBAND + HOCHTON";
+        //아이템 브랜드 이름
+        var paramBrandName = "FOSTEX";
+        
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 1;
+        var paramPaymentArt = 2;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
         //아이템 개수
-        var paramNumberItem = 1;
+        var paramNumberItem = 4;
         
         
         ////////////////////
@@ -51,6 +56,15 @@ public class EbayAuctionService {
         //이베이 아이템 번호
         String paramEbayItemnumber = "193535869286"; 
         
+///////////////////
+//// Parameter ///
+//////////////////
+        
+        
+        //이베이 셀러 배송 메세지 확인
+        System.out.println("## 셀러 배송 메세지");
+        System.out.println(getDeliverySellerMessage(paramArrivalTitle));
+        System.out.println('\n');
         
         //정산내역 변수
         String inputDate = paramDate;
@@ -79,10 +93,6 @@ public class EbayAuctionService {
         System.out.println("## 배송내역");
         System.out.println(delivery.convertRowExcel());
         
-        System.out.println('\n');
-        System.out.println("## 셀러 배송 메세지");
-        System.out.println(getDeliverySellerMessage(paramArrivalTitle));
-
         DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle);
         System.out.println('\n');
         System.out.println("## 배송등록");

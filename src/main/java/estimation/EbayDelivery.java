@@ -60,6 +60,7 @@ public class EbayDelivery {
             delivery.append(", ");
             
             delivery.append("OK");
+            delivery.append(", ");
         }
         
         //독일내 배송

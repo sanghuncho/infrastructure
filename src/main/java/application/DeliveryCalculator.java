@@ -16,13 +16,13 @@ public class DeliveryCalculator {
     public static final int PRO_KG_PRICE = 4000;
     public static void main( String[] args ) throws IOException {
         //배송 날짜
-        var paramDate = "26.06.2020";
+        var paramDate = "27.06.2020";
         
         //적립금
-        var pramLastSaved = 1033600;
+        var pramLastSaved = 814600;
         
         //지쿠 아이템번호
-        var paramItemNumber = 132;
+        var paramItemNumber = 136;
         
         //송장번호
         var paramTrackingNumber = "";
