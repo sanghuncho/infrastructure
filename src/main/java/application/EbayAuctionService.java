@@ -16,26 +16,26 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "28.06.2020";
+        var paramDate = "29.06.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 117.99;
+        var paramItemPriceEuro = 29.89;
         
         //이베이 셀러 아이디
-        var paramSellerId = "schneebaer";
+        var paramSellerId = "vintage-papa";
         //배송
-        var paramArrivalTitle = "Schneebaer";
+        var paramArrivalTitle = "VintagePapa";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 166;
+        var paramItemNumber = 170;
         
         //적립금
-        var pramLastSaved = 535700;
+        var pramLastSaved =  738400;
         
         //아이템 이름
-        var paramItemName = "Speaker FOSTEX BREITBAND + HOCHTON";
+        var paramItemName = "Original Canton used audio parts";
         //아이템 브랜드 이름
-        var paramBrandName = "FOSTEX";
+        var paramBrandName = "Canton";
         
 
         //결제수단 송금 : 1, 페이팔 : 2
@@ -43,7 +43,7 @@ public class EbayAuctionService {
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
         //아이템 개수
-        var paramNumberItem = 4;
+        var paramNumberItem = 2;
         
         
         ////////////////////
