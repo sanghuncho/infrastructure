@@ -16,30 +16,29 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "29.06.2020";
+        var paramDate = "02.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 29.89;
+        var paramItemPriceEuro = 54.99;
         
         //이베이 셀러 아이디
-        var paramSellerId = "vintage-papa";
+        var paramSellerId = "jingsaw";
         //배송
-        var paramArrivalTitle = "VintagePapa";
+        var paramArrivalTitle = "Jingsaw";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 170;
+        var paramItemNumber = 174;
         
         //적립금
-        var pramLastSaved =  738400;
+        var pramLastSaved =  1270500;
         
         //아이템 이름
-        var paramItemName = "Original Canton used audio parts";
+        var paramItemName = "Peerless MT 20 HFC audio parts";
         //아이템 브랜드 이름
-        var paramBrandName = "Canton";
-        
+        var paramBrandName = "HFC";
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 2;
+        var paramPaymentArt = 1;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
         //아이템 개수
@@ -50,11 +49,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Peter Gräbner";
+        String parmaMoneyReceiver = "udo Birkner";
         //IBAN
-        String paramIBAN = "DE97254621600253898900";
+        String paramIBAN = "DE86620632630027507017";
+        //BIC for Check
+        String paramBIC = "GENODES1VLS";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "193535869286"; 
+        String paramEbayItemnumber = "383602751955"; 
         
 ///////////////////
 //// Parameter ///
@@ -99,7 +100,7 @@ public class EbayAuctionService {
         System.out.println(delRegi.convertRowExcel());
         
         if(paramPaymentArt == 1) {
-            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle);
+            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle, paramBIC);
             System.out.println('\n');
             System.out.println("## 송금신청");
             System.out.println(transMoney.convertTransferMoneyData());

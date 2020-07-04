@@ -16,19 +16,19 @@ public class DeliveryCalculator {
     public static final int PRO_KG_PRICE = 4000;
     public static void main( String[] args ) throws IOException {
         //배송 날짜
-        var paramDate = "27.06.2020";
+        var paramDate = "01.07.2020";
         
         //적립금
-        var pramLastSaved = 814600;
+        var pramLastSaved =  682900;
         
-        //지쿠 아이템번호
-        var paramItemNumber = 136;
+        //지쿠 아이템번호0
+        var paramItemNumber = 149;
         
         //송장번호
         var paramTrackingNumber = "";
         
         //배송무게
-        var paramDeliveryWeight = 5;
+        var paramDeliveryWeight = 9;
         
         System.out.println("## 배송비 정산내역");
         System.out.println(convertRowExcelDeliveryWeight(paramDate, pramLastSaved, paramDeliveryWeight,

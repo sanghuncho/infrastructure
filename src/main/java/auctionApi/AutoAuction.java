@@ -24,9 +24,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class AutoAuction {
         public static void main( String[] args ) throws IOException, InterruptedException, AWTException {
 
-            invokeSelenium();
+            //invokeSelenium();
             
             //invokdeBot();
+            
+            setCursor();
+        }
+        
+        public static void setCursor() throws AWTException {
+            Robot robot = new Robot();
+            robot.mouseMove(630 + 140, 517 + 20);
         }
         
         public static void invokdeBot(int height) throws AWTException {
