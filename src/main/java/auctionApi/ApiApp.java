@@ -20,7 +20,8 @@ import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
 */
 public class ApiApp {
     //NOTE: Change this env to Environment.PRODUCTION to run this test in PRODUCTION
-    private static final Environment EXECUTION_ENV = Environment.SANDBOX;
+    private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
+    //private static final Environment EXECUTION_ENV = Environment.SANDBOX;
 //    private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope", 
 //            "https://api.ebay.com/oauth/api_scope/sell.marketing.readonly");
 //    
@@ -33,7 +34,7 @@ public class ApiApp {
 //        scopes.add("https://api.ebay.com/oauth/api_scope");
 //        scopes.add("https://api.ebay.com/oauth/api_scope/buy.offer.auction");
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
-        System.out.println(rep.toString());
+        System.out.println(rep.getAccessToken().get().getToken());
     }
     
 }

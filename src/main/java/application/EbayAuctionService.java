@@ -16,46 +16,46 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "02.07.2020";
+        var paramDate = "03.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 54.99;
+        var paramItemPriceEuro = 25.49;
         
         //이베이 셀러 아이디
-        var paramSellerId = "jingsaw";
+        var paramSellerId = "gerhanra141";
         //배송
-        var paramArrivalTitle = "Jingsaw";
+        var paramArrivalTitle = "Gerhan";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 174;
+        var paramItemNumber = 177;
         
         //적립금
-        var pramLastSaved =  1270500;
+        var pramLastSaved = 1083000;
         
         //아이템 이름
-        var paramItemName = "Peerless MT 20 HFC audio parts";
+        var paramItemName = "used Telefunken speaker parts for Radio";
         //아이템 브랜드 이름
-        var paramBrandName = "HFC";
+        var paramBrandName = "Telefunken";
+        //아이템 개수
+        var paramNumberItem = 1;
 
         //결제수단 송금 : 1, 페이팔 : 2
         var paramPaymentArt = 1;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
-        //아이템 개수
-        var paramNumberItem = 2;
-        
+
         
         ////////////////////
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "udo Birkner";
+        String parmaMoneyReceiver = "Hans Schwöppe";
         //IBAN
-        String paramIBAN = "DE86620632630027507017";
+        String paramIBAN = "DE43400501500153265590";
         //BIC for Check
-        String paramBIC = "GENODES1VLS";
+        String paramBIC = "WELADED1MST";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "383602751955"; 
+        String paramEbayItemnumber = "224059681650"; 
         
 ///////////////////
 //// Parameter ///

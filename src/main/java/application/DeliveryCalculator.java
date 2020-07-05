@@ -15,6 +15,7 @@ public class DeliveryCalculator {
     public static final int ONE_KG_PRICE = 13000;
     public static final int PRO_KG_PRICE = 4000;
     public static void main( String[] args ) throws IOException {
+        //TODO : 합포장시 3000원추가 
         //배송 날짜
         var paramDate = "01.07.2020";
         
