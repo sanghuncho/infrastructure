@@ -16,31 +16,31 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "06.07.2020";
+        var paramDate = "07.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 95.49;
+        var paramItemPriceEuro = 191.50;
         
         //이베이 셀러 아이디
-        var paramSellerId = "roreic48";
+        var paramSellerId = "artundsale";
         //배송
-        var paramArrivalTitle = "Rore";
+        var paramArrivalTitle = "Artun";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 182;
+        var paramItemNumber = 186;
         
         //적립금
-        var pramLastSaved = 641200;
+        var pramLastSaved = 340000;
         
         //아이템 이름
-        var paramItemName = "used Telefunken speaker and used SABA speaker set";
+        var paramItemName = "LEITZ Trinovid Fernrohr";
         //아이템 브랜드 이름
-        var paramBrandName = "Telefunken, Saba";
+        var paramBrandName = "LEITZ";
         //아이템 개수
-        var paramNumberItem = 6;
+        var paramNumberItem = 1;
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 2;
+        var paramPaymentArt = 1;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
@@ -49,13 +49,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Aurika Muntaniol";
+        String parmaMoneyReceiver = "Beate Ambros";
         //IBAN
-        String paramIBAN = "DE34100500001066671970";
+        String paramIBAN = "DE46700700240416144400";
         //BIC for Check
-        String paramBIC = "BELADEBEXXX";
+        String paramBIC = "DEUTDEDBMUC";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "323967446893"; 
+        String paramEbayItemnumber = "363029347357"; 
         
 ///////////////////
 //// Parameter ///
