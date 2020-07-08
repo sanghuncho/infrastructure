@@ -20,7 +20,7 @@ public class TransferMoney {
     }
     
     public String convertTransferMoneyData() {
-        StringBuilder sb = new StringBuilder("Empf‰nger  " + moneyReceiver);  
+        StringBuilder sb = new StringBuilder("Empf√§nger  " + moneyReceiver);  
         sb.append("\n");
         sb.append("IBAN  " + bankIban);
         sb.append("\n");

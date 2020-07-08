@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -58,8 +60,15 @@ public class ApiApp {
                 HttpMethod.GET, entity, String.class);
  
         String result = response.getBody();
- 
-        System.out.println(result);
+//        JSONArray jArray = new JSONArray(result);
+//        JSONObject jb = jArray.getJSONObject(0);
+//        System.out.println(jb);
+        JSONObject myObject = new JSONObject(result);
+        JSONObject priceObject = myObject.getJSONObject("price");
+        System.out.println(priceObject.getString("convertedFromValue"));
+//        System.out.println(myObject.getString("title"));
+//        JSONArray priceArray = myObject.getJSONArray("price");
+        //System.out.println(priceObject.getString("convertedFromValue"));
     }
     
 }

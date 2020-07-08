@@ -17,19 +17,19 @@ public class DeliveryCalculator {
     public static void main( String[] args ) throws IOException {
         //TODO : 합포장시 3000원추가 
         //배송 날짜
-        var paramDate = "01.07.2020";
+        var paramDate = "06.07.2020";
         
         //적립금
-        var pramLastSaved =  682900;
+        var pramLastSaved = 674200;
         
         //지쿠 아이템번호0
-        var paramItemNumber = 149;
+        var paramItemNumber = 139;
         
         //송장번호
         var paramTrackingNumber = "";
         
         //배송무게
-        var paramDeliveryWeight = 9;
+        var paramDeliveryWeight = 6;
         
         System.out.println("## 배송비 정산내역");
         System.out.println(convertRowExcelDeliveryWeight(paramDate, pramLastSaved, paramDeliveryWeight,

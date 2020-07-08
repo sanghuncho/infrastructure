@@ -16,31 +16,31 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "03.07.2020";
+        var paramDate = "06.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 25.49;
+        var paramItemPriceEuro = 95.49;
         
         //이베이 셀러 아이디
-        var paramSellerId = "gerhanra141";
+        var paramSellerId = "roreic48";
         //배송
-        var paramArrivalTitle = "Gerhan";
+        var paramArrivalTitle = "Rore";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 177;
+        var paramItemNumber = 182;
         
         //적립금
-        var pramLastSaved = 1083000;
+        var pramLastSaved = 641200;
         
         //아이템 이름
-        var paramItemName = "used Telefunken speaker parts for Radio";
+        var paramItemName = "used Telefunken speaker and used SABA speaker set";
         //아이템 브랜드 이름
-        var paramBrandName = "Telefunken";
+        var paramBrandName = "Telefunken, Saba";
         //아이템 개수
-        var paramNumberItem = 1;
+        var paramNumberItem = 6;
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 1;
+        var paramPaymentArt = 2;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
@@ -49,13 +49,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Hans Schwöppe";
+        String parmaMoneyReceiver = "Aurika Muntaniol";
         //IBAN
-        String paramIBAN = "DE43400501500153265590";
+        String paramIBAN = "DE34100500001066671970";
         //BIC for Check
-        String paramBIC = "WELADED1MST";
+        String paramBIC = "BELADEBEXXX";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "224059681650"; 
+        String paramEbayItemnumber = "323967446893"; 
         
 ///////////////////
 //// Parameter ///
