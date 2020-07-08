@@ -7,7 +7,8 @@
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
   </properties>
     
   <dependencies>
@@ -95,6 +96,14 @@
 		        <version>0.0.4</version>
 		        <configuration>
 		            <mainClass>HelloFX</mainClass>
+		        </configuration>
+		    </plugin>
+		    
+		    <plugin>    
+		        <artifactId>maven-compiler-plugin</artifactId>
+		        <configuration>
+		            <source>11</source>
+		            <target>11</target>
 		        </configuration>
 		    </plugin>
         </plugins>

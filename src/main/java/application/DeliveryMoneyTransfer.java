@@ -18,14 +18,14 @@ public class DeliveryMoneyTransfer {
     
     public static void main( String[] args ) throws IOException {
         
-        TransferMoney money1 = new TransferMoney("newfk6", 12);
-        TransferMoney money2 = new TransferMoney("Hoppla", 14.4);
-        TransferMoney money3 = new TransferMoney("Johanna", 16.8);
+        TransferMoney money1 = new TransferMoney("Sabine", 43.3);
+//        TransferMoney money2 = new TransferMoney("Hoppla", 14.4);
+//        TransferMoney money3 = new TransferMoney("Johanna", 16.8);
         
         ArrayList<TransferMoney> transferMoneyList = new ArrayList<>();
         transferMoneyList.add(money1);
-        transferMoneyList.add(money2);
-        transferMoneyList.add(money3);
+//        transferMoneyList.add(money2);
+//        transferMoneyList.add(money3);
         
         double sumMoney = 0;
         for (TransferMoney money : transferMoneyList) {
@@ -116,6 +116,8 @@ public class DeliveryMoneyTransfer {
             return arrivalTitle + "-" + String.valueOf(value) +"Euro" + " ";
         }
     }
+    
+    
 }
 
 
