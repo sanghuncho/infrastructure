@@ -30,10 +30,6 @@ public class ApiApp {
     //NOTE: Change this env to Environment.PRODUCTION to run this test in PRODUCTION
     private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
 
-    //private static final Environment EXECUTION_ENV = Environment.SANDBOX;
-//    private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope", 
-//            "https://api.ebay.com/oauth/api_scope/sell.marketing.readonly");
-    
     static final String BROWSE_API = "https://api.ebay.com/buy/browse/v1/item/get_item_by_legacy_id?legacy_item_id=";
     private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope");
     
@@ -43,10 +39,9 @@ public class ApiApp {
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
         System.out.println(rep.getAccessToken().get().getToken());
         
-        String getItemId = BROWSE_API + "224059691005";
+        String getItemId = BROWSE_API + "143650031359";
         
         HttpHeaders headers = new HttpHeaders();
-        
         headers.set("Authorization", "Bearer " + rep.getAccessToken().get().getToken() );
         headers.set("X-EBAY-C-ENDUSERCTX", "contextualLocation=country=<2_character_country_code>,zip=<zip_code>" );
         headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
@@ -56,19 +51,24 @@ public class ApiApp {
  
         RestTemplate restTemplate = new RestTemplate();
  
-        ResponseEntity<String> response = restTemplate.exchange(getItemId, //
+        ResponseEntity<String> response = restTemplate.exchange(getItemId, 
                 HttpMethod.GET, entity, String.class);
  
         String result = response.getBody();
-//        JSONArray jArray = new JSONArray(result);
-//        JSONObject jb = jArray.getJSONObject(0);
-//        System.out.println(jb);
         JSONObject myObject = new JSONObject(result);
+        String title = myObject.getString("title");
+        
         JSONObject priceObject = myObject.getJSONObject("price");
-        System.out.println(priceObject.getString("convertedFromValue"));
-//        System.out.println(myObject.getString("title"));
-//        JSONArray priceArray = myObject.getJSONArray("price");
-        //System.out.println(priceObject.getString("convertedFromValue"));
+        String price = priceObject.getString("convertedFromValue");
+        
+        JSONObject sellerObject = myObject.getJSONObject("seller");
+        String sellerUsername = sellerObject.getString("username");
+        
+        String brand = myObject.getString("brand");
+        System.out.println('\n');
+        System.out.println(title);
+        System.out.println(price);
+        System.out.println(sellerUsername);
+        System.out.println(brand);
     }
-    
 }
