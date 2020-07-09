@@ -57,7 +57,7 @@ public class DeliveryCalculator {
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
         
         //지쿠 아이템번호
-        var paramItemNumber_se = paramItemNumber + 1;
+        var paramItemNumber_se = 140;
         //송장번호
         var paramTrackingNumber_se = "";
         //배송무게
@@ -77,7 +77,7 @@ public class DeliveryCalculator {
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
         //지쿠 아이템번호
-        var paramItemNumber_thr = paramItemNumber_se + 1;
+        var paramItemNumber_thr = 150;
         //송장번호
         var paramTrackingNumber_thr = "";
         //배송무게
