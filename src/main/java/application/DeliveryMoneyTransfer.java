@@ -12,7 +12,7 @@ import java.util.ArrayList;
 * @since  27.06.2020
 * 
 * TODO Logger
-*
+* @deprecated use DeliveryCalculator since 09.07.2020
 */
 public class DeliveryMoneyTransfer {
     

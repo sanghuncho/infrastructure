@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.util.ArrayList;
 import application.DeliveryMoneyTransfer.TransferMoney;
+import delivery.RowExcelDeliveryWeight;
 import util.Formatter;
 
 /**
@@ -16,7 +17,14 @@ import util.Formatter;
 public class DeliveryCalculator {
     public static final int ONE_KG_PRICE = 13000;
     public static final int PRO_KG_PRICE = 4000;
+    
     public static void main( String[] args ) throws IOException {
+        //TODO : 합포장시 3000원추가 
+        //배송 날짜
+        var paramDate = "06.07.2020";
+        
+        //적립금
+        var pramLastSaved = 674200;
         
         ////////배송상품 1
         //Tube4
@@ -28,6 +36,16 @@ public class DeliveryCalculator {
         double deliveryPrice_one = 32.4;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
+        //지쿠 아이템번호
+        var paramItemNumber = 139;
+        //송장번호
+        var paramTrackingNumber = "";
+        //배송무게
+        var paramDeliveryWeight = 6;
+        ////////배송상품 1
+        
+        //--------------------------------------
+        
         ////////배송상품 2
         //Phono
         //25.00cm x  16.00cm x  11.00cm,   0.78Kg
@@ -37,6 +55,16 @@ public class DeliveryCalculator {
         double realWeight_two = 0.78;
         double deliveryPrice_two = 6;
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
+        
+        //지쿠 아이템번호
+        var paramItemNumber_se = paramItemNumber + 1;
+        //송장번호
+        var paramTrackingNumber_se = "";
+        //배송무게
+        var paramDeliveryWeight_se = 6;
+        ////////배송상품 2
+        
+        //--------------------------------------
         
         ////////배송상품 3
         //V2ap
@@ -48,22 +76,14 @@ public class DeliveryCalculator {
         double deliveryPrice_three = 6;
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
-        
-        //TODO : 합포장시 3000원추가 
-        //배송 날짜
-        var paramDate = "06.07.2020";
-        
-        //적립금
-        var pramLastSaved = 674200;
-        
-        //지쿠 아이템번호0
-        var paramItemNumber = 139;
-        
+        //지쿠 아이템번호
+        var paramItemNumber_thr = paramItemNumber_se + 1;
         //송장번호
-        var paramTrackingNumber = "";
-        
+        var paramTrackingNumber_thr = "";
         //배송무게
-        var paramDeliveryWeight = 6;
+        var paramDeliveryWeight_thr = 6;
+        ////////배송상품 3
+       
         
         TransferMoney money1 = new TransferMoney(title_one, deliveryPrice_one);
         TransferMoney money2 = new TransferMoney(title_two, deliveryPrice_two);
@@ -74,9 +94,17 @@ public class DeliveryCalculator {
         transferMoneyList.add(money2);
         transferMoneyList.add(money3);
       
+        RowExcelDeliveryWeight rowExcelDeliveryWeight = new RowExcelDeliveryWeight(paramDate, pramLastSaved, paramDeliveryWeight,
+                paramItemNumber, paramTrackingNumber);
+        RowExcelDeliveryWeight rowExcelDeliveryWeight_se = new RowExcelDeliveryWeight(paramDate, rowExcelDeliveryWeight.getLastRemainedMoney(), paramDeliveryWeight_se,
+                paramItemNumber_se, paramTrackingNumber_se);
+        RowExcelDeliveryWeight rowExcelDeliveryWeight_thr = new RowExcelDeliveryWeight(paramDate, rowExcelDeliveryWeight_se.getLastRemainedMoney(), paramDeliveryWeight_thr,
+                paramItemNumber_thr, paramTrackingNumber_thr);
+        
         System.out.println("## 배송비 정산내역");
-        System.out.println(convertRowExcelDeliveryWeight(paramDate, pramLastSaved, paramDeliveryWeight,
-                paramItemNumber, paramTrackingNumber));
+        System.out.println(rowExcelDeliveryWeight.getResult());
+        System.out.println(rowExcelDeliveryWeight_se.getResult());
+        System.out.println(rowExcelDeliveryWeight_thr.getResult());
         
         System.out.println("\n");
         
@@ -298,5 +326,4 @@ public class DeliveryCalculator {
             return arrivalTitle + "-" + String.valueOf(value) +"Euro" + " ";
         }
     }
-    
 }
