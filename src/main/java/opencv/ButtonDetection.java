@@ -27,8 +27,9 @@ public class ButtonDetection {
     
     public static final int BID_BTN_WIDTH_CENTER = 36;
     public static final int BID_BTN_HEIGHT_CENTER = 16;
-    public static String link = "https://www.ebay.de/itm/Apple-Watch-Series-1-42mm-Aluminiumgehause-in-Space-Grau-mit-Lederarmband/333646020726?epid=228618880&hash=item4daeda4076%3Ag%3AY0cAAOSwWXBfAjKz&LH_Auction=1";
-    public static int bidValue = 41;
+    public static String link = 
+            "https://www.ebay.de/itm/2-x-Siemens-Ruf-Isp-22a-Klangfilm-Lautsprecher-Speaker-Alinco-Magnet/254639945980?hash=item3b49b938fc:g:GEAAAOSwMMxe-3bK&autorefresh=true";
+    public static int BID_VALUE = 108;
     public static void main(String[] args) {
         
         openWeb(link);
@@ -47,7 +48,49 @@ public class ButtonDetection {
         
     }
     
-    public static void setCursorInput(double x, double y) throws AWTException {
+    public static void doKeypressValue(int bidValue, Robot bot) {
+        char [] chars = String.valueOf(bidValue).toCharArray();
+        int length = chars.length;
+        for (char value : chars) {
+            switch(value){
+                case '0':
+                    bot.keyPress(KeyEvent.VK_0);
+                    break;
+                case '1':
+                    bot.keyPress(KeyEvent.VK_1);
+                    break;
+                case '2':
+                    bot.keyPress(KeyEvent.VK_2);
+                    break;
+                case '3':
+                    bot.keyPress(KeyEvent.VK_3);
+                    break;
+                case '4':
+                    bot.keyPress(KeyEvent.VK_4);
+                    break;
+                case '5':
+                    bot.keyPress(KeyEvent.VK_5);
+                    break;
+                case '6':
+                    bot.keyPress(KeyEvent.VK_6);
+                    break;
+                case '7':
+                    bot.keyPress(KeyEvent.VK_7);
+                    break;
+                case '8':
+                    bot.keyPress(KeyEvent.VK_8);
+                    break;
+                case '9':
+                    bot.keyPress(KeyEvent.VK_9);
+                    break;
+                default:
+                    System.out.println("i liegt nicht zwischen null und drei");
+                    break;
+                }
+        }
+    }
+    
+    public static void setCursorInput(double x, double y, int bidValue) throws AWTException {
         Robot robot = new Robot();
         int intX = (int) x;
         int intY = (int) y;
@@ -56,8 +99,7 @@ public class ButtonDetection {
             Thread.sleep(1000);
         } catch(InterruptedException e){ }
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        robot.keyPress(KeyEvent.VK_4);
-        robot.keyPress(KeyEvent.VK_1);
+        doKeypressValue(bidValue, robot);
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
     
@@ -138,7 +180,7 @@ public class ButtonDetection {
         System.out.println(matchLoc.y);
         
         try {
-            setCursorInput(matchLoc.x, matchLoc.y);
+            setCursorInput(matchLoc.x, matchLoc.y, BID_VALUE);
         } catch (AWTException e) {
             e.printStackTrace();
         }
@@ -180,7 +222,7 @@ public class ButtonDetection {
         } else {
             System.out.println("confirm button can not be found: " + "[" + mmrConfirm.maxVal + "]" );
             System.out.println("link: " + link);
-            System.out.println("Bid: " + bidValue);
+            System.out.println("Bid: " + BID_VALUE);
         }
     }
     
