@@ -16,15 +16,17 @@ public class DeliveryRegister {
     private int numberItem;
     private double onePrice;
     private String arrivalTitle;
+    private boolean sendToMe;
     
     public DeliveryRegister(String itemName, String brandName, String site,
-            int numerberItem, double onePrice, String arrivalTitle) {
+            int numerberItem, double onePrice, String arrivalTitle, boolean sendToMe) {
         this.itemName = itemName;
         this.brandName = brandName;
         this.site = site;
         this.numberItem = numerberItem;
         this.onePrice = onePrice;
         this.arrivalTitle = arrivalTitle;
+        this.sendToMe = sendToMe;
     }
     
     public String convertRowExcel() {
@@ -40,7 +42,7 @@ public class DeliveryRegister {
         sb.append("\n");
         sb.append(arrivalTitle);
         
-        return sb.toString();
+        return sendToMe ? "직접 수령" : sb.toString();
     }
 
 }

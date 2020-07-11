@@ -7,16 +7,19 @@ public class TransferMoney {
     private double transferAmountMoney;
     private String usage;
     
-    public TransferMoney(String moneyReceiver, String bankIban, double transferAmountMoney, String ebayItemnumber, String arrivalTitle, String bic) {
+    public TransferMoney(String moneyReceiver, String bankIban, double transferAmountMoney,
+            String ebayItemnumber, String arrivalTitle, String bic, boolean sendToMe) {
         this.moneyReceiver = moneyReceiver;
         this.bankIban = bankIban;
         this.transferAmountMoney = transferAmountMoney;
-        this.usage = getUsageMessage(ebayItemnumber, arrivalTitle);
+        this.usage = getUsageMessage(ebayItemnumber, arrivalTitle, sendToMe);
         this.bic = bic;
+        
     }
     
-    private String getUsageMessage(String ebayItemnumber, String arrivalTitle) {
-        return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse: ilogexpress " + arrivalTitle;
+    private String getUsageMessage(String ebayItemnumber, String arrivalTitle, boolean sendToMe) {
+        String deliveryAddr = sendToMe ? "Sanghun Cho, isys software GmbH" : "ilogexpress " + arrivalTitle;
+        return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse:" + deliveryAddr;
     }
     
     public String convertTransferMoneyData() {

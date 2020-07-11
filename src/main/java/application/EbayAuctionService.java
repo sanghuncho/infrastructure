@@ -20,6 +20,8 @@ public class EbayAuctionService {
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         var paramItemPriceEuro = 191.50;
+        // 직접 수령
+        boolean sendToMe = true;
         
         //이베이 셀러 아이디
         var paramSellerId = "artundsale";
@@ -80,7 +82,7 @@ public class EbayAuctionService {
         System.out.println(calc.convertRowExcel());
               
         //배송내역 변수
-        String arrivalTitle = "ilogexpress " + paramArrivalTitle;
+        String arrivalTitle = getArrivalTitle(paramArrivalTitle, sendToMe);
         int paymentArt = paramPaymentArt; //결제수단 송금 - 1, 페이팔 - 2
         String sellerId = paramSellerId;
         String brandName = paramBrandName;
@@ -94,13 +96,13 @@ public class EbayAuctionService {
         System.out.println("## 배송내역");
         System.out.println(delivery.convertRowExcel());
         
-        DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle);
+        DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle, sendToMe);
         System.out.println('\n');
         System.out.println("## 배송등록");
         System.out.println(delRegi.convertRowExcel());
         
         if(paramPaymentArt == 1) {
-            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle, paramBIC);
+            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
             System.out.println('\n');
             System.out.println("## 송금신청");
             System.out.println(transMoney.convertTransferMoneyData());
@@ -108,6 +110,12 @@ public class EbayAuctionService {
             System.out.println('\n');
             System.out.println("## 페이팔 결제");
         }
+    }
+    
+    public static String getArrivalTitle(String paramArrivalTitle, boolean sendToMe) {
+        String arrivalTitle;
+        arrivalTitle = sendToMe ?  "isys GmbH" : "ilogexpress " + paramArrivalTitle;
+        return arrivalTitle;
     }
     
     public static String getDeliverySellerMessage(String arrivalTitle) {
