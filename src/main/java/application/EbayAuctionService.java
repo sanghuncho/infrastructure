@@ -16,28 +16,28 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "07.07.2020";
+        var paramDate = "11.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 191.50;
+        var paramItemPriceEuro = 240.00;
         // 직접 수령
         boolean sendToMe = true;
         
         //이베이 셀러 아이디
-        var paramSellerId = "artundsale";
+        var paramSellerId = "hms.grosser";
         //배송
-        var paramArrivalTitle = "Artun";
+        var paramArrivalTitle = "Hmsgross";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 186;
+        var paramItemNumber = 187;
         
         //적립금
-        var pramLastSaved = 340000;
+        var pramLastSaved = 1040800;
         
         //아이템 이름
-        var paramItemName = "LEITZ Trinovid Fernrohr";
+        var paramItemName = "Isophon Energiestrahler ES 120";
         //아이템 브랜드 이름
-        var paramBrandName = "LEITZ";
+        var paramBrandName = "Isophon";
         //아이템 개수
         var paramNumberItem = 1;
 
@@ -51,13 +51,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Beate Ambros";
+        String parmaMoneyReceiver = "Ayhan Demiral";
         //IBAN
-        String paramIBAN = "DE46700700240416144400";
+        String paramIBAN = "DE41200505501268177100";
         //BIC for Check
-        String paramBIC = "DEUTDEDBMUC";
+        String paramBIC = "HASPDEHH";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "363029347357"; 
+        String paramEbayItemnumber = "193545014965"; 
         
 ///////////////////
 //// Parameter ///
@@ -66,7 +66,7 @@ public class EbayAuctionService {
         
         //이베이 셀러 배송 메세지 확인
         System.out.println("## 셀러 배송 메세지");
-        System.out.println(getDeliverySellerMessage(paramArrivalTitle));
+        System.out.println(getDeliverySellerMessage(paramArrivalTitle, sendToMe));
         System.out.println('\n');
         
         //정산내역 변수
@@ -114,12 +114,18 @@ public class EbayAuctionService {
     
     public static String getArrivalTitle(String paramArrivalTitle, boolean sendToMe) {
         String arrivalTitle;
-        arrivalTitle = sendToMe ?  "isys GmbH" : "ilogexpress " + paramArrivalTitle;
+        arrivalTitle = sendToMe ?  "iSYS " +  paramArrivalTitle: "ilogexpress " + paramArrivalTitle;
         return arrivalTitle;
     }
     
-    public static String getDeliverySellerMessage(String arrivalTitle) {
-        return "Hallo," + '\n' + "Bitte schreiben Sie richtig [ ilogexpress " + arrivalTitle +
+    public static String getArrivalTitleForSeller(String paramArrivalTitle, boolean sendToMe) {
+        String arrivalTitle;
+        arrivalTitle = sendToMe ?  "Sanghun Cho, iSYS sofware GmbH" : "ilogexpress " + paramArrivalTitle;
+        return arrivalTitle;
+    }
+    
+    public static String getDeliverySellerMessage(String arrivalTitle, boolean sendToMe) {
+        return "Hallo," + '\n' + "Bitte schreiben Sie richtig [ " + getArrivalTitleForSeller(arrivalTitle, sendToMe) +
                 " ] auf Empfänger im Paket, " + '\n' + "damit unserer Mitarbeiter dieses Paket sortieren kann." + '\n' + "Danke im Voraus!" + '\n' + "Mit freundlichen Grüßen";
     }
     

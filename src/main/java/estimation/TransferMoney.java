@@ -18,7 +18,7 @@ public class TransferMoney {
     }
     
     private String getUsageMessage(String ebayItemnumber, String arrivalTitle, boolean sendToMe) {
-        String deliveryAddr = sendToMe ? "Sanghun Cho, isys software GmbH" : "ilogexpress " + arrivalTitle;
+        String deliveryAddr = sendToMe ? "Sanghun Cho, iSYS software GmbH" : "ilogexpress " + arrivalTitle;
         return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse:" + deliveryAddr;
     }
     
@@ -35,7 +35,6 @@ public class TransferMoney {
         sb.append("\n");
         sb.append("\n");
         sb.append("BIC: " + bic);
-        
         
         return sb.toString();
     }

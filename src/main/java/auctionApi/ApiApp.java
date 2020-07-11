@@ -2,10 +2,8 @@ package auctionApi;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +37,7 @@ public class ApiApp {
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
         System.out.println(rep.getAccessToken().get().getToken());
         
-        String getItemId = BROWSE_API + "143650031359";
+        String getItemId = BROWSE_API + "193545014965";
         
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + rep.getAccessToken().get().getToken() );
@@ -66,9 +64,9 @@ public class ApiApp {
         
         String brand = myObject.getString("brand");
         System.out.println('\n');
-        System.out.println(title);
-        System.out.println(price);
+        //System.out.println(price);
         System.out.println(sellerUsername);
+        System.out.println(title);
         System.out.println(brand);
     }
 }
