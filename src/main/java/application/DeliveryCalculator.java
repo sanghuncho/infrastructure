@@ -20,44 +20,45 @@ public class DeliveryCalculator {
     
     public static void main( String[] args ) throws IOException {
         //TODO : 합포장시 3000원추가 
+        
         //배송 날짜
-        var paramDate = "06.07.2020";
+        var paramDate = "12.07.2020";
         
         //적립금
-        var pramLastSaved = 674200;
+        var pramLastSaved = 157900;
         
         ////////배송상품 1
-        //Tube4
-        //48.00cm x  40.00cm x  36.00cm,   4.95Kg
-        //32.4
-        String title_one = "Tube4";
-        VolumeWeight volumeWeight_one = new VolumeWeight(48, 40, 36);
-        double realWeight_one = 4.95;
-        double deliveryPrice_one = 32.4;
+        //Heyntronic
+        //55.00cm x  40.00cm x  25.00cm,   4.10Kg
+        //26.40
+        String title_one = "Heyntronic";
+        VolumeWeight volumeWeight_one = new VolumeWeight(55, 40, 25);
+        double realWeight_one = 4.1;
+        double deliveryPrice_one = 26.4;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
         //지쿠 아이템번호
-        var paramItemNumber = 139;
+        var paramItemNumber = 147;
         //송장번호
         var paramTrackingNumber = "";
         //배송무게
-        var paramDeliveryWeight = 6;
+        var paramDeliveryWeight = 9;
         ////////배송상품 1
         
         //--------------------------------------
         
         ////////배송상품 2
-        //Phono
-        //25.00cm x  16.00cm x  11.00cm,   0.78Kg
-        //6
-        String title_two = "Phono";
-        VolumeWeight volumeWeight_two = new VolumeWeight(25, 16, 11);
-        double realWeight_two = 0.78;
-        double deliveryPrice_two = 6;
+        //Koza
+        //34.00cm x  33.00cm x  37.00cm,   2.70Kg
+        //20.40
+        String title_two = "Koza";
+        VolumeWeight volumeWeight_two = new VolumeWeight(34, 33, 37);
+        double realWeight_two = 2.7;
+        double deliveryPrice_two = 20.4;
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
         
         //지쿠 아이템번호
-        var paramItemNumber_se = 140;
+        var paramItemNumber_se = 153;
         //송장번호
         var paramTrackingNumber_se = "";
         //배송무게
@@ -67,21 +68,21 @@ public class DeliveryCalculator {
         //--------------------------------------
         
         ////////배송상품 3
-        //V2ap
-        //31.00cm x  22.00cm x  41.00cm,   6.90Kg
-        //20.40
-        String title_three = "Phono";
-        VolumeWeight volumeWeight_three = new VolumeWeight(25, 16, 11);
-        double realWeight_three = 0.78;
-        double deliveryPrice_three = 6;
+        //Hewi45
+        //47.00cm x  29.00cm x  20.00cm,   4.12Kg
+        //15.60
+        String title_three = "Hewi45";
+        VolumeWeight volumeWeight_three = new VolumeWeight(47, 29, 20);
+        double realWeight_three = 4.12;
+        double deliveryPrice_three = 15.6;
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
         //지쿠 아이템번호
-        var paramItemNumber_thr = 150;
+        var paramItemNumber_thr = 140;
         //송장번호
         var paramTrackingNumber_thr = "";
         //배송무게
-        var paramDeliveryWeight_thr = 6;
+        var paramDeliveryWeight_thr = 4;
         ////////배송상품 3
        
         
@@ -109,6 +110,10 @@ public class DeliveryCalculator {
         System.out.println("\n");
         
         System.out.println(deliveryMoneyTransfer(transferMoneyList));
+        
+        System.out.println("\n");
+        System.out.println("item number : " + paramItemNumber + ", " + paramItemNumber_se + ", " + paramItemNumber_thr);
+        System.out.println("배송비 송금 " + paramDate);
     }
     
     public static String getDeliveryWeight(VolumeWeight volumeWeight, double realWeight, double transferBankValue) {
