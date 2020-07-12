@@ -3,7 +3,6 @@ package opencv;
 import org.opencv.core.Core.MinMaxLocResult;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import java.awt.AWTException;
@@ -22,14 +21,14 @@ import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import org.opencv.core.Core;
 
-public class ButtonDetection {
+public class AutoBidingApp {
     public static final int INPUT_BID_HEIGHT = 30;
     
     public static final int BID_BTN_WIDTH_CENTER = 36;
     public static final int BID_BTN_HEIGHT_CENTER = 16;
     public static String link = 
-            "https://www.ebay.de/itm/2-x-Siemens-Ruf-Isp-22a-Klangfilm-Lautsprecher-Speaker-Alinco-Magnet/254639945980?hash=item3b49b938fc:g:GEAAAOSwMMxe-3bK&autorefresh=true";
-    public static int BID_VALUE = 108;
+            "https://www.ebay.de/itm/Alter-Lautsprecher-Ca-1940-1950/324220142364?hash=item4b7d06c31c:g:h4wAAOSwG~Re73jQ";
+    public static int BID_VALUE = 18;
     public static void main(String[] args) {
         
         openWeb(link);

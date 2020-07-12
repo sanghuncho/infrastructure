@@ -16,28 +16,28 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "11.07.2020";
+        var paramDate = "12.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 240.00;
+        var paramItemPriceEuro = 23.99;
         // 직접 수령
-        boolean sendToMe = true;
+        boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "hms.grosser";
+        var paramSellerId = "ch-i-38";
         //배송
-        var paramArrivalTitle = "Hmsgross";
+        var paramArrivalTitle = "Ch38";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 187;
+        var paramItemNumber = 192;
         
         //적립금
-        var pramLastSaved = 1040800;
+        var pramLastSaved = 205000;
         
         //아이템 이름
-        var paramItemName = "Isophon Energiestrahler ES 120";
+        var paramItemName = "used AlNiCo speaker 1950er";
         //아이템 브랜드 이름
-        var paramBrandName = "Isophon";
+        var paramBrandName = "AlNiCo";
         //아이템 개수
         var paramNumberItem = 1;
 
@@ -51,13 +51,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Ayhan Demiral";
+        String parmaMoneyReceiver = "Claudia Hofmann";
         //IBAN
-        String paramIBAN = "DE41200505501268177100";
+        String paramIBAN = "DE58100100100126487120";
         //BIC for Check
-        String paramBIC = "HASPDEHH";
+        String paramBIC = "PBNKDEFF";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "193545014965"; 
+        String paramEbayItemnumber = "373102162606"; 
         
 ///////////////////
 //// Parameter ///

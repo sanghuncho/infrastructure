@@ -1,0 +1,5 @@
+Grafik -> Foler open
+
+Sub Image()
+Application.Dialogs(xlDialogInsertPicture).Show
+End Sub

@@ -30,11 +30,13 @@ public class TransferMoney {
         sb.append("Betrag " + String.valueOf(transferAmountMoney));
         sb.append("\n");
         sb.append("\n");
-        sb.append("\n");
         sb.append(usage);
         sb.append("\n");
         sb.append("\n");
-        sb.append("BIC: " + bic);
+        sb.append("Check!! -- Name, IBAN, BIC, Betrag, Termin, Lieferadresse");
+        sb.append("\n");
+        sb.append("\n");
+        sb.append("송금신청후 Check bezahlt markiert!!");
         
         return sb.toString();
     }

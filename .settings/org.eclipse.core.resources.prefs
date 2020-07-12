@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/java/resources/AurctionServiceMessage.txt=UTF-8
+encoding//src/main/java=UTF-8
 encoding//src/main/java/application/DeliveryCalculator.java=UTF-8
 encoding//src/main/java/application/DeliveryMoneyTransfer.java=UTF-8
 encoding//src/main/java/application/EbayAuctionService.java=UTF-8
@@ -9,3 +10,5 @@ encoding//src/main/java/estimation/DeliveryRegister.java=UTF-8
 encoding//src/main/java/estimation/EbayCalculator.java=UTF-8
 encoding//src/main/java/estimation/EbayDelivery.java=UTF-8
 encoding//src/main/java/util/Formatter.java=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

@@ -1,9 +1,15 @@
 package auctionApi;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import javax.imageio.ImageIO;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,12 +38,20 @@ public class ApiApp {
     private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope");
     
     public static void main( String[] args ) throws IOException {
+        String itemNumberEbay = "373102162606";
+        int itemNumberGkoo = 192;
+        
+        retrieveProductData(itemNumberEbay, itemNumberGkoo);
+    }
+    
+    private static void retrieveProductData(String itemNumberEbay, int itemNumberGkoo) throws IOException {
         OAuth2Api oauth2Api = new OAuth2Api();
         CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/java/resources/ebay-config.yaml"));
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
         System.out.println(rep.getAccessToken().get().getToken());
         
-        String getItemId = BROWSE_API + "193545014965";
+        String getItemId = BROWSE_API + itemNumberEbay;
+        int itemNr = itemNumberGkoo;
         
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + rep.getAccessToken().get().getToken() );
@@ -62,11 +76,45 @@ public class ApiApp {
         JSONObject sellerObject = myObject.getJSONObject("seller");
         String sellerUsername = sellerObject.getString("username");
         
-        String brand = myObject.getString("brand");
+        JSONObject urlObject = myObject.getJSONObject("image");
+        String imageUrl = urlObject.getString("imageUrl");
+        
+        String brand = myObject.has("brand") ?  myObject.getString("brand") : "No brand";
         System.out.println('\n');
-        //System.out.println(price);
+        System.out.println(price);
         System.out.println(sellerUsername);
         System.out.println(title);
         System.out.println(brand);
+        System.out.println(imageUrl);
+        //System.out.println(result);
+        
+        BufferedImage image =null;
+        String imageAddr = null;
+        String imageName = "";
+        try{
+            URL url =new URL(imageUrl);
+            imageName = String.valueOf(itemNr) + ".jpg";
+            image = ImageIO.read(url);
+            imageAddr = "C:/Users/sanghuncho/Pictures/ebay/" + imageName;
+            ImageIO.write(image, "jpg", new File(imageAddr));
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        
+        File input = new File("C:/Users/sanghuncho/Pictures/ebay/" + imageName);
+        BufferedImage originalImage = ImageIO.read(input);
+        
+        BufferedImage resized = new BufferedImage(110, 40, originalImage.getType());
+        Graphics2D g = resized.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(originalImage, 0, 0, 110, 40, 0, 0, originalImage.getWidth(),
+                originalImage.getHeight(), null);
+        g.dispose();
+        
+        //BufferedImage resized = resize(imageResize, 280, 100);
+        String resizedImageAddr = "C:/Users/sanghuncho/Pictures/ebay/" + String.valueOf(itemNr) + "_resize" + ".jpg";
+        File output = new File(resizedImageAddr);
+        ImageIO.write(resized, "jpg", output);
     }
 }
