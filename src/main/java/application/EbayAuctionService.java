@@ -16,30 +16,30 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "12.07.2020";
+        var paramDate = "13.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 23.99;
+        var paramItemPriceEuro = 40.00;
         // 직접 수령
         boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "ch-i-38";
+        var paramSellerId = "marbrin_39";
         //배송
-        var paramArrivalTitle = "Ch38";
+        var paramArrivalTitle = "Marbrin";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 192;
+        var paramItemNumber = 195194;
         
         //적립금
-        var pramLastSaved = 205000;
+        var pramLastSaved = 794800;
         
         //아이템 이름
-        var paramItemName = "used AlNiCo speaker 1950er";
+        var paramItemName = "used Tweeter speaker parts";
         //아이템 브랜드 이름
-        var paramBrandName = "AlNiCo";
+        var paramBrandName = "Goodmans";
         //아이템 개수
-        var paramNumberItem = 1;
+        var paramNumberItem = 2;
 
         //결제수단 송금 : 1, 페이팔 : 2
         var paramPaymentArt = 1;
@@ -51,13 +51,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Claudia Hofmann";
+        String parmaMoneyReceiver = "Brinkhues";
         //IBAN
-        String paramIBAN = "DE58100100100126487120";
+        String paramIBAN = "DE3140154530004752173";
         //BIC for Check
-        String paramBIC = "PBNKDEFF";
+        String paramBIC = "WELADE3WXXX";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "373102162606"; 
+        String paramEbayItemnumber = "193541402418 193541402389"; 
         
 ///////////////////
 //// Parameter ///
