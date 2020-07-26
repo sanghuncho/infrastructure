@@ -6,13 +6,13 @@ import util.Formatter;
 public class EbayDeposit {
     public static void main( String[] args ) throws IOException {
         //입금 날짜
-        String paramDate = "13.07.2020";
+        String paramDate = "26.07.2020";
         
         //입금액
         int paramDepositMoney = 1000000;
         
         //적립금
-        int pramLastSaved = 54900;
+        int pramLastSaved = 44300;
         
         System.out.println("## 입금내역");
         System.out.println(convertRowExcelDeposit(paramDate, paramDepositMoney, pramLastSaved));

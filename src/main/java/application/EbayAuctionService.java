@@ -8,6 +8,8 @@ import estimation.TransferMoney;
 
 public class EbayAuctionService {
     public static double excahgeRateEuro = 1420;
+    private static String DeliveryCompany = 
+            "http://www.ilogexpress.com/login";
     
     public static void main( String[] args ) throws IOException
     {
@@ -15,31 +17,33 @@ public class EbayAuctionService {
 //// Parameter ///
 //////////////////
         
+        //Todo 물품 링크 엑셀에 넣기 , 배송여부 API 확인체크 
+        
         //날짜
-        var paramDate = "13.07.2020";
+        var paramDate = "26.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 40.00;
+        var paramItemPriceEuro = 30.00;
         // 직접 수령
         boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "marbrin_39";
+        var paramSellerId = "rampensau-wolle";
         //배송
-        var paramArrivalTitle = "Marbrin";
+        var paramArrivalTitle = "Rampen-2";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 195194;
+        var paramItemNumber = 221;
         
         //적립금
-        var pramLastSaved = 794800;
+        var pramLastSaved = 939000;
         
         //아이템 이름
-        var paramItemName = "used Tweeter speaker parts";
+        var paramItemName = "used Lautsprecher Röhrenradio philips";
         //아이템 브랜드 이름
-        var paramBrandName = "Goodmans";
+        var paramBrandName = "philips";
         //아이템 개수
-        var paramNumberItem = 2;
+        var paramNumberItem = 1;
 
         //결제수단 송금 : 1, 페이팔 : 2
         var paramPaymentArt = 1;
@@ -51,13 +55,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Brinkhues";
+        String parmaMoneyReceiver = "Wolfgang Kiefel";
         //IBAN
-        String paramIBAN = "DE3140154530004752173";
+        String paramIBAN = "DE88643901300627003001";
         //BIC for Check
-        String paramBIC = "WELADE3WXXX";
+        String paramBIC = "WELADED1OBH";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "193541402418 193541402389"; 
+        String paramEbayItemnumber = "164298586059"; 
         
 ///////////////////
 //// Parameter ///

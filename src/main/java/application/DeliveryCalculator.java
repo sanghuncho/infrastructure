@@ -17,72 +17,74 @@ import util.Formatter;
 public class DeliveryCalculator {
     public static final int ONE_KG_PRICE = 13000;
     public static final int PRO_KG_PRICE = 4000;
+    private static String DeliveryCompany = 
+            "http://www.ilogexpress.com/login";
     
     public static void main( String[] args ) throws IOException {
         //TODO : 합포장시 3000원추가 
         
         //배송 날짜
-        var paramDate = "12.07.2020";
+        var paramDate = "26.07.2020";
         
         //적립금
-        var pramLastSaved = 157900;
+        var pramLastSaved = 804400;
         
         ////////배송상품 1
-        //Heyntronic
-        //55.00cm x  40.00cm x  25.00cm,   4.10Kg
-        //26.40
-        String title_one = "Heyntronic";
-        VolumeWeight volumeWeight_one = new VolumeWeight(55, 40, 25);
-        double realWeight_one = 4.1;
-        double deliveryPrice_one = 26.4;
+        //ilogexpress ilogexpress-1
+        //58.00cm x  51.00cm x  31.00cm,   9.20Kg
+        //43.80
+        String title_one = "Tube4";
+        VolumeWeight volumeWeight_one = new VolumeWeight(48, 40, 36);
+        double realWeight_one = 4.95;
+        double deliveryPrice_one = 32.40;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
         //지쿠 아이템번호
-        var paramItemNumber = 147;
+        var paramItemNumber = 160;
         //송장번호
         var paramTrackingNumber = "";
         //배송무게
-        var paramDeliveryWeight = 9;
+        var paramDeliveryWeight = 12;
         ////////배송상품 1
         
         //--------------------------------------
         
         ////////배송상품 2
-        //Koza
-        //34.00cm x  33.00cm x  37.00cm,   2.70Kg
-        //20.40
-        String title_two = "Koza";
-        VolumeWeight volumeWeight_two = new VolumeWeight(34, 33, 37);
-        double realWeight_two = 2.7;
-        double deliveryPrice_two = 20.4;
+        //Sabine
+        //60.00cm x  39.00cm x  42.00cm,   5.24Kg
+        //43.20
+        String title_two = "Trackis";
+        VolumeWeight volumeWeight_two = new VolumeWeight(53, 35, 52);
+        double realWeight_two = 5.60;
+        double deliveryPrice_two = 43.20;
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
         
         //지쿠 아이템번호
-        var paramItemNumber_se = 153;
+        var paramItemNumber_se = 163;
         //송장번호
         var paramTrackingNumber_se = "";
         //배송무게
-        var paramDeliveryWeight_se = 6;
+        var paramDeliveryWeight_se = 17;
         ////////배송상품 2
         
         //--------------------------------------
         
         ////////배송상품 3
-        //Hewi45
-        //47.00cm x  29.00cm x  20.00cm,   4.12Kg
-        //15.60
-        String title_three = "Hewi45";
-        VolumeWeight volumeWeight_three = new VolumeWeight(47, 29, 20);
-        double realWeight_three = 4.12;
-        double deliveryPrice_three = 15.6;
+        //Micorobe
+        //36.00cm x  27.00cm x  17.00cm,   1.50Kg
+        //10.80
+        String title_three = "V2ap";
+        VolumeWeight volumeWeight_three = new VolumeWeight(31, 22, 41);
+        double realWeight_three = 6.9;
+        double deliveryPrice_three = 20.40;
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
         //지쿠 아이템번호
-        var paramItemNumber_thr = 140;
+        var paramItemNumber_thr = 164;
         //송장번호
         var paramTrackingNumber_thr = "";
         //배송무게
-        var paramDeliveryWeight_thr = 4;
+        var paramDeliveryWeight_thr = 7;
         ////////배송상품 3
        
         
@@ -119,7 +121,7 @@ public class DeliveryCalculator {
     public static String getDeliveryWeight(VolumeWeight volumeWeight, double realWeight, double transferBankValue) {
         double vWeight = volumeWeight.getVolumeWeight();
         double basisPrice = transferBankValue-6;
-        double firmaWeight = basisPrice == 0 ? 1 : basisPrice/2.4;
+        double firmaWeight = basisPrice == 0 ? 1 : 1 + (basisPrice/2.4);
         
         StringBuilder sb = new StringBuilder("부피무게: ");  
         sb.append(String.valueOf(vWeight));
@@ -197,37 +199,37 @@ public class DeliveryCalculator {
     }
     
     public static class VolumeWeight {
-        private int height;
-        private int length;
-        private int width;
+        private double height;
+        private double length;
+        private double width;
         
-        public VolumeWeight(int height, int length, int width) {
+        public VolumeWeight(double height, double length, double width) {
             this.setHeight(height); 
             this.setLength(length);
             this.setWidth(width);
         }
 
-        public int getHeight() {
+        public double getHeight() {
             return height;
         }
 
-        public void setHeight(int height) {
+        public void setHeight(double height) {
             this.height = height;
         }
 
-        public int getLength() {
+        public double getLength() {
             return length;
         }
 
-        public void setLength(int length) {
+        public void setLength(double length) {
             this.length = length;
         }
 
-        public int getWidth() {
+        public double getWidth() {
             return width;
         }
 
-        public void setWidth(int width) {
+        public void setWidth(double width) {
             this.width = width;
         }
         
