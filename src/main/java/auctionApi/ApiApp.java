@@ -38,8 +38,8 @@ public class ApiApp {
     private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope");
     
     public static void main( String[] args ) throws IOException {
-        String itemNumberEbay = "164292741380";
-        int itemNumberGkoo = 221;
+        String itemNumberEbay = "193575675617";
+        int itemNumberGkoo = 228;
         
         retrieveProductData(itemNumberEbay, itemNumberGkoo);
     }
@@ -71,8 +71,9 @@ public class ApiApp {
         String title = myObject.getString("title");
         
         JSONObject priceObject = myObject.getJSONObject("price");
-        String price = priceObject.getString("convertedFromValue");
         
+        String price = priceObject.has("convertedFromValue") ? priceObject.getString("convertedFromValue") : "price is not known";
+        //String price = priceObject.getString("convertedFromValue");
         JSONObject sellerObject = myObject.getJSONObject("seller");
         String sellerUsername = sellerObject.getString("username");
         

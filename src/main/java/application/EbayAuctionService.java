@@ -20,33 +20,33 @@ public class EbayAuctionService {
         //Todo 물품 링크 엑셀에 넣기 , 배송여부 API 확인체크 
         
         //날짜
-        var paramDate = "26.07.2020";
+        var paramDate = "28.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 30.00;
+        var paramItemPriceEuro = 86.85;
         // 직접 수령
         boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "rampensau-wolle";
+        var paramSellerId = "resopabst";
         //배송
-        var paramArrivalTitle = "Rampen-2";
+        var paramArrivalTitle = "Resopa";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 221;
+        var paramItemNumber = 228;
         
         //적립금
-        var pramLastSaved = 939000;
+        var pramLastSaved = 598100;
         
         //아이템 이름
-        var paramItemName = "used Lautsprecher Röhrenradio philips";
+        var paramItemName = "used ISOPHON coaxial speaker Vintage fullrange P2132";
         //아이템 브랜드 이름
-        var paramBrandName = "philips";
+        var paramBrandName = "ISOPHON";
         //아이템 개수
-        var paramNumberItem = 1;
+        var paramNumberItem = 2;
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 1;
+        var paramPaymentArt = 2;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
@@ -55,13 +55,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Wolfgang Kiefel";
+        String parmaMoneyReceiver = "Claudia Hofmann";
         //IBAN
-        String paramIBAN = "DE88643901300627003001";
+        String paramIBAN = "DE58100100100126487120";
         //BIC for Check
-        String paramBIC = "WELADED1OBH";
+        String paramBIC = "PBNKDEFF";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "164298586059"; 
+        String paramEbayItemnumber = "373125719800, 373124626221, 373123257043, 373122380080, 373122370853, 373117484341"; 
         
 ///////////////////
 //// Parameter ///
