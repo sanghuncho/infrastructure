@@ -8,6 +8,8 @@ import estimation.TransferMoney;
 
 public class EbayAuctionService {
     public static double excahgeRateEuro = 1420;
+    private static String DeliveryCompany = 
+            "http://www.ilogexpress.com/login";
     
     public static void main( String[] args ) throws IOException
     {

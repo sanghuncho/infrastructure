@@ -43,6 +43,8 @@ public class ApiApp {
     public static void main( String[] args ) throws IOException {
         String itemNumberEbay = "333640534104";
         int itemNumberGkoo = 200;
+        String itemNumberEbay = "193575675617";
+        int itemNumberGkoo = 228;
         
         retrieveProductData(itemNumberEbay, itemNumberGkoo);
     }
