@@ -16,33 +16,33 @@ public class EbayAuctionService {
 //////////////////
         
         //날짜
-        var paramDate = "13.07.2020";
+        var paramDate = "14.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 40.00;
+        var paramItemPriceEuro = 48.96;
         // 직접 수령
         boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "marbrin_39";
+        var paramSellerId = "slotcar-de";
         //배송
-        var paramArrivalTitle = "Marbrin";
+        var paramArrivalTitle = "Slotcar";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 195194;
+        var paramItemNumber = 198;
         
         //적립금
-        var pramLastSaved = 794800;
+        var pramLastSaved = 244700;
         
         //아이템 이름
-        var paramItemName = "used Tweeter speaker parts";
+        var paramItemName = "used 6 Vintage Grundig Speakers";
         //아이템 브랜드 이름
-        var paramBrandName = "Goodmans";
+        var paramBrandName = "Grundig";
         //아이템 개수
-        var paramNumberItem = 2;
+        var paramNumberItem = 6;
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 1;
+        var paramPaymentArt = 2;
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
@@ -51,13 +51,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Brinkhues";
+        String parmaMoneyReceiver = "Alicia Schneider";
         //IBAN
-        String paramIBAN = "DE3140154530004752173";
+        String paramIBAN = "DE18513500250005449847";
         //BIC for Check
-        String paramBIC = "WELADE3WXXX";
+        String paramBIC = "SKGIDE5F";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "193541402418 193541402389"; 
+        String paramEbayItemnumber = "174331304562"; 
         
 ///////////////////
 //// Parameter ///
