@@ -41,19 +41,20 @@ public class ApiApp {
     private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope");
     
     public static void main( String[] args ) throws IOException {
-        String itemNumberEbay = "333640534104";
-        int itemNumberGkoo = 200;
-        String itemNumberEbay = "193575675617";
-        int itemNumberGkoo = 228;
+
+    	List<String> itemNumberEbayList = Arrays.asList("133466947335", "133466946597");
+        int startItemNumberEbay = 200;
         
-        retrieveProductData(itemNumberEbay, itemNumberGkoo);
+        for (int i=0; i< itemNumberEbayList.size(); i++) {
+        	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);
+        }
     }
     
     private static void retrieveProductData(String itemNumberEbay, int itemNumberGkoo) throws IOException {
         OAuth2Api oauth2Api = new OAuth2Api();
         CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/java/resources/ebay-config.yaml"));
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
-        System.out.println(rep.getAccessToken().get().getToken());
+        //System.out.println(rep.getAccessToken().get().getToken());
         
         String getItemId = BROWSE_API + itemNumberEbay;
         int itemNr = itemNumberGkoo;
@@ -86,11 +87,13 @@ public class ApiApp {
         
         String brand = myObject.has("brand") ?  myObject.getString("brand") : "No brand";
         System.out.println('\n');
+        System.out.println("Item Number GKoo:" + itemNumberGkoo);
         System.out.println(price);
         System.out.println(sellerUsername);
         System.out.println(title);
         System.out.println(brand);
         System.out.println(imageUrl);
+        System.out.println('\n');
         //System.out.println(result);
         
         BufferedImage image =null;
