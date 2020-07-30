@@ -38,8 +38,8 @@ public class ApiApp {
     private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope");
     
     public static void main( String[] args ) throws IOException {
-        String itemNumberEbay = "193575675617";
-        int itemNumberGkoo = 228;
+        String itemNumberEbay = "383640085520";
+        int itemNumberGkoo = 230;
         
         retrieveProductData(itemNumberEbay, itemNumberGkoo);
     }

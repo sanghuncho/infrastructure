@@ -23,25 +23,25 @@ public class EbayAuctionService {
         var paramDate = "28.07.2020";
         
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 86.85;
+        var paramItemPriceEuro = 15.35;
         // 직접 수령
         boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "resopabst";
+        var paramSellerId = "tasso17";
         //배송
-        var paramArrivalTitle = "Resopa";
+        var paramArrivalTitle = "Tasso";
 
         //지쿠 아이템아이디
-        var paramItemNumber = 228;
+        var paramItemNumber = 230;
         
         //적립금
-        var pramLastSaved = 598100;
+        var pramLastSaved = 349300;
         
         //아이템 이름
-        var paramItemName = "used ISOPHON coaxial speaker Vintage fullrange P2132";
+        var paramItemName = "used PHILIPS STELLA 533 BD speaker";
         //아이템 브랜드 이름
-        var paramBrandName = "ISOPHON";
+        var paramBrandName = "PHILIPS";
         //아이템 개수
         var paramNumberItem = 2;
 
@@ -55,13 +55,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "Claudia Hofmann";
+        String parmaMoneyReceiver = "andreas moeritz";
         //IBAN
-        String paramIBAN = "DE58100100100126487120";
+        String paramIBAN = "DE90550905000000183168";
         //BIC for Check
-        String paramBIC = "PBNKDEFF";
+        String paramBIC = "";
         //이베이 아이템 번호
-        String paramEbayItemnumber = "373125719800, 373124626221, 373123257043, 373122380080, 373122370853, 373117484341"; 
+        String paramEbayItemnumber = "293633999669"; 
         
 ///////////////////
 //// Parameter ///
