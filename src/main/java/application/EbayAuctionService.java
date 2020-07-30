@@ -119,7 +119,6 @@ public class EbayAuctionService {
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
-        
         ////////////////////
         ////  송금시만 작성  ///
         ///////////////////
