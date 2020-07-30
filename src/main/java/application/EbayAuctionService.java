@@ -13,22 +13,92 @@ public class EbayAuctionService {
     
     public static void main( String[] args ) throws IOException
     {
-/////////////////
-//// Parameter ///
-//////////////////
+    	//날짜
+        var paramDate = "14.07.2020";
+        //정산할 아이템수
+        int calculateted_Items_Number = 3;
+        //적립금
+        var lastSavedMoney = 244700;
+        //아이템 구매 사이트
+        var paramSite = "www.ebay.de";
         
-        //Todo 물품 링크 엑셀에 넣기 , 배송여부 API 확인체크 
+        //### FIRST ITEM
+        //아이템 가격 + 아이템 배송비 == 구매대행 송금액
+        double first_ItemPriceEuro = 48.96;
+        // 직접 수령
+        boolean first_SendToMe = false;
+        //이베이 셀러 아이디
+        String first_SellerId = "slotcar-de";
+        //배송
+        String first_ArrivalTitle = "Slotcar";
+        //지쿠 아이템아이디
+        int firsrt_Gkoo_ItemNumber = 198;
+        //아이템 이름
+        String first_ItemName = "used 6 Vintage Grundig Speakers";
+        //아이템 브랜드 이름
+        String first_BrandName = "Grundig";
+        //아이템 개수
+        int first_NumberItem = 6;
+        //결제수단 송금 : 1, 페이팔 : 2
+        String first_PaymentArt = "P";
         
-        //날짜
-        var paramDate = "28.07.2020";
+        //### SECOND ITEM
+        //아이템 가격 + 아이템 배송비 == 구매대행 송금액
+        double second_ItemPriceEuro = 48.96;
+        // 직접 수령
+        boolean second_SendToMe = false;
+        //이베이 셀러 아이디
+        String second_SellerId = "slotcar-de";
+        //배송
+        String second_ArrivalTitle = "Slotcar";
+        //지쿠 아이템아이디
+        int second_Gkoo_ItemNumber = 198;
+        //아이템 이름
+        String second_ItemName = "used 6 Vintage Grundig Speakers";
+        //아이템 브랜드 이름
+        String second_BrandName = "Grundig";
+        //아이템 개수
+        int second_NumberItem = 6;
+        //결제수단 송금 : 1, 페이팔 : 2
+        String second_PaymentArt = "P";
         
+        //### THIRD ITEM
+        //아이템 가격 + 아이템 배송비 == 구매대행 송금액
+        double third_ItemPriceEuro = 48.96;
+        // 직접 수령
+        boolean third_SendToMe = false;
+        //이베이 셀러 아이디
+        String third_SellerId = "slotcar-de";
+        //배송
+        String third_ArrivalTitle = "Slotcar";
+        //지쿠 아이템아이디
+        int third_Gkoo_ItemNumber = 198;
+        //아이템 이름
+        String third_ItemName = "used 6 Vintage Grundig Speakers";
+        //아이템 브랜드 이름
+        String third_BrandName = "Grundig";
+        //아이템 개수
+        int third_NumberItem = 6;
+        //결제수단 송금 : 1, 페이팔 : 2
+        String third_PaymentArt = "P";
+        
+       
+    }
+    
+    public static void runEbayAuctionService() {
+
+////////////////////////
+//// START Parameter ///
+///////////////////////
+    	
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         var paramItemPriceEuro = 15.35;
+
         // 직접 수령
         boolean sendToMe = false;
         
         //이베이 셀러 아이디
-        var paramSellerId = "tasso17";
+        var paramSellerId = "slotcar-de";
         //배송
         var paramArrivalTitle = "Tasso";
 
@@ -63,10 +133,10 @@ public class EbayAuctionService {
         //이베이 아이템 번호
         String paramEbayItemnumber = "293633999669"; 
         
-///////////////////
-//// Parameter ///
-//////////////////
         
+//////////////////////
+//// END Parameter ///
+/////////////////////
         
         //이베이 셀러 배송 메세지 확인
         System.out.println("## 셀러 배송 메세지");

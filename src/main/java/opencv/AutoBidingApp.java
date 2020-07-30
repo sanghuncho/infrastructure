@@ -21,6 +21,21 @@ import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import org.opencv.core.Core;
 
+/**
+ * @author sanghuncho
+ * 
+ * windows/preferences
+ * java/Build path/user libraries/new
+ * opencd
+ * add external jars
+ * native library locaktion/edit
+ * C:\OpenCV-2.4.6\build\java\x64
+ * 
+ * build path/add library
+ * user library/opencv
+ * 
+ * https://docs.opencv.org/2.4/doc/tutorials/introduction/java_eclipse/java_eclipse.html
+ */
 public class AutoBidingApp {
     public static final int INPUT_BID_HEIGHT = 30;
     
