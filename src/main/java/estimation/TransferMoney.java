@@ -14,7 +14,6 @@ public class TransferMoney {
         this.transferAmountMoney = transferAmountMoney;
         this.usage = getUsageMessage(ebayItemnumber, arrivalTitle, sendToMe);
         this.bic = bic;
-        
     }
     
     private String getUsageMessage(String ebayItemnumber, String arrivalTitle, boolean sendToMe) {
@@ -41,4 +40,43 @@ public class TransferMoney {
         return sb.toString();
     }
 
+    public String getMoneyReceiver() {
+        return moneyReceiver;
+    }
+
+    public void setMoneyReceiver(String moneyReceiver) {
+        this.moneyReceiver = moneyReceiver;
+    }
+
+    public String getBankIban() {
+        return bankIban;
+    }
+
+    public void setBankIban(String bankIban) {
+        this.bankIban = bankIban;
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    public void setBic(String bic) {
+        this.bic = bic;
+    }
+
+    public double getTransferAmountMoney() {
+        return transferAmountMoney;
+    }
+
+    public void setTransferAmountMoney(double transferAmountMoney) {
+        this.transferAmountMoney = transferAmountMoney;
+    }
+
+    public String getUsage() {
+        return usage;
+    }
+
+    public void setUsage(String usage) {
+        this.usage = usage;
+    }
 }

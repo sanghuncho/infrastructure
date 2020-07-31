@@ -1,6 +1,9 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import application.EbayItem.TransferData;
 import estimation.DeliveryRegister;
 import estimation.EbayCalculator;
 import estimation.EbayDelivery;
@@ -16,15 +19,16 @@ public class EbayAuctionService {
     	//날짜
         var paramDate = "14.07.2020";
         //정산할 아이템수
-        int calculateted_Items_Number = 3;
-        //적립금
-        var lastSavedMoney = 244700;
+        int calculateted_Items_Number = 1;
+        
         //아이템 구매 사이트
-        var paramSite = "www.ebay.de";
+        var purchaseSite = "www.ebay.de";
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         double first_ItemPriceEuro = 48.96;
+        //적립금
+        int first_lastSavedMoney = 244700;
         // 직접 수령
         boolean first_SendToMe = false;
         //이베이 셀러 아이디
@@ -32,7 +36,7 @@ public class EbayAuctionService {
         //배송
         String first_ArrivalTitle = "Slotcar";
         //지쿠 아이템아이디
-        int firsrt_Gkoo_ItemNumber = 198;
+        int first_Gkoo_ItemNumber = 198;
         //아이템 이름
         String first_ItemName = "used 6 Vintage Grundig Speakers";
         //아이템 브랜드 이름
@@ -42,9 +46,26 @@ public class EbayAuctionService {
         //결제수단 송금 : 1, 페이팔 : 2
         String first_PaymentArt = "P";
         
+        //송금 수취인 이름
+        String first_MoneyReceiver = "andreas moeritz";
+        //IBAN
+        String first_IBAN = "DE90550905000000183168";
+        //BIC for Check
+        String first_BIC = "";
+        //이베이 아이템 번호
+        String first_EbayItemnumber = "293633999669"; 
+        
+        TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
+        
+        EbayItem first_ebayItem = new EbayItem(paramDate, first_lastSavedMoney, purchaseSite, first_ItemPriceEuro,
+                first_SendToMe, first_SellerId, first_ArrivalTitle, first_Gkoo_ItemNumber,
+                first_ItemName, first_BrandName, first_NumberItem, first_PaymentArt, first_transferData);
+        
         //### SECOND ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         double second_ItemPriceEuro = 48.96;
+        //적립금
+        int second_lastSavedMoney = 244700;
         // 직접 수령
         boolean second_SendToMe = false;
         //이베이 셀러 아이디
@@ -59,12 +80,29 @@ public class EbayAuctionService {
         String second_BrandName = "Grundig";
         //아이템 개수
         int second_NumberItem = 6;
-        //결제수단 송금 : 1, 페이팔 : 2
+        //결제수단 송금 : t, 페이팔 : p
         String second_PaymentArt = "P";
+        
+        //송금 수취인 이름
+        String second_MoneyReceiver = "andreas moeritz";
+        //IBAN
+        String second_IBAN = "DE90550905000000183168";
+        //BIC for Check
+        String second_BIC = "";
+        //이베이 아이템 번호
+        String second_EbayItemnumber = "293633999669"; 
+        
+        TransferData second_transferData = new TransferData(second_MoneyReceiver, second_IBAN, second_BIC, second_EbayItemnumber);
+        
+        EbayItem second_ebayItem = new EbayItem(paramDate, second_lastSavedMoney, purchaseSite, second_ItemPriceEuro,
+                second_SendToMe, second_SellerId, second_ArrivalTitle, second_Gkoo_ItemNumber,
+                second_ItemName, second_BrandName, second_NumberItem, second_PaymentArt, second_transferData);
         
         //### THIRD ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         double third_ItemPriceEuro = 48.96;
+        //적립금
+        int third_lastSavedMoney = 244700;
         // 직접 수령
         boolean third_SendToMe = false;
         //이베이 셀러 아이디
@@ -82,41 +120,67 @@ public class EbayAuctionService {
         //결제수단 송금 : 1, 페이팔 : 2
         String third_PaymentArt = "P";
         
-       
+        //송금 수취인 이름
+        String third_MoneyReceiver = "andreas moeritz";
+        //IBAN
+        String third_IBAN = "DE90550905000000183168";
+        //BIC for Check
+        String third_BIC = "";
+        //이베이 아이템 번호
+        String third_EbayItemnumber = "293633999669"; 
+        
+        TransferData third_transferData = new TransferData(third_MoneyReceiver, third_IBAN, third_BIC, third_EbayItemnumber);
+        
+        EbayItem third_ebayItem = new EbayItem(paramDate, third_lastSavedMoney, purchaseSite, third_ItemPriceEuro,
+                third_SendToMe, third_SellerId, third_ArrivalTitle, third_Gkoo_ItemNumber,
+                third_ItemName, third_BrandName, third_NumberItem, third_PaymentArt, third_transferData);
+        
+        ArrayList<EbayItem> ebayitemsList = new ArrayList<EbayItem>();
+        ebayitemsList.add(first_ebayItem);
+        ebayitemsList.add(second_ebayItem);
+        ebayitemsList.add(third_ebayItem);
+        
+        StringBuilder results = new StringBuilder(); 
+        
+        for(int i=0; i<calculateted_Items_Number; i++) {
+            runEbayAuctionService(ebayitemsList.get(i), results);
+        }
+        
+        System.out.println(results.toString());
     }
     
-    public static void runEbayAuctionService() {
+    public static void runEbayAuctionService(EbayItem ebayitem, StringBuilder results) {
 
 ////////////////////////
 //// START Parameter ///
 ///////////////////////
-    	
+        var paramDate = ebayitem.getPurchaseDate();
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        var paramItemPriceEuro = 15.35;
+        var paramItemPriceEuro = ebayitem.getItemPriceEuro();
 
         // 직접 수령
-        boolean sendToMe = false;
+        boolean sendToMe = ebayitem.isSendToMe();
         
         //이베이 셀러 아이디
-        var paramSellerId = "slotcar-de";
+        var paramSellerId = ebayitem.getSellerId();
         //배송
-        var paramArrivalTitle = "Tasso";
+        var paramArrivalTitle = ebayitem.getArrivalTitle();
 
         //지쿠 아이템아이디
-        var paramItemNumber = 230;
+        var paramItemNumber = ebayitem.getGkooItemNumber();
         
         //적립금
-        var pramLastSaved = 349300;
+        var pramLastSaved = ebayitem.getLastSavedMoney();
         
         //아이템 이름
-        var paramItemName = "used PHILIPS STELLA 533 BD speaker";
+        var paramItemName = ebayitem.getItemName();
         //아이템 브랜드 이름
-        var paramBrandName = "PHILIPS";
+        var paramBrandName = ebayitem.getBrandName();
         //아이템 개수
-        var paramNumberItem = 2;
+        var paramNumberItem = ebayitem.getNumberOfItem();
 
         //결제수단 송금 : 1, 페이팔 : 2
-        var paramPaymentArt = 2;
+        var paramPaymentArt = ebayitem.getPaymentArt();
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
@@ -125,13 +189,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = "andreas moeritz";
+        String parmaMoneyReceiver = ebayitem.getTransferMoney().getMoneyReceiver();
         //IBAN
-        String paramIBAN = "DE90550905000000183168";
+        String paramIBAN = ebayitem.getTransferMoney().getIban();
         //BIC for Check
-        String paramBIC = "";
+        String paramBIC = ebayitem.getTransferMoney().getBic();
         //이베이 아이템 번호
-        String paramEbayItemnumber = "293633999669"; 
+        String paramEbayItemnumber = ebayitem.getTransferMoney().getEbayItemnumber(); 
         
         
 //////////////////////
@@ -139,9 +203,13 @@ public class EbayAuctionService {
 /////////////////////
         
         //이베이 셀러 배송 메세지 확인
-        System.out.println("## 셀러 배송 메세지");
-        System.out.println(getDeliverySellerMessage(paramArrivalTitle, sendToMe));
-        System.out.println('\n');
+        results.append("## 셀러 배송 메세지");
+        results.append('\n');
+        results.append(getDeliverySellerMessage(paramArrivalTitle, sendToMe));
+        results.append('\n');
+//        System.out.println("## 셀러 배송 메세지");
+//        System.out.println(getDeliverySellerMessage(paramArrivalTitle, sendToMe));
+//        System.out.println('\n');
         
         //정산내역 변수
         String inputDate = paramDate;
@@ -152,12 +220,16 @@ public class EbayAuctionService {
         
         EbayCalculator calc = 
                 new EbayCalculator(inputDate, inputItemPriceEuro, inputItemNumber, lastSaved, itemName);
-        System.out.println("## 정산내역");
-        System.out.println(calc.convertRowExcel());
+        results.append('\n');
+        results.append("## 정산내역");
+        results.append('\n');
+        results.append(calc.convertRowExcel());
+//        System.out.println("## 정산내역");
+//        System.out.println(calc.convertRowExcel());
               
         //배송내역 변수
         String arrivalTitle = getArrivalTitle(paramArrivalTitle, sendToMe);
-        int paymentArt = paramPaymentArt; //결제수단 송금 - 1, 페이팔 - 2
+        String paymentArt = paramPaymentArt; //결제수단 송금 - 1, 페이팔 - 2
         String sellerId = paramSellerId;
         String brandName = paramBrandName;
         String site = paramSite;
@@ -166,23 +238,41 @@ public class EbayAuctionService {
                
         EbayDelivery delivery = new EbayDelivery(inputItemNumber, arrivalTitle, paymentArt, sellerId,
                 brandName, site, numberItem, inputItemPriceEuro, itemName, onePrice);
-        System.out.println('\n');
-        System.out.println("## 배송내역");
-        System.out.println(delivery.convertRowExcel());
+        results.append('\n');
+        results.append('\n');
+        results.append("## 배송내역");
+        results.append('\n');
+        results.append(delivery.convertRowExcel());
+//        System.out.println('\n');
+//        System.out.println("## 배송내역");
+//        System.out.println(delivery.convertRowExcel());
         
         DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle, sendToMe);
-        System.out.println('\n');
-        System.out.println("## 배송등록");
-        System.out.println(delRegi.convertRowExcel());
+        results.append('\n');
+        results.append('\n');
+        results.append("## 배송등록");
+        results.append('\n');
+        results.append(delRegi.convertRowExcel());
+//        System.out.println('\n');
+//        System.out.println("## 배송등록");
+//        System.out.println(delRegi.convertRowExcel());
         
-        if(paramPaymentArt == 1) {
-            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
-            System.out.println('\n');
-            System.out.println("## 송금신청");
-            System.out.println(transMoney.convertTransferMoneyData());
+        if(paramPaymentArt == "t") {
+            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, 
+            		paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
+            results.append('\n');
+            results.append("## 송금신청");
+            results.append(transMoney.convertTransferMoneyData());
+//            System.out.println('\n');
+//            System.out.println("## 송금신청");
+//            System.out.println(transMoney.convertTransferMoneyData());
         } else {
-            System.out.println('\n');
-            System.out.println("## 페이팔 결제");
+        	results.append('\n');
+        	results.append("## 페이팔 결제");
+        	results.append('\n');
+        	results.append('\n');
+//            System.out.println('\n');
+//            System.out.println("## 페이팔 결제");
         }
     }
     
