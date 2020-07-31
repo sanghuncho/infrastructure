@@ -2,11 +2,8 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
-<<<<<<< HEAD
 
 import application.EbayItem.TransferData;
-=======
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
 import estimation.DeliveryRegister;
 import estimation.EbayCalculator;
 import estimation.EbayDelivery;
@@ -22,12 +19,7 @@ public class EbayAuctionService {
     	//날짜
         var paramDate = "14.07.2020";
         //정산할 아이템수
-<<<<<<< HEAD
         int calculateted_Items_Number = 1;
-=======
-        int calculateted_Items_Number = 3;
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
-        
         //아이템 구매 사이트
         var purchaseSite = "www.ebay.de";
         
@@ -53,7 +45,6 @@ public class EbayAuctionService {
         //결제수단 송금 : 1, 페이팔 : 2
         String first_PaymentArt = "P";
         
-<<<<<<< HEAD
         //송금 수취인 이름
         String first_MoneyReceiver = "andreas moeritz";
         //IBAN
@@ -64,9 +55,6 @@ public class EbayAuctionService {
         String first_EbayItemnumber = "293633999669"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
-=======
-        TransferMoney first_transferData = new TransferMoney("", "", 1.0,  "", "");
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
         
         EbayItem first_ebayItem = new EbayItem(paramDate, first_lastSavedMoney, purchaseSite, first_ItemPriceEuro,
                 first_SendToMe, first_SellerId, first_ArrivalTitle, first_Gkoo_ItemNumber,
@@ -93,10 +81,6 @@ public class EbayAuctionService {
         int second_NumberItem = 6;
         //결제수단 송금 : t, 페이팔 : p
         String second_PaymentArt = "P";
-        EbayItem second_ebayItem = new EbayItem(paramDate, second_lastSavedMoney, purchaseSite, second_ItemPriceEuro,
-                second_SendToMe, second_SellerId, second_ArrivalTitle, second_Gkoo_ItemNumber,
-                second_ItemName, second_BrandName, second_NumberItem, second_PaymentArt);
-        
         //송금 수취인 이름
         String second_MoneyReceiver = "andreas moeritz";
         //IBAN
@@ -133,11 +117,6 @@ public class EbayAuctionService {
         int third_NumberItem = 6;
         //결제수단 송금 : 1, 페이팔 : 2
         String third_PaymentArt = "P";
-        EbayItem third_ebayItem = new EbayItem(paramDate, third_lastSavedMoney, purchaseSite, third_ItemPriceEuro,
-                third_SendToMe, third_SellerId, third_ArrivalTitle, third_Gkoo_ItemNumber,
-                third_ItemName, third_BrandName, third_NumberItem, third_PaymentArt);
-        
-<<<<<<< HEAD
         //송금 수취인 이름
         String third_MoneyReceiver = "andreas moeritz";
         //IBAN
@@ -153,35 +132,20 @@ public class EbayAuctionService {
                 third_SendToMe, third_SellerId, third_ArrivalTitle, third_Gkoo_ItemNumber,
                 third_ItemName, third_BrandName, third_NumberItem, third_PaymentArt, third_transferData);
         
-        ArrayList<EbayItem> ebayitemsList = new ArrayList<EbayItem>();
-        ebayitemsList.add(first_ebayItem);
-        ebayitemsList.add(second_ebayItem);
-        ebayitemsList.add(third_ebayItem);
-        
         StringBuilder results = new StringBuilder(); 
         
-        for(int i=0; i<calculateted_Items_Number; i++) {
-            runEbayAuctionService(ebayitemsList.get(i), results);
-        }
-        
-        System.out.println(results.toString());
-=======
         ArrayList<EbayItem> ebayitemsList = new ArrayList<EbayItem>();
         ebayitemsList.add(first_ebayItem);
         ebayitemsList.add(second_ebayItem);
         ebayitemsList.add(third_ebayItem);
         
         for(int i=0;i<calculateted_Items_Number-1;i++) {
-            runEbayAuctionService(ebayitemsList.get(i));
+            runEbayAuctionService(ebayitemsList.get(i), results);
         }
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
+        System.out.println(results.toString());
     }
     
-<<<<<<< HEAD
     public static void runEbayAuctionService(EbayItem ebayitem, StringBuilder results) {
-=======
-    public static void runEbayAuctionService(EbayItem ebayitem) {
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
 
 ////////////////////////
 //// START Parameter ///
@@ -221,13 +185,13 @@ public class EbayAuctionService {
         ////  송금시만 작성  ///
         ///////////////////
         //송금 수취인 이름
-        String parmaMoneyReceiver = ebayitem.getTransferMoney().getMoneyReceiver();
+        String parmaMoneyReceiver = ebayitem.getTransferData().getMoneyReceiver();
         //IBAN
-        String paramIBAN = ebayitem.getTransferMoney().getIban();
+        String paramIBAN = ebayitem.getTransferData().getIban();
         //BIC for Check
-        String paramBIC = ebayitem.getTransferMoney().getBic();
+        String paramBIC = ebayitem.getTransferData().getBic();
         //이베이 아이템 번호
-        String paramEbayItemnumber = ebayitem.getTransferMoney().getEbayItemnumber(); 
+        String paramEbayItemnumber = ebayitem.getTransferData().getEbayItemnumber(); 
         
         
 //////////////////////
@@ -290,7 +254,6 @@ public class EbayAuctionService {
 //        System.out.println(delRegi.convertRowExcel());
         
         if(paramPaymentArt == "t") {
-<<<<<<< HEAD
             TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, 
             		paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
             results.append('\n');
@@ -299,12 +262,6 @@ public class EbayAuctionService {
 //            System.out.println('\n');
 //            System.out.println("## 송금신청");
 //            System.out.println(transMoney.convertTransferMoneyData());
-=======
-            TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
-            System.out.println('\n');
-            System.out.println("## 송금신청");
-            System.out.println(transMoney.convertTransferMoneyData());
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
         } else {
         	results.append('\n');
         	results.append("## 페이팔 결제");

@@ -1,5 +1,7 @@
 package application;
 
+import estimation.TransferMoney;
+
 public class EbayItem {
 	private String purchaseDate;
 	private int lastSavedMoney;
@@ -22,19 +24,11 @@ public class EbayItem {
     //결제수단 송금 : 1, 페이팔 : 2
     private String paymentArt;
     
-<<<<<<< HEAD
     private TransferData transferData;
     
     public EbayItem (String purchaseDate, int lastSavedMoney, String purchaseSite, double itemPriceEuro, boolean sendToMe, 
             String sellerId, String arrivalTitle, int gkooItemNumber, String itemName,
             String brandName, int numberOfItem, String paymentArt, TransferData transferData) {
-=======
-    private TransferMoney transferMoney;
-    
-    public EbayItem (String purchaseDate, int lastSavedMoney, String purchaseSite, double itemPriceEuro, boolean sendToMe, 
-            String sellerId, String arrivalTitle, int gkooItemNumber, String itemName,
-            String brandName, int numberOfItem, String paymentArt, TransferMoney transferMoney) {
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
     	this.purchaseDate = purchaseDate;
     	this.lastSavedMoney = lastSavedMoney;
     	this.purchaseSite = purchaseSite;
@@ -47,11 +41,7 @@ public class EbayItem {
         this.brandName = brandName;
         this.numberOfItem = numberOfItem;
         this.paymentArt = paymentArt;
-<<<<<<< HEAD
         this.transferData = transferData;
-=======
-        this.setTransferMoney(transferMoney);
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
     }
 
 	public String getPurchaseDate() {
@@ -150,8 +140,7 @@ public class EbayItem {
         this.lastSavedMoney = lastSavedMoney;
     }
     
-<<<<<<< HEAD
-    public TransferData getTransferMoney() {
+    public TransferData getTransferData() {
         return transferData;
     }
 
@@ -207,62 +196,4 @@ public class EbayItem {
             this.ebayItemnumber = ebayItemnumber;
         }
     }
-=======
-    public TransferMoney getTransferMoney() {
-        return transferMoney;
-    }
-
-    public void setTransferMoney(TransferMoney transferMoney) {
-        this.transferMoney = transferMoney;
-    }
-
-//    public class TransferMoney {
-//        private String moneyReceiver;
-//        //IBAN
-//        private String iban;
-//        //BIC for Check
-//        private String bic;
-//        //이베이 아이템 번호
-//        private String ebayItemnumber;
-//        
-//        public TransferMoney(String moneyReceiver, String iban, String bic, String ebayItemnumber) {
-//            this.moneyReceiver = moneyReceiver;
-//            this.iban = iban;
-//            this.bic = bic;
-//            this.ebayItemnumber = ebayItemnumber;
-//        }
-//
-//        public String getMoneyReceiver() {
-//            return moneyReceiver;
-//        }
-//
-//        public void setMoneyReceiver(String moneyReceiver) {
-//            this.moneyReceiver = moneyReceiver;
-//        }
-//
-//        public String getIban() {
-//            return iban;
-//        }
-//
-//        public void setIban(String iban) {
-//            this.iban = iban;
-//        }
-//
-//        public String getBic() {
-//            return bic;
-//        }
-//
-//        public void setBic(String bic) {
-//            this.bic = bic;
-//        }
-//
-//        public String getEbayItemnumber() {
-//            return ebayItemnumber;
-//        }
-//
-//        public void setEbayItemnumber(String ebayItemnumber) {
-//            this.ebayItemnumber = ebayItemnumber;
-//        }
-//    }
->>>>>>> branch 'master' of https://github.com/sanghuncho/Infrastructure.git
 }
