@@ -19,7 +19,7 @@ public class EbayAuctionService {
     	//날짜
         var paramDate = "14.07.2020";
         //정산할 아이템수
-        int calculateted_Items_Number = 1;
+        int calculateted_Items_Number = 3;
         //아이템 구매 사이트
         var purchaseSite = "www.ebay.de";
         
@@ -139,7 +139,7 @@ public class EbayAuctionService {
         ebayitemsList.add(second_ebayItem);
         ebayitemsList.add(third_ebayItem);
         
-        for(int i=0;i<calculateted_Items_Number-1;i++) {
+        for(int i=0;i<calculateted_Items_Number;i++) {
             runEbayAuctionService(ebayitemsList.get(i), results);
         }
         System.out.println(results.toString());
