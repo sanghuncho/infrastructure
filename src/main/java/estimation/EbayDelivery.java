@@ -10,7 +10,7 @@ package estimation;
 public class EbayDelivery {
     private int inputItemNumber;
     private String arrivalTitle;
-    private int paymentArt;
+    private String paymentArt;
     private String sellerId;
     private String brandName;
     private String site;
@@ -18,7 +18,7 @@ public class EbayDelivery {
     private double onePrice;
     private String itemName;
     
-    public EbayDelivery (int inputItemNumber, String arrivalTitle, int paymentArt ,String sellerId,
+    public EbayDelivery (int inputItemNumber, String arrivalTitle, String paymentArt ,String sellerId,
             String brandName, String site, int numberItem, double inputItemPriceEuro, String itemName, double onePrice) {
         this.inputItemNumber = inputItemNumber;
         this.arrivalTitle = arrivalTitle;
@@ -50,7 +50,7 @@ public class EbayDelivery {
         delivery.append(", ");
         
         //결제수단
-        if(paymentArt == 1) {
+        if(paymentArt == "t") {
             delivery.append("송금");
             delivery.append(", ");
             
