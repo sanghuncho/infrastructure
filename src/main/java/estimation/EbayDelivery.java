@@ -50,16 +50,19 @@ public class EbayDelivery {
         delivery.append(", ");
         
         //결제수단
-        if(paymentArt == "t") {
+        if(paymentArt == "T") {
             delivery.append("송금");
             delivery.append(", ");
             
             delivery.append(", ");
-        } else {
+        } else if (paymentArt == "P") {
             delivery.append("페이팔");
             delivery.append(", ");
             
             delivery.append("OK");
+            delivery.append(", ");
+        } else {
+            delivery.append("Error Payment");
             delivery.append(", ");
         }
         

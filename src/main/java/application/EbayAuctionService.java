@@ -17,42 +17,42 @@ public class EbayAuctionService {
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "14.07.2020";
+        var paramDate = "01.08.2020";
         //정산할 아이템수
-        int calculateted_Items_Number = 3;
+        int calculateted_Items_Number = 1;
         //아이템 구매 사이트
         var purchaseSite = "www.ebay.de";
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 48.96;
+        double first_ItemPriceEuro = 38.46;
         //적립금
-        int first_lastSavedMoney = 244700;
+        int first_lastSavedMoney = 314500;
         // 직접 수령
         boolean first_SendToMe = false;
         //이베이 셀러 아이디
-        String first_SellerId = "slotcar-de";
+        String first_SellerId = "pauke22";
         //배송
-        String first_ArrivalTitle = "Slotcar";
+        String first_ArrivalTitle = "Pauke";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 198;
+        int first_Gkoo_ItemNumber = 231;
         //아이템 이름
-        String first_ItemName = "used 6 Vintage Grundig Speakers";
+        String first_ItemName = "used old Speakers";
         //아이템 브랜드 이름
-        String first_BrandName = "Grundig";
+        String first_BrandName = "Seibt";
         //아이템 개수
-        int first_NumberItem = 6;
-        //결제수단 송금 : 1, 페이팔 : 2
-        String first_PaymentArt = "P";
+        int first_NumberItem = 2;
+        //결제수단 송금 : T, 페이팔 : P
+        String first_PaymentArt = "T";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "andreas moeritz";
+        String first_MoneyReceiver = "Richard Paukner";
         //IBAN
-        String first_IBAN = "DE90550905000000183168";
+        String first_IBAN = "DE59700905000004734424";
         //BIC for Check
-        String first_BIC = "";
+        String first_BIC = "GENODEF1S04";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "293633999669"; 
+        String first_EbayItemnumber = "133466946597, 133466947335"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
@@ -79,7 +79,7 @@ public class EbayAuctionService {
         String second_BrandName = "Grundig";
         //아이템 개수
         int second_NumberItem = 6;
-        //결제수단 송금 : t, 페이팔 : p
+        //결제수단 송금 : T, 페이팔 : P
         String second_PaymentArt = "P";
         //송금 수취인 이름
         String second_MoneyReceiver = "andreas moeritz";
@@ -115,7 +115,7 @@ public class EbayAuctionService {
         String third_BrandName = "Grundig";
         //아이템 개수
         int third_NumberItem = 6;
-        //결제수단 송금 : 1, 페이팔 : 2
+      //결제수단 송금 : T, 페이팔 : P
         String third_PaymentArt = "P";
         //송금 수취인 이름
         String third_MoneyReceiver = "andreas moeritz";
@@ -253,22 +253,26 @@ public class EbayAuctionService {
 //        System.out.println("## 배송등록");
 //        System.out.println(delRegi.convertRowExcel());
         
-        if(paramPaymentArt == "t") {
+        if(paramPaymentArt == "T") {
             TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, 
             		paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
             results.append('\n');
+            results.append('\n');
             results.append("## 송금신청");
+            results.append('\n');
             results.append(transMoney.convertTransferMoneyData());
 //            System.out.println('\n');
 //            System.out.println("## 송금신청");
 //            System.out.println(transMoney.convertTransferMoneyData());
-        } else {
+        } else if(paramPaymentArt == "P") {
         	results.append('\n');
         	results.append("## 페이팔 결제");
         	results.append('\n');
         	results.append('\n');
 //            System.out.println('\n');
 //            System.out.println("## 페이팔 결제");
+        } else {
+            System.out.println("Error for Payment");
         }
     }
     

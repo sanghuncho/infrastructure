@@ -35,15 +35,15 @@ public class ApiApp {
     private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
     private static final String IMAGE_DIR_HOME = "C:/Users/sanghuncho/Pictures/ebay/";
     private static final String IMAGE_DIR_OFFICE = "C:/Users/sanghuncho/Documents/Gkoo/ebay/";
-    private static final String IMAGE_DIR = IMAGE_DIR_OFFICE;
+    private static final String IMAGE_DIR = IMAGE_DIR_HOME;
     
     static final String BROWSE_API = "https://api.ebay.com/buy/browse/v1/item/get_item_by_legacy_id?legacy_item_id=";
     private static final List<String> authorizationScopesList = Arrays.asList("https://api.ebay.com/oauth/api_scope");
     
     public static void main( String[] args ) throws IOException {
         
-    	List<String> itemNumberEbayList = Arrays.asList("133466947335", "133466946597");
-        int startItemNumberEbay = 200;
+    	List<String> itemNumberEbayList = Arrays.asList("133466946597", "133466947335");
+        int startItemNumberEbay = 231;
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
         	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);
