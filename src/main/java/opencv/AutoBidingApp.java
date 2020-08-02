@@ -24,6 +24,9 @@ import org.opencv.core.Core;
 /**
  * @author sanghuncho
  * 
+ * Refernece intall https://docs.opencv.org/2.4/doc/tutorials/introduction/java_eclipse/java_eclipse.html
+ * downloading opencv https://opencv.org/releases/
+ * 
  * windows/preferences
  * java/Build path/user libraries/new
  * opencd
@@ -58,7 +61,15 @@ public class AutoBidingApp {
             Thread.sleep(3000);
         } catch(InterruptedException e){ }
         
-        detectButton();
+        if (!detectButton()) {
+            getScreenshot();
+            
+            try{
+                Thread.sleep(3000);
+            } catch(InterruptedException e){ }
+            
+            detectButton();
+        }
         
     }
     
@@ -173,7 +184,7 @@ public class AutoBidingApp {
         System.out.println("screenshot is created!");
     }
     
-    private static void detectButton() {
+    private static boolean detectButton() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat source=null;
         Mat template=null;
@@ -227,9 +238,11 @@ public class AutoBidingApp {
         MinMaxLocResult mmrConfirm = Core.minMaxLoc(outputImageConfirm);
         Point matchLocConfirm = mmrConfirm.maxLoc;
         
+        boolean finished = false;
         if(mmrConfirm.maxVal > 0.85) {
             try {
                 setCursorConfirm(matchLocConfirm.x, matchLocConfirm.y);
+                finished = true;
             } catch (AWTException e) {
                 e.printStackTrace();
             }
@@ -237,7 +250,9 @@ public class AutoBidingApp {
             System.out.println("confirm button can not be found: " + "[" + mmrConfirm.maxVal + "]" );
             System.out.println("link: " + link);
             System.out.println("Bid: " + BID_VALUE);
+            finished = false;
         }
+        return finished;
     }
     
     private static void getScreenshotConfirm() {
