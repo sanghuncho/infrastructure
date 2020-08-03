@@ -5,6 +5,12 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
@@ -18,7 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
 import org.opencv.core.Core;
 
 /**
@@ -45,32 +58,58 @@ public class AutoBidingApp {
     public static final int BID_BTN_WIDTH_CENTER = 36;
     public static final int BID_BTN_HEIGHT_CENTER = 16;
     public static String link = 
-            "https://www.ebay.de/itm/Alter-Lautsprecher-Ca-1940-1950/324220142364?hash=item4b7d06c31c:g:h4wAAOSwG~Re73jQ";
-    public static int BID_VALUE = 18;
-    public static void main(String[] args) {
-        
-        openWeb(link);
+            "https://www.ebay.de/itm/Apple-Watch-Series-4-40mm-Grau-Gehause-Schwarz-Sportband-MTVD2FD-A/283966889359?epid=17031010130&hash=item421dbedd8f:g:ZDgAAOSwwnlfJuuF";
+    public static int BID_VALUE = 64;
+    public static void main(String[] args) throws ParseException {
+    	try {
+			screenshot();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//    	Timer t=new Timer();
+//        t.schedule(new TimerTask() {
+//            public void run() {
+//                System.out.println("runnable");
+//                runAutoBidding();
+//                
+//            }
+//        }, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-03 04:49:50"));
+ 
+    }
+    
+    public static void screenshot() throws IOException {
+    	System.setProperty("webdriver.chrome.driver", "C:/GKoo/chromedriver.exe");
+    	 WebDriver driver=new ChromeDriver();
+    	 driver.manage().window().maximize();
+         driver.get(link);
+         File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+         FileUtils.copyFile(src, new File("C:/Users/sanghuncho/Documents/Gkoo/screenshot.jpg"));
+         driver.close();
+    }
+    
+    public static void runAutoBidding() {
+    	openWeb(link);
         
         try{
-            Thread.sleep(3000);
+            Thread.sleep(10000);
         } catch(InterruptedException e){ }
         
         getScreenshot();
         
         try{
-            Thread.sleep(3000);
+            Thread.sleep(10000);
         } catch(InterruptedException e){ }
         
         if (!detectButton()) {
             getScreenshot();
             
             try{
-                Thread.sleep(3000);
+                Thread.sleep(10000);
             } catch(InterruptedException e){ }
             
             detectButton();
         }
-        
     }
     
     public static void doKeypressValue(int bidValue, Robot bot) {
