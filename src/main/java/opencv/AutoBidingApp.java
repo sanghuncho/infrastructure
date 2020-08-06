@@ -60,8 +60,8 @@ public class AutoBidingApp {
     public static final int BID_BTN_WIDTH_CENTER = 36;
     public static final int BID_BTN_HEIGHT_CENTER = 16;
     public static String link = 
-            "https://www.ebay.de/itm/Apple-Watch-Series-5-GPS-Nike-44mm-Space-Grey-Top-Zustand/233668129103?_trkparms=aid%3D777001%26algo%3DDISCO.FEED%26ao%3D1%26asc%3D225116%26meid%3D9ba0d9546a6548cb812e13c8fe3f0629%26pid%3D100651%26rk%3D1%26rkt%3D1%26mehot%3Dpp%26itm%3D233668129103%26pmt%3D0%26noa%3D1%26pg%3D2380057%26algv%3DPersonalizedTopicsRefactorWithNSFWFilter%26brand%3DApple&_trksid=p2380057.c100651.m4497&_trkparms=pageci%3A4670ed76-d72c-11ea-8772-a672c6ece175%7Cparentrq%3Abf227b191730a0f11d1dba41ffffddfd%7Ciid%3A1";
-    public static int BID_VALUE = 155;
+            "https://www.ebay.de/itm/Isophon-Exponential-Hochtoner-DKT11-C110-8/154022843318?hash=item23dc7a13b6:g:9V0AAOSwnGFfHu6v";
+    public static int BID_VALUE = 27;
     public static String buyItemHtml = "C:/Users/sanghuncho/Documents/Gkoo/buyItem.html";
     public static void main(String[] args) throws ParseException, IOException, AWTException {
 //      try {
@@ -69,18 +69,18 @@ public class AutoBidingApp {
 //      } catch (IOException e) {
 //          e.printStackTrace();
 //      }
-      Timer t = new Timer();
-      t.schedule(new TimerTask() {
-            public void run() {
-                System.out.println("runnable");
-                try {
-                    runAutoBidding();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                
-            }
-        }, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-03 04:49:50"));
+//      Timer t = new Timer();
+//      t.schedule(new TimerTask() {
+//            public void run() {
+//                System.out.println("runnable");
+//                try {
+//                    runAutoBidding();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                
+//            }
+//        }, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-03 04:49:50"));
         
         
         

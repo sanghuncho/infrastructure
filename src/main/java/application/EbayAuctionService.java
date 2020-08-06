@@ -10,14 +10,14 @@ import estimation.EbayDelivery;
 import estimation.TransferMoney;
 
 public class EbayAuctionService {
-    public static double excahgeRateEuro = 1420;
+    public static double excahgeRateEuro = 1450;
     private static String DeliveryCompany = 
             "http://www.ilogexpress.com/login";
     
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "02.08.2020";
+        var paramDate = "05.08.2020";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -25,34 +25,34 @@ public class EbayAuctionService {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 22.00;
+        double first_ItemPriceEuro = 125.99;
         //적립금
-        int first_lastSavedMoney = 96400;
+        int first_lastSavedMoney = 153500;
         // 직접 수령
         boolean first_SendToMe = false;
         //이베이 셀러 아이디
-        String first_SellerId = "ebendas";
+        String first_SellerId = "ch-i-38";
         //배송
-        String first_ArrivalTitle = "Ebendas";
+        String first_ArrivalTitle = "ch-7";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 234;
+        int first_Gkoo_ItemNumber = 236;
         //아이템 이름
-        String first_ItemName = "used speaker DNH 20Cm";
+        String first_ItemName = "used pair Telefunken AlNiCo Breitbandlautsprecher";
         //아이템 브랜드 이름
-        String first_BrandName = "No brand";
+        String first_BrandName = "Telefunken";
         //아이템 개수
-        int first_NumberItem = 1;
+        int first_NumberItem = 2;
         //결제수단 송금 : T, 페이팔 : P
         String first_PaymentArt = "T";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "Aleksandr Kaurkin";
+        String first_MoneyReceiver = "Claudia Hofmann";
         //IBAN
-        String first_IBAN = "DE82500105175424836627";
+        String first_IBAN = "DE58100100100126487120";
         //BIC for Check
-        String first_BIC = "INGDDEFF";
+        String first_BIC = "PBNKDEFF";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "324236806321"; 
+        String first_EbayItemnumber = "373131011056"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
