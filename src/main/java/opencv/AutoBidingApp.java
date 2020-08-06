@@ -5,6 +5,10 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
@@ -19,6 +23,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
+import org.apache.commons.io.FileUtils;
 import org.opencv.core.Core;
 
 /**
@@ -47,31 +52,69 @@ public class AutoBidingApp {
     public static String link = 
             "https://www.ebay.de/itm/Alter-Lautsprecher-Ca-1940-1950/324220142364?hash=item4b7d06c31c:g:h4wAAOSwG~Re73jQ";
     public static int BID_VALUE = 18;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
-        openWeb(link);
+//        openWeb(link);
+//        
+//        try{
+//            Thread.sleep(3000);
+//        } catch(InterruptedException e){ }
+//        
+//        getScreenshot();
+//        
+//        try{
+//            Thread.sleep(3000);
+//        } catch(InterruptedException e){ }
+//        
+//        if (!detectButton()) {
+//            getScreenshot();
+//            
+//            try{
+//                Thread.sleep(3000);
+//            } catch(InterruptedException e){ }
+//            
+//            detectButton();
+//        }
         
-        try{
-            Thread.sleep(3000);
-        } catch(InterruptedException e){ }
+        WebDriver driver=new FirefoxDriver();
+        driver.get(link);
+        File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(src, new File("C:/Users/sanghuncho/Documents/Gkoo/screenshot.jpg"));
+        driver.close();
         
-        getScreenshot();
-        
-        try{
-            Thread.sleep(3000);
-        } catch(InterruptedException e){ }
-        
-        if (!detectButton()) {
-            getScreenshot();
-            
-            try{
-                Thread.sleep(3000);
-            } catch(InterruptedException e){ }
-            
-            detectButton();
-        }
+//        WebDriver driver ;
+//        System.setProperty("webdriver.gecko.driver","C:/Users/sanghuncho/Programme/geckodriver.exe");
+//        driver = new FirefoxDriver();
+//
+//        //goto url
+//
+//        driver.get(link);
+//
+//        //Call take screenshot function
+//
+//        takeSnapShot(driver, "C:/Users/sanghuncho/Documents/Gkoo/screenshot.jpg") ;     
         
     }
+    
+//    public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception{
+//
+//        //Convert web driver object to TakeScreenshot
+//
+//        TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+//
+//        //Call getScreenshotAs method to create image file
+//
+//                File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+//
+//            //Move image file to new destination
+//
+//                File DestFile=new File(fileWithPath);
+//
+//                //Copy file at destination
+//
+//                FileUtils.copyFile(SrcFile, DestFile);
+//
+//    }
     
     public static void doKeypressValue(int bidValue, Robot bot) {
         char [] chars = String.valueOf(bidValue).toCharArray();

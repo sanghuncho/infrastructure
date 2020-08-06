@@ -16,7 +16,17 @@ public class HtmlParser {
     			Arrays.asList(
     					"Jingsaw"
     					,"Prolo"
-    					,"Sabine"
+    					,"Sabine",
+    					"pauls", //Heinos 150, 161
+    					"profan",//156
+    					"mechanic", //157
+    					"Didez", //145, 146, 149
+    					"Losti", //158
+    					"Phono", //159
+    					"Tube4", //160
+    					"Trackis", //163
+    					"V2ap", //164
+    					""
     					);
     	
     	StringBuilder results = new StringBuilder();
