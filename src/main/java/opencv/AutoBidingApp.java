@@ -1,16 +1,5 @@
 package opencv;
 
-import org.opencv.core.Core.MinMaxLocResult;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
@@ -33,11 +22,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.imageio.ImageIO;
-
 import org.apache.commons.io.FileUtils;
 import org.opencv.core.Core;
+import org.opencv.core.Core.MinMaxLocResult;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  * @author sanghuncho
@@ -73,14 +69,18 @@ public class AutoBidingApp {
 //      } catch (IOException e) {
 //          e.printStackTrace();
 //      }
-//      Timer t=new Timer();
-//        t.schedule(new TimerTask() {
-//            public void run() {
-//                System.out.println("runnable");
-//                runAutoBidding();
-//                
-//            }
-//        }, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-03 04:49:50"));
+      Timer t = new Timer();
+      t.schedule(new TimerTask() {
+            public void run() {
+                System.out.println("runnable");
+                try {
+                    runAutoBidding();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+        }, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-03 04:49:50"));
         
         
         
