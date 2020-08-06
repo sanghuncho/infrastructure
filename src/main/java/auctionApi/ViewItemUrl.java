@@ -1,24 +1,9 @@
 package auctionApi;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.imageio.ImageIO;
-import org.apache.http.entity.StringEntity;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.http.HttpEntity;
