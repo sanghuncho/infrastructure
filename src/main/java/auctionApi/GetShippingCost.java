@@ -18,7 +18,7 @@ import com.ebay.api.client.auth.oauth2.OAuth2Api;
 import com.ebay.api.client.auth.oauth2.model.Environment;
 import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
 
-public class GetSchippingCost {
+public class GetShippingCost {
     //NOTE: Change this env to Environment.PRODUCTION to run this test in PRODUCTION
     private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
     
