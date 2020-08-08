@@ -42,8 +42,8 @@ public class ApiApp {
     
     public static void main( String[] args ) throws IOException {
         
-    	List<String> itemNumberEbayList = Arrays.asList("373131011056");
-        int startItemNumberEbay = 236;
+    	List<String> itemNumberEbayList = Arrays.asList("313160996654");
+        int startItemNumberEbay = 237;
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
         	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);

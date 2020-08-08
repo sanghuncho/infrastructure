@@ -17,7 +17,7 @@ public class EbayAuctionService {
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "05.08.2020";
+        var paramDate = "06.08.2020";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -25,34 +25,34 @@ public class EbayAuctionService {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 125.99;
+        double first_ItemPriceEuro = 18.00;
         //적립금
-        int first_lastSavedMoney = 153500;
+        int first_lastSavedMoney = -47500;
         // 직접 수령
         boolean first_SendToMe = false;
         //이베이 셀러 아이디
-        String first_SellerId = "ch-i-38";
+        String first_SellerId = "radiouwe2013";
         //배송
-        String first_ArrivalTitle = "ch-7";
+        String first_ArrivalTitle = "Radiou";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 236;
+        int first_Gkoo_ItemNumber = 237;
         //아이템 이름
-        String first_ItemName = "used pair Telefunken AlNiCo Breitbandlautsprecher";
+        String first_ItemName = "used parts of Graetz Sinfonia";
         //아이템 브랜드 이름
-        String first_BrandName = "Telefunken";
+        String first_BrandName = "No Brand";
         //아이템 개수
-        int first_NumberItem = 2;
+        int first_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P
         String first_PaymentArt = "T";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "Claudia Hofmann";
+        String first_MoneyReceiver = "Schiller Uwe";
         //IBAN
-        String first_IBAN = "DE58100100100126487120";
+        String first_IBAN = "DE54711526800000820258";
         //BIC for Check
-        String first_BIC = "PBNKDEFF";
+        String first_BIC = "BYLADEM1WSB";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "373131011056"; 
+        String first_EbayItemnumber = "313160996654"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
