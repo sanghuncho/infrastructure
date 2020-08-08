@@ -28,14 +28,48 @@ public class GetSchippingCost {
     private static final int PRETTY_PRINT_INDENT_FACTOR = 4;
     public static void main( String[] args ) throws IOException {
         
-        List<String> itemNumberEbayList = Arrays.asList("174375348084");
+        List<String> itemNumberEbayList = Arrays.asList("362711397474");
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
-            retrieveProductData(itemNumberEbayList.get(i));
+            retrieveShippingCostData(itemNumberEbayList.get(i));
         }
     }
     
-    private static void retrieveProductData(String itemNumberEbay) throws IOException {
+    private static void retrieveShippingCostData(String itemNumberEbay) throws IOException {
+        OAuth2Api oauth2Api = new OAuth2Api();
+        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/java/resources/ebay-config.yaml"));
+        OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
+
+        String shopping_url="https://open.api.ebay.com/shopping?callname=GetShippingCosts&responseencoding=XML&appid=SanghunC-gkoo-PRD-1c8e8a00c-ff329d94&siteid=77&version=863&ItemID=" + itemNumberEbay +
+                "&DestinationCountryCode=DE&IncludeDetails=true&QuantitySold=1";
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML }));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+   
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+ 
+        RestTemplate restTemplate = new RestTemplate();
+ 
+        ResponseEntity<String> response = restTemplate.exchange(shopping_url, 
+                HttpMethod.GET, entity, String.class);
+ 
+        String result = response.getBody();
+        JSONObject soapDatainJsonObject = XML.toJSONObject(result);
+        System.out.println(result);
+        System.out.println("");
+        JSONObject itemObjectJson = soapDatainJsonObject.getJSONObject("GetShippingCostsResponse");
+        JSONObject shippingDetails = itemObjectJson.getJSONObject("ShippingDetails");
+        System.out.println(shippingDetails);
+
+        JSONObject shippingServiceOption = shippingDetails.getJSONObject("ShippingServiceOption");
+        System.out.println(shippingServiceOption);
+        JSONObject shippingServiceCost = shippingServiceOption.getJSONObject("ShippingServiceCost");
+        System.out.println(shippingServiceCost.get("content"));
+    }
+    
+    //json array
+    private static void retrieveShippingCostOtherCase(String itemNumberEbay) throws IOException {
         OAuth2Api oauth2Api = new OAuth2Api();
         CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/java/resources/ebay-config.yaml"));
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
@@ -64,17 +98,19 @@ public class GetSchippingCost {
         //System.out.println(itemObjectJson.getJSONObject("ShippingDetails"));
         JSONObject shippingDetails = itemObjectJson.getJSONObject("ShippingDetails");
         System.out.println(shippingDetails);
-        System.out.println(shippingDetails.getJSONArray("ShippingServiceOption"));
-        JSONArray array = shippingDetails.getJSONArray("ShippingServiceOption");
-        
-        for (int i = 0; i < array.length(); ++i) {
 
-            JSONObject jsn = array.getJSONObject(i);
-            System.out.println(jsn.toString());
-        }
-        //String shippingServiceOption = shippingDetails.getString("ShippingServiceOption");
-        //System.out.println(shippingServiceOption);
-        //JSONObject shippingServiceCost = shippingServiceOption.getJSONObject("ShippingServiceCost");
-        //System.out.println(shippingServiceCost.get("content"));
+//        System.out.println(shippingDetails.getJSONArray("ShippingServiceOption"));
+//        JSONArray array = shippingDetails.getJSONArray("ShippingServiceOption");
+//        
+//        for (int i = 0; i < array.length(); ++i) {
+//
+//            JSONObject jsn = array.getJSONObject(i);
+//            System.out.println(jsn.toString());
+//        }
+        
+        JSONObject shippingServiceOption = shippingDetails.getJSONObject("ShippingServiceOption");
+        System.out.println(shippingServiceOption);
+        JSONObject shippingServiceCost = shippingServiceOption.getJSONObject("ShippingServiceCost");
+        System.out.println(shippingServiceCost.get("content"));
     }
 }
