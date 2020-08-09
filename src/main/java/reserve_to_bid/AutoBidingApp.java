@@ -1,4 +1,4 @@
-package opencv;
+package reserve_to_bid;
 
 import java.awt.AWTException;
 import java.awt.Desktop;
@@ -18,8 +18,11 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
@@ -91,6 +94,25 @@ public class AutoBidingApp {
          waitFor(3000);
          screenshot();
          runAutoBidding();
+    }
+    
+    private static void reserveBid(){
+        String endTime = "2020-08-09T06:22:53.000Z";
+        ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
+        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
+        Date auctionEndTimedate = new Date(auctionEndTime.getTime());
+        Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //System.out.println(auctionEndTimedate);
+        System.out.println("입찰마감시간: " + format.format(auctionEndTimedate));
+        
+        ZonedDateTime zonedDateTimeReservation = zonedDateTimeEndAuction.minusMinutes(5L);
+        Date reserveToBidTime =  java.util.Date.from(zonedDateTimeReservation.toInstant());
+        System.out.println("입찰예약시간 독일: " + format.format(reserveToBidTime));
+        
+        ZonedDateTime zonedDateTimeReservationKorea = zonedDateTimeReservation.plusHours(8L);
+        Date reserveToBidTimeKorea =  java.util.Date.from(zonedDateTimeReservationKorea.toInstant());
+        System.out.println("입찰예약시간 한국서버: " +  format.format(reserveToBidTimeKorea));
+        
     }
     
     public static void download(String urlString) throws IOException {
