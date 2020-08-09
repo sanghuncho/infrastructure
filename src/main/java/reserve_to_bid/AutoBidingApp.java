@@ -57,15 +57,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
  * https://docs.opencv.org/2.4/doc/tutorials/introduction/java_eclipse/java_eclipse.html
  */
 public class AutoBidingApp {
+    public static String BID_ITEM_URL = 
+            "https://www.ebay.de/itm/Isophon-Exponential-Hochtoner-DKT11-C110-8/154022843318?hash=item23dc7a13b6:g:9V0AAOSwnGFfHu6v";
+    public static int BID_VALUE = 27;
+    
     public static final int INPUT_BID_HEIGHT = 40;
     public static final int BROWSER_TAB_HEIGHT = 50;
     
     public static final int BID_BTN_WIDTH_CENTER = 36;
     public static final int BID_BTN_HEIGHT_CENTER = 16;
-    public static String link = 
-            "https://www.ebay.de/itm/Isophon-Exponential-Hochtoner-DKT11-C110-8/154022843318?hash=item23dc7a13b6:g:9V0AAOSwnGFfHu6v";
-    public static int BID_VALUE = 27;
-    public static String buyItemHtml = "C:/Users/sanghuncho/Documents/Gkoo/buyItem.html";
+    
+    public static String BID_ITEM_HTML = "C:/Users/sanghuncho/Documents/Gkoo/bidItem.html";
     public static void main(String[] args) throws ParseException, IOException, AWTException {
 //      try {
 //          screenshot();
@@ -90,7 +92,7 @@ public class AutoBidingApp {
         
 //      Robot robot = new Robot();
 //      robot.mouseMove(913, 613);
-         download(link);
+         download(BID_ITEM_URL);
          waitFor(3000);
          screenshot();
          runAutoBidding();
@@ -119,7 +121,7 @@ public class AutoBidingApp {
         URL url = new URL(urlString);
         try(
            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-           BufferedWriter writer = new BufferedWriter(new FileWriter(buyItemHtml));
+           BufferedWriter writer = new BufferedWriter(new FileWriter(BID_ITEM_HTML));
         ) {
            String line;
            while ((line = reader.readLine()) != null) {
@@ -134,7 +136,7 @@ public class AutoBidingApp {
          WebDriver driver=new ChromeDriver();
          driver.manage().window().maximize();
          //driver.get(link);
-         driver.get(buyItemHtml);
+         driver.get(BID_ITEM_HTML);
          File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
          FileUtils.copyFile(src, new File("C:/Users/sanghuncho/Documents/Gkoo/screenshot.jpg"));
          driver.close();
@@ -160,7 +162,7 @@ public class AutoBidingApp {
           Thread.sleep(3000);
       } catch(InterruptedException e){ }
         
-        openWeb(link);
+        openWeb(BID_ITEM_URL);
         
         try{
             Thread.sleep(10000);
@@ -353,7 +355,7 @@ public class AutoBidingApp {
             }
         } else {
             System.out.println("confirm button can not be found: " + "[" + mmrConfirm.maxVal + "]" );
-            System.out.println("link: " + link);
+            System.out.println("link: " + BID_ITEM_URL);
             System.out.println("Bid: " + BID_VALUE);
             finished = false;
         }
