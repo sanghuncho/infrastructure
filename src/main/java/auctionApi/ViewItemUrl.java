@@ -34,31 +34,31 @@ public class ViewItemUrl {
     private static final int PRETTY_PRINT_INDENT_FACTOR = 4;
     public static void main( String[] args ) throws IOException {
         
-        List<String> itemNumberEbayList = Arrays.asList("174375341563");
+//        List<String> itemNumberEbayList = Arrays.asList("164320800857");
+//        
+//        for (int i=0; i< itemNumberEbayList.size(); i++) {
+//            retrieveProductData(itemNumberEbayList.get(i));
+//        }
         
-        for (int i=0; i< itemNumberEbayList.size(); i++) {
-            retrieveProductData(itemNumberEbayList.get(i));
-        }
-        
-        //reserveBid();
+        reserveBid();
     }
     
     private static void reserveBid(){
         String endTime = "2020-08-09T06:22:53.000Z";
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(endTime);
-        Date bidTime =  java.util.Date.from(zonedDateTime.toInstant());
-        Date date = new Date(bidTime.getTime());
+        ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
+        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
+        Date auctionEndTimedate = new Date(auctionEndTime.getTime());
         Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(date);
-        System.out.println(format.format(date));
+        //System.out.println(auctionEndTimedate);
+        System.out.println("입찰마감시간: " + format.format(auctionEndTimedate));
         
-        ZonedDateTime zonedDateTimeBefore = zonedDateTime.minusMinutes(5L);
-        Date bidEndTime =  java.util.Date.from(zonedDateTimeBefore.toInstant());
-        System.out.println(format.format(bidEndTime));
+        ZonedDateTime zonedDateTimeReservation = zonedDateTimeEndAuction.minusMinutes(5L);
+        Date reserveToBidTime =  java.util.Date.from(zonedDateTimeReservation.toInstant());
+        System.out.println("입찰예약시간 독일: " + format.format(reserveToBidTime));
         
-        ZonedDateTime zonedDateTimeKorea = zonedDateTime.plusHours(8L);
-        Date bidEndTimeKorea =  java.util.Date.from(zonedDateTimeKorea.toInstant());
-        System.out.println("Korea: " + format.format(bidEndTimeKorea));
+        ZonedDateTime zonedDateTimeReservationKorea = zonedDateTimeReservation.plusHours(8L);
+        Date reserveToBidTimeKorea =  java.util.Date.from(zonedDateTimeReservationKorea.toInstant());
+        System.out.println("입찰예약시간 한국서버: " +  format.format(reserveToBidTimeKorea));
         
     }
     
