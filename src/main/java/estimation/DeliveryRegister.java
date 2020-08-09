@@ -41,6 +41,8 @@ public class DeliveryRegister {
         sb.append(onePrice);
         sb.append("\n");
         sb.append(arrivalTitle);
+        sb.append("\n");
+        sb.append(" ==> check excel file!");
         
         return sendToMe ? "직접 수령" : sb.toString();
     }

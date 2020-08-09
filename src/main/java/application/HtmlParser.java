@@ -11,21 +11,23 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class HtmlParser {
+    private static final String DIR_HTML = "C:/Users/sanghuncho/Documents/Gkoo/ILogYou Express.html";
     public static void main( String[] args ) throws IOException {
     	List<String> itemTitleList = 
     			Arrays.asList(
+    			        "pauls", //Heinos 150, 161 :OK
+    			        "profan",//156 :OK
+    			        "mechanic", //157 :OK
     					"Jingsaw"
     					,"Prolo"
     					,"Sabine",
-    					"pauls", //Heinos 150, 161
-    					"profan",//156
-    					"mechanic", //157
     					"Didez", //145, 146, 149
     					"Losti", //158
     					"Phono", //159
     					"Tube4", //160
     					"Trackis", //163
     					"V2ap", //164
+    					"ilogexpress-2", //134-2
     					""
     					);
     	
@@ -40,7 +42,7 @@ public class HtmlParser {
     
     private static void getDeliveryData(String itemTitle, StringBuilder results) throws IOException {
     	String title = "ilogexpress " + itemTitle;
-        File input = new File("src/java/resources/ilogexpress.html");
+    	File input = new File(DIR_HTML);
         Document doc = Jsoup.parse(input, "UTF-8", "");
         
         Element content = doc.getElementById("orderlist_b2c_all_entries");

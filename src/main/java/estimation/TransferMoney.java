@@ -35,7 +35,9 @@ public class TransferMoney {
         sb.append("Check!! -- Name, IBAN, BIC, Betrag, Termin, Lieferadresse");
         sb.append("\n");
         sb.append("\n");
-        sb.append("송금신청후 Check bezahlt markiert!!");
+        sb.append("송금 신청후 check bezahlt markiert in ebay!!");
+        sb.append("\n");
+        sb.append(" ==> check excel file!");
         
         return sb.toString();
     }
