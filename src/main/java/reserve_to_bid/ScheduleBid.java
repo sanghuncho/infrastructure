@@ -4,20 +4,21 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ScheduleBid {
-
+    private static final Logger LOGGER = LogManager.getLogger();
     private String ebayItemNumber;
     private String userid;
     private double bidValue;
-    private String reserveToBidTimeKorea;
-    private String alternativeBidTimeKorea;
+    private Date reserveToBidTimeKorea;
     private String endTimeAuctionGER;
     private Timer timer;
     
@@ -33,7 +34,7 @@ public class ScheduleBid {
         this.timer = timer;
     }
     
-    public ScheduleBid setTimer() {
+    public ScheduleBid setTimer() throws ParseException {
         this.timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -42,12 +43,8 @@ public class ScheduleBid {
         };
 
         reserveToBidTimeKorea = reserveToBidTimekorea(endTimeAuctionGER);
+        timer.schedule(timerTask, reserveToBidTimeKorea);
         
-        try {
-        	timer.schedule(timerTask, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(reserveToBidTimeKorea));
-        } catch (ParseException e) {
-            //logger
-        }
         return this;
     }
     
@@ -73,6 +70,10 @@ public class ScheduleBid {
         return this.timer;
     }
     
+    public Date getReserveToBidTimeKorea() {
+        return this.reserveToBidTimeKorea;
+    }
+    
     public ScheduleBid setBidValue(double bidValue) {
         this.bidValue = bidValue;
         return this;
@@ -83,7 +84,7 @@ public class ScheduleBid {
         return this;
     }
     
-    public ScheduleBid setReserveToBidTimeKorea(String reserveToBidTimeKorea) {
+    public ScheduleBid setReserveToBidTimeKorea(Date reserveToBidTimeKorea) {
         this.reserveToBidTimeKorea = reserveToBidTimeKorea;
         return this;
     }
@@ -95,24 +96,33 @@ public class ScheduleBid {
     }
 
     public static void main(String [] args) throws ParseException {
+//        String endTime = "2020-08-15T04:22:53.000Z";
+//        ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
+//        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
+//        System.out.println(auctionEndTime);
+//        Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        System.out.println(format.format(auctionEndTime));
+        testScheduleBid();
     }
 
-    private static String reserveToBidTimekorea(String endtimeAuctionGER){
+    private static Date reserveToBidTimekorea(String endtimeAuctionGER){
         //String endTime = "2020-08-09T06:22:53.000Z";
+        Objects.nonNull(endtimeAuctionGER);
         ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endtimeAuctionGER);
-        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
-        Date auctionEndTimedate = new Date(auctionEndTime.getTime());
-        Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("입찰마감시간 독일: " + format.format(auctionEndTimedate));
+//        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
+//        Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        System.out.println("입찰마감시간 독일: " + format.format(auctionEndTime));
         
-        ZonedDateTime zonedDateTimeReservation = zonedDateTimeEndAuction.minusMinutes(5L);
-        Date reserveToBidTime =  java.util.Date.from(zonedDateTimeReservation.toInstant());
-        System.out.println("입찰예약시간 독일: " + format.format(reserveToBidTime));
-        
-        ZonedDateTime zonedDateTimeReservationKorea = zonedDateTimeReservation.plusHours(8L);
-        Date reserveToBidTimeKorea =  java.util.Date.from(zonedDateTimeReservationKorea.toInstant());
-        System.out.println("입찰예약시간 한국서버: " +  format.format(reserveToBidTimeKorea));
-        return format.format(reserveToBidTimeKorea);
+        //before 5 minutes
+//        ZonedDateTime zonedDateTimeReservation = zonedDateTimeEndAuction.minusMinutes(5L);
+//        Date reserveToBidTime =  java.util.Date.from(zonedDateTimeReservation.toInstant());
+//        System.out.println("입찰예약시간 독일: " + format.format(reserveToBidTime));
+//
+//        ZonedDateTime zonedDateTimeReservationKorea = zonedDateTimeReservation.plusHours(8L);
+//        Date reserveToBidTimeKorea =  java.util.Date.from(zonedDateTimeReservationKorea.toInstant());
+//        System.out.println("입찰예약시간 한국서버: " +  format.format(reserveToBidTimeKorea));
+        Date result = ScheduleBidPlaner.getReservedBidTimeKorea(zonedDateTimeEndAuction);
+        return result;
     }
 
     private static void testScheduleBid() throws ParseException {
@@ -125,17 +135,23 @@ public class ScheduleBid {
                 //autoBidding algorithmus starts
             }
         };
-        timer1.schedule(timerTask1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-07 11:15:10"));
+        String endTime = "2020-08-15T05:02:53.000Z";
+        ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
+        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
+        System.out.println(auctionEndTime);
+        
+        timer1.schedule(timerTask1, auctionEndTime);
+        //timer1.schedule(timerTask1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-07 11:15:10"));
 
         Timer task2 = new Timer();
         Timer task3 = new Timer();
         
-        timerList.add(task2);
-        timerList.add(task3);
+//        timerList.add(task2);
+//        timerList.add(task3);
         
-        Date date = new Date(timerTask1.scheduledExecutionTime());
-        Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
-        System.out.println(format.format(date));
+//        Date date = new Date(timerTask1.scheduledExecutionTime());
+//        Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+//        System.out.println(format.format(date));
         
         task2.schedule(new TimerTask() {
             public void run() {
@@ -145,7 +161,7 @@ public class ScheduleBid {
         
         task3.schedule(new TimerTask() {
             public void run() {
-                timerList.get(1).cancel();
+//                timerList.get(1).cancel();
                 System.out.println("cancel task2");
             }
         }, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-08-07 11:15:20"));
