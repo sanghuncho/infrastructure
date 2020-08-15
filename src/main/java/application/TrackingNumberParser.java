@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class HtmlParser {
+public class TrackingNumberParser {
     private static final String DIR_HTML = "C:/Users/sanghuncho/Documents/Gkoo/ILogYou Express.html";
     public static void main( String[] args ) throws IOException {
     	List<String> itemTitleList = 
@@ -18,6 +18,7 @@ public class HtmlParser {
     			        "pauls", //Heinos 150, 161 :OK
     			        "profan",//156 :OK
     			        "mechanic", //157 :OK
+    			        "Atun", //186, 187 :OK
     					"Jingsaw"
     					,"Prolo"
     					,"Sabine",
@@ -28,6 +29,8 @@ public class HtmlParser {
     					"Trackis", //163
     					"V2ap", //164
     					"ilogexpress-2", //134-2
+    					"Mibu21-1", //151-1
+    					"Mibu21-2", //151-2
     					""
     					);
     	
