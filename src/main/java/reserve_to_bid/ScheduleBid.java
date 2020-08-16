@@ -69,7 +69,7 @@ public class ScheduleBid {
                 LOGGER.info("autoBid starts..");
                 AutoBidingApp autoBidingApp =  new AutoBidingApp(ebayItemNumber, (int) bidValue);
                 try {
-                    autoBidingApp.run(ebayItemNumber, (int) bidValue);
+                    autoBidingApp.run();
                 } catch (IOException e) {
                     LOGGER.info("Error starting autoBid!");
                 }

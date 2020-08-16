@@ -102,8 +102,8 @@ public class AutoBidingApp {
         return bidValue;
     }
     
-    public void run(String ebayItemNumber, int bidValue) throws IOException {
-        String item_url = retrieveProductURLForNaturalSearch(ebayItemNumber);
+    public void run() throws IOException {
+        String item_url = retrieveProductURLForNaturalSearch(itemNumberEbay);
         openWeb(item_url);
         waitFor(SECOND_5);
         getScreenshot();
