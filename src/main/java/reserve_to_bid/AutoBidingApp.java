@@ -73,6 +73,7 @@ public class AutoBidingApp {
     public static final int BID_BTN_WIDTH_CENTER = 36;
     public static final int BID_BTN_HEIGHT_CENTER = 16;
     
+    private final boolean TEST_VERSION = true;
     private static final int SECOND_1 = 1000;
     private static final int SECOND_2 = 2000;
     private static final int SECOND_5 = 5000;
@@ -105,7 +106,7 @@ public class AutoBidingApp {
     public void run() throws IOException {
         String item_url = retrieveProductURLForNaturalSearch(itemNumberEbay);
         openWeb(item_url);
-        waitFor(SECOND_5);
+        waitFor(TEST_VERSION ? SECOND_5 : MINUTE_1);
         getScreenshot();
         
         startAutoBidding(bidValue);
