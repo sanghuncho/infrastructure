@@ -20,6 +20,8 @@ public class ScheduleBidPlaner {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static final long HALF_INTERVAL = 3L;
     public static List<ScheduleBid> scheduleBidList = new ArrayList<>();
+    private static final long NORMAL_JETLAG = 8L;
+    private static final long SUMMERTIME_JETLAG = 7L;
     
     public void cancelScheduleBid(String ebayItemNumber, String userid) {
     	Objects.nonNull(ebayItemNumber);
@@ -44,7 +46,8 @@ public class ScheduleBidPlaner {
             afterZonedDateTimeReservation = zonedDateTimeEndAuction.plusMinutes(HALF_INTERVAL);
         }
         
-        Date reserveToBidTimeKorea =  java.util.Date.from(beforeZonedDateTimeReservation.toInstant());
+        ZonedDateTime zonedDateTimeReservation = beforeZonedDateTimeReservation.plusHours(NORMAL_JETLAG);
+        Date reserveToBidTimeKorea =  java.util.Date.from(zonedDateTimeReservation.toInstant());
         return reserveToBidTimeKorea;
     }
     

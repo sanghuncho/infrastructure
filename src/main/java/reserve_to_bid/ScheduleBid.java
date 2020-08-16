@@ -1,5 +1,6 @@
 package reserve_to_bid;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,15 +19,16 @@ public class ScheduleBid {
     private String ebayItemNumber;
     private String userid;
     private double bidValue;
-    private Date reserveToBidTimeKorea;
     private String endTimeAuctionGER;
+    private Date reserveToBidTimeKorea;
     private Timer timer;
     
     public ScheduleBid(){
         
     }
     
-    public ScheduleBid(String ebayItemNumber, String userid, double bidValue, String endTimeAuctionGER, Timer timer){
+    public ScheduleBid(String ebayItemNumber, String userid, double bidValue,
+            String endTimeAuctionGER, Timer timer){
         this.ebayItemNumber = ebayItemNumber;
         this.userid = userid;
         this.bidValue = bidValue;
@@ -34,32 +36,59 @@ public class ScheduleBid {
         this.timer = timer;
     }
     
-    public ScheduleBid setTimer() throws ParseException {
+    public ScheduleBid withEbayItemNumber(String itemNumber) {
+        this.ebayItemNumber = itemNumber;
+        return this;
+    }
+    
+    public ScheduleBid withUserid(String userid) {
+        this.userid = userid;
+        return this;
+    }
+    
+    public ScheduleBid withBidValue(double bidValue) {
+        this.bidValue = bidValue;
+        return this;
+    }
+    
+    public ScheduleBid withEndTimeAuctionGER(String endTimeAuctionGER) {
+        this.endTimeAuctionGER = endTimeAuctionGER;
+        return this;
+    }
+    
+    public ScheduleBid withReserveToBidTimeKorea() {
+        this.reserveToBidTimeKorea = reserveToBidTimekorea(endTimeAuctionGER);
+        LOGGER.info("reserved time:" + reserveToBidTimeKorea);
+        return this;
+    }
+    
+    public ScheduleBid withTimer() throws ParseException {
         this.timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             public void run() {
-                System.out.println("starts autoBidding!");
+                LOGGER.info("autoBid starts..");
+                AutoBidingApp autoBidingApp =  new AutoBidingApp(ebayItemNumber, (int) bidValue);
+                try {
+                    autoBidingApp.run(ebayItemNumber, (int) bidValue);
+                } catch (IOException e) {
+                    LOGGER.info("Error starting autoBid!");
+                }
             }
         };
 
-        reserveToBidTimeKorea = reserveToBidTimekorea(endTimeAuctionGER);
+        //reserveToBidTimeKorea = reserveToBidTimekorea(endTimeAuctionGER);
         timer.schedule(timerTask, reserveToBidTimeKorea);
         
         return this;
     }
     
-    public ScheduleBid setEbayItemNumber(String itemNumber) {
-        this.ebayItemNumber = itemNumber;
-        return this;
+    public ScheduleBid build() {
+        ScheduleBid scheduleBid = new ScheduleBid(ebayItemNumber, userid, bidValue, endTimeAuctionGER, timer);
+        return scheduleBid;
     }
     
     public String getEbayItemNumber() {
         return this.ebayItemNumber;
-    }
-    
-    public ScheduleBid setUserid(String userid) {
-        this.userid = userid;
-        return this;
     }
     
     public String getUserid() {
@@ -74,35 +103,19 @@ public class ScheduleBid {
         return this.reserveToBidTimeKorea;
     }
     
-    public ScheduleBid setBidValue(double bidValue) {
-        this.bidValue = bidValue;
-        return this;
-    }
-    
-    public ScheduleBid setEndTimeAuctionGER(String endTimeAuctionGER) {
-        this.endTimeAuctionGER = endTimeAuctionGER;
-        return this;
-    }
-    
-    public ScheduleBid setReserveToBidTimeKorea(Date reserveToBidTimeKorea) {
-        this.reserveToBidTimeKorea = reserveToBidTimeKorea;
-        return this;
-    }
-    
-    public ScheduleBid build() {
-        ScheduleBid scheduleBid = new ScheduleBid(ebayItemNumber, userid, bidValue, endTimeAuctionGER, timer);
-        ScheduleBidPlaner.scheduleBidList.add(scheduleBid);
-        return scheduleBid;
-    }
-
     public static void main(String [] args) throws ParseException {
-//        String endTime = "2020-08-15T04:22:53.000Z";
-//        ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
-//        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
-//        System.out.println(auctionEndTime);
-//        Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        System.out.println(format.format(auctionEndTime));
-        testScheduleBid();
+        String endTime = "2020-08-15T22:10:53.000Z";
+        ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
+        Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
+        System.out.println(auctionEndTime);
+        Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(format.format(auctionEndTime));
+        
+        ZonedDateTime zonedDateTimeReservationKorea = zonedDateTimeEndAuction.plusHours(8L);
+        Date reservedTime =  java.util.Date.from(zonedDateTimeReservationKorea.toInstant());
+        System.out.println(reservedTime);
+        System.out.println(format.format(reservedTime));
+        //testScheduleBid();
     }
 
     private static Date reserveToBidTimekorea(String endtimeAuctionGER){
