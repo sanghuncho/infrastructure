@@ -42,9 +42,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import ru.yandex.qatools.ashot.AShot;
-import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 /**
  * @author sanghuncho
@@ -80,7 +77,6 @@ public class AutoBidingApp {
     private static final int SECOND_2 = 2000;
     private static final int SECOND_5 = 5000;
     private static final int MINUTE_1 = SECOND_1*60;
-    private static final int MINUTE_2 = MINUTE_1*2;
     
     private String itemNumberEbay;
     private int bidValue;
@@ -121,7 +117,6 @@ public class AutoBidingApp {
          int bidValue = 242;
          
          //String item_url = "https://www.ebay.de/itm/Apple-Watch-Series-4-44mm-Edelstahlgehaeuse-Space-Schwarz-Sportarmband-/254682192681";
-         
          //download(item_url);
          //openWebDownload(item_url);
          //waitFor(MINUTE_1);
@@ -151,7 +146,6 @@ public class AutoBidingApp {
         //System.out.println(result);
         JSONObject itemObjectJson = soapDatainJsonObject.getJSONObject("GetSingleItemResponse");
         JSONObject itemObjectContentJson = itemObjectJson.getJSONObject("Item");
-        //System.out.println(itemObjectContentJson.getString("ViewItemURLForNaturalSearch"));
         LOGGER.info("ItemURL: " + itemObjectContentJson.getString("ViewItemURLForNaturalSearch"));
         return itemObjectContentJson.getString("ViewItemURLForNaturalSearch");
     }
@@ -328,7 +322,6 @@ public class AutoBidingApp {
         Robot robot = new Robot();
         int intX = (int) x;
         int intY = (int) y;
-        //170. 36
         robot.mouseMove(intX + 85, intY + 18);
         waitFor(SECOND_1);
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
@@ -342,7 +335,6 @@ public class AutoBidingApp {
         Mat template=null;
         source = Imgcodecs.imread(FILE_PATH + "screenshot.jpg");
         template = Imgcodecs.imread("src/java/resources/bidButton.jpg");
-        //template = Imgcodecs.imread("src/java/resources/confirmButton.jpg");
     
         Mat outputImage=new Mat();    
         int machMethod=Imgproc.TM_CCOEFF_NORMED;
