@@ -78,6 +78,7 @@ public class AutoBidingApp {
     private static final int SECOND_2 = 2000;
     private static final int SECOND_5 = 5000;
     private static final int MINUTE_1 = SECOND_1*60;
+    private static final int MINUTE_2 = MINUTE_1*2;
     
     private String itemNumberEbay;
     private int bidValue;
@@ -106,16 +107,16 @@ public class AutoBidingApp {
     public void run() throws IOException {
         String item_url = retrieveProductURLForNaturalSearch(itemNumberEbay);
         openWeb(item_url);
-        waitFor(TEST_VERSION ? SECOND_5 : MINUTE_1);
+        waitFor(TEST_VERSION ? SECOND_5 : MINUTE_2);
         getScreenshot();
         
         startAutoBidding(bidValue);
     }
     
     public static void main(String[] args) throws ParseException, IOException, AWTException, URISyntaxException {
-         String itemNumberEbay = "203076918646";
+         String itemNumberEbay = "184391078882";
          String item_url = retrieveProductURLForNaturalSearch(itemNumberEbay);
-         int bidValue = 242;
+         int bidValue = 250;
          
          //String item_url = "https://www.ebay.de/itm/Apple-Watch-Series-4-44mm-Edelstahlgehaeuse-Space-Schwarz-Sportarmband-/254682192681";
          //download(item_url);

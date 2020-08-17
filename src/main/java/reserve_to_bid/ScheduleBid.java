@@ -104,7 +104,7 @@ public class ScheduleBid {
     }
     
     public static void main(String [] args) throws ParseException {
-        String endTime = "2020-08-15T22:10:53.000Z";
+        String endTime = "2020-08-17T05:03:50.000Z";
         ZonedDateTime zonedDateTimeEndAuction = ZonedDateTime.parse(endTime);
         Date auctionEndTime =  java.util.Date.from(zonedDateTimeEndAuction.toInstant());
         System.out.println(auctionEndTime);
