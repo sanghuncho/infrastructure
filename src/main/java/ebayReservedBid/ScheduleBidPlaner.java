@@ -1,4 +1,4 @@
-package reserve_to_bid;
+package ebayReservedBid;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

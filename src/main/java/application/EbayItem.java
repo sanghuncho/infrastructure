@@ -1,6 +1,6 @@
 package application;
 
-import estimation.TransferMoney;
+import ebayService.TransferMoney;
 
 public class EbayItem {
 	private String purchaseDate;

@@ -1,4 +1,4 @@
-package auctionApi;
+package ebayApi;
 
 import java.io.FileInputStream;
 import java.io.IOException;

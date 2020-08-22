@@ -3,7 +3,7 @@ package application;
 import java.io.IOException;
 import java.util.ArrayList;
 import application.DeliveryMoneyTransfer.TransferMoney;
-import delivery.RowExcelDeliveryWeight;
+import ebayService.RowExcelDeliveryWeight;
 import util.Formatter;
 
 /**
@@ -24,27 +24,27 @@ public class DeliveryCalculator {
         //TODO : 합포장시 3000원추가 
         
         //배송 날짜
-        var paramDate = "26.07.2020";
+        var paramDate = "18.08.2020";
         
         //적립금
-        var pramLastSaved = 804400;
+        var pramLastSaved = 194800;
         
         ////////배송상품 1
         //ilogexpress ilogexpress-1
         //58.00cm x  51.00cm x  31.00cm,   9.20Kg
         //43.80
         String title_one = "Tube4";
-        VolumeWeight volumeWeight_one = new VolumeWeight(48, 40, 36);
-        double realWeight_one = 4.95;
-        double deliveryPrice_one = 32.40;
+        VolumeWeight volumeWeight_one = new VolumeWeight(48, 20, 19);
+        double realWeight_one = 1.0;
+        double deliveryPrice_one = 10.80;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
         //지쿠 아이템번호
-        var paramItemNumber = 160;
+        var paramItemNumber = 12;
         //송장번호
         var paramTrackingNumber = "";
         //배송무게
-        var paramDeliveryWeight = 12;
+        var paramDeliveryWeight = 3;
         ////////배송상품 1
         
         //--------------------------------------

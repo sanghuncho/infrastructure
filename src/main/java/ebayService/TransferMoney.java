@@ -1,4 +1,4 @@
-package estimation;
+package ebayService;
 
 public class TransferMoney {
     private String moneyReceiver;

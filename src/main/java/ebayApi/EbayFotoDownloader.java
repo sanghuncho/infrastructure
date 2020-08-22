@@ -1,4 +1,4 @@
-package auctionApi;
+package ebayApi;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -30,7 +30,7 @@ import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
 * @since  27.06.2020
 *
 */
-public class ApiApp {
+public class EbayFotoDownloader {
     //NOTE: Change this env to Environment.PRODUCTION to run this test in PRODUCTION
     private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
     private static final String IMAGE_DIR_HOME = "C:/Users/sanghuncho/Pictures/ebay/";
@@ -42,8 +42,8 @@ public class ApiApp {
     
     public static void main( String[] args ) throws IOException {
         
-    	List<String> itemNumberEbayList = Arrays.asList("353159508547");
-        int startItemNumberEbay = 251;
+    	List<String> itemNumberEbayList = Arrays.asList("224111632120");
+        int startItemNumberEbay = 256;
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
         	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);

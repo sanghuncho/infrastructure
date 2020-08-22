@@ -1,4 +1,4 @@
-package auctionApi;
+package ebayApi;
 
 //import javafx.application.Application;
 //import javafx.event.ActionEvent;

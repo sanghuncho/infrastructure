@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import application.EbayItem.TransferData;
-import estimation.DeliveryRegister;
-import estimation.EbayCalculator;
-import estimation.EbayDelivery;
-import estimation.TransferMoney;
+import ebayService.DeliveryRegister;
+import ebayService.EbayCalculator;
+import ebayService.EbayDelivery;
+import ebayService.TransferMoney;
 
-public class EbayAuctionService {
+public class EbayAuctionBuyingCalculator {
     public static double excahgeRateEuro = 1450;
     private static String DeliveryCompany = 
             "http://www.ilogexpress.com/login";
@@ -17,7 +17,7 @@ public class EbayAuctionService {
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "16.08.2020";
+        var paramDate = "21.08.2020";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -25,35 +25,35 @@ public class EbayAuctionService {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 119.00;
+        double first_ItemPriceEuro = 38.99;
         //적립금
-        int first_lastSavedMoney = 437300;
+        int first_lastSavedMoney = 753700;
         // 직접 수령
         boolean first_SendToMe = false;
         //이베이 셀러 아이디
-        String first_SellerId = "tenebor";
+        String first_SellerId = "floriaspengle-9";
         //배송
-        String first_ArrivalTitle = "Tenebor";
+        String first_ArrivalTitle = "Floria";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 251;
+        int first_Gkoo_ItemNumber = 256;
         //아이템 이름
-        String first_ItemName = "used Echolette LE4 vintage PA-speaker parts";
+        String first_ItemName = "used Dr Böhm Speakers Pair 30cm";
         //ToDO: translation to englisch
         //아이템 브랜드 이름
-        String first_BrandName = "Echolette";
+        String first_BrandName = "No brand";
         //아이템 개수
-        int first_NumberItem = 3;
+        int first_NumberItem = 2;
         //결제수단 송금 : T, 페이팔 : P
-        String first_PaymentArt = "T";
+        String first_PaymentArt = "P";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "Eugen Kohut-Galla";
+        String first_MoneyReceiver = "harald Jährig";
         //IBAN
-        String first_IBAN = "DE58692500351055136558";
+        String first_IBAN = "DE29120400000049313000";
         //BIC for Check
-        String first_BIC = "SOLADES1SNG";
+        String first_BIC = "COBADEBB120";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "353159508547"; 
+        String first_EbayItemnumber = "193603648761 193603661560"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         

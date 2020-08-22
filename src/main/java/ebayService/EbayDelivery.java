@@ -1,4 +1,4 @@
-package estimation;
+package ebayService;
 
 /**
 * 배송내역

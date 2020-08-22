@@ -3,16 +3,16 @@ package application;
 import java.io.IOException;
 import util.Formatter;
 
-public class EbayDeposit {
+public class EbayDepositCalculator {
     public static void main( String[] args ) throws IOException {
         //입금 날짜
-        String paramDate = "09.08.2020";
+        String paramDate = "19.08.2020";
         
         //입금액
         int paramDepositMoney = 700000;
         
         //적립금
-        int pramLastSaved = -86600;
+        int pramLastSaved = 147900;
         
         System.out.println("## 입금내역");
         System.out.println(convertRowExcelDeposit(paramDate, paramDepositMoney, pramLastSaved));

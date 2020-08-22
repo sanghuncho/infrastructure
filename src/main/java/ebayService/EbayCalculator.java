@@ -1,7 +1,7 @@
-package estimation;
+package ebayService;
 
-import application.EbayAuctionService;
-import application.EbayAuctionService.BuyingserviceCommision;
+import application.EbayAuctionBuyingCalculator;
+import application.EbayAuctionBuyingCalculator.BuyingserviceCommision;
 
 public class EbayCalculator {
    
@@ -49,7 +49,7 @@ public class EbayCalculator {
         String outputDate = date;
         int lastSavedMoney = lastSaved;
         int outputItemPriceKorea = (int)getItemPriceKorea(itemPriceEuro);
-        int outputCommision = getCommision(EbayAuctionService.excahgeRateEuro, itemPriceEuro);
+        int outputCommision = getCommision(EbayAuctionBuyingCalculator.excahgeRateEuro, itemPriceEuro);
         int resultItemPrice = (outputItemPriceKorea + outputCommision);
         int lastRemainedMoney = (lastSavedMoney - resultItemPrice);
         
@@ -106,7 +106,7 @@ public class EbayCalculator {
     }
     
     public double getItemPriceKorea(double itemPriceEuro) {
-        double result = itemPriceEuro*(EbayAuctionService.excahgeRateEuro);
+        double result = itemPriceEuro*(EbayAuctionBuyingCalculator.excahgeRateEuro);
         int ceiledResult = mathCeilDigit(ROUNDED_DIGIT, result);
         return ceiledResult;
     }
