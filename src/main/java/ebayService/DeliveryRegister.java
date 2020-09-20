@@ -1,5 +1,7 @@
 package ebayService;
 
+import application.EbayAuctionBuyingCalculator.Shipping_Address;
+
 /**
 *
 * 배송회사 등록 정보 
@@ -16,17 +18,17 @@ public class DeliveryRegister {
     private int numberItem;
     private double onePrice;
     private String arrivalTitle;
-    private boolean sendToMe;
+    private Shipping_Address shippingAddress;
     
     public DeliveryRegister(String itemName, String brandName, String site,
-            int numerberItem, double onePrice, String arrivalTitle, boolean sendToMe) {
+            int numerberItem, double onePrice, String arrivalTitle, Shipping_Address shippingAddress) {
         this.itemName = itemName;
         this.brandName = brandName;
         this.site = site;
         this.numberItem = numerberItem;
         this.onePrice = onePrice;
         this.arrivalTitle = arrivalTitle;
-        this.sendToMe = sendToMe;
+        this.shippingAddress = shippingAddress;
     }
     
     public String convertRowExcel() {
@@ -44,7 +46,7 @@ public class DeliveryRegister {
         sb.append("\n");
         sb.append(" ==> check excel file!");
         
-        return sendToMe ? "직접 수령" : sb.toString();
+        return shippingAddress == Shipping_Address.ILOG ? sb.toString() :"직접 수령";
     }
 
 }

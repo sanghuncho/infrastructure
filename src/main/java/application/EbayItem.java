@@ -1,5 +1,6 @@
 package application;
 
+import application.EbayAuctionBuyingCalculator.Shipping_Address;
 import ebayService.TransferMoney;
 
 public class EbayItem {
@@ -8,7 +9,7 @@ public class EbayItem {
     private String purchaseSite;
     private double itemPriceEuro;
     // 직접 수령
-    private boolean sendToMe;
+    private Shipping_Address shippingAddress;
     //이베이 셀러 아이디
     private String sellerId;
     //배송
@@ -26,14 +27,14 @@ public class EbayItem {
     
     private TransferData transferData;
     
-    public EbayItem (String purchaseDate, int lastSavedMoney, String purchaseSite, double itemPriceEuro, boolean sendToMe, 
+    public EbayItem (String purchaseDate, int lastSavedMoney, String purchaseSite, double itemPriceEuro, Shipping_Address shippingAddress, 
             String sellerId, String arrivalTitle, int gkooItemNumber, String itemName,
             String brandName, int numberOfItem, String paymentArt, TransferData transferData) {
     	this.purchaseDate = purchaseDate;
     	this.lastSavedMoney = lastSavedMoney;
     	this.purchaseSite = purchaseSite;
     	this.itemPriceEuro = itemPriceEuro;
-    	this.sendToMe = sendToMe;
+    	this.setShippingAddress(shippingAddress);
         this.sellerId = sellerId;
         this.arrivalTitle = arrivalTitle;
         this.gkooItemNumber = gkooItemNumber;
@@ -66,14 +67,6 @@ public class EbayItem {
 
 	public void setItemPriceEuro(double itemPriceEuro) {
 		this.itemPriceEuro = itemPriceEuro;
-	}
-
-	public boolean isSendToMe() {
-		return sendToMe;
-	}
-
-	public void setSendToMe(boolean sendToMe) {
-		this.sendToMe = sendToMe;
 	}
 
 	public String getSellerId() {
@@ -146,6 +139,14 @@ public class EbayItem {
 
     public void setTransferData(TransferData transferData) {
         this.transferData = transferData;
+    }
+
+    public Shipping_Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Shipping_Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     public static class TransferData {

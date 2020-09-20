@@ -30,8 +30,8 @@ public class EbayAuctionBuyingCalculator {
         //적립금
         int first_lastSavedMoney = 248300;
         
-        // 배송지 설정 아이로그, 회사 , March 집
-        boolean first_SendToMe = false;
+        // 배송지 설정 ILOG, ISYS , MARCHI
+        Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
         String first_SellerId = "occasio-praeceps";
@@ -61,7 +61,7 @@ public class EbayAuctionBuyingCalculator {
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
         EbayItem first_ebayItem = new EbayItem(paramDate, first_lastSavedMoney, purchaseSite, first_ItemPriceEuro,
-                first_SendToMe, first_SellerId, first_ArrivalTitle, first_Gkoo_ItemNumber,
+                first_Shipping_Address, first_SellerId, first_ArrivalTitle, first_Gkoo_ItemNumber,
                 first_ItemName, first_BrandName, first_NumberItem, first_PaymentArt, first_transferData);
         
         //### SECOND ITEM
@@ -69,8 +69,10 @@ public class EbayAuctionBuyingCalculator {
         double second_ItemPriceEuro = 48.96;
         //적립금
         int second_lastSavedMoney = 244700;
-        // 직접 수령
-        boolean second_SendToMe = false;
+        
+        // 배송지 설정 ILOG, ISYS , MARCHI
+        Shipping_Address second_Shipping_Address = Shipping_Address.ILOG;
+        
         //이베이 셀러 아이디
         String second_SellerId = "slotcar-de";
         //배송
@@ -97,7 +99,7 @@ public class EbayAuctionBuyingCalculator {
         TransferData second_transferData = new TransferData(second_MoneyReceiver, second_IBAN, second_BIC, second_EbayItemnumber);
         
         EbayItem second_ebayItem = new EbayItem(paramDate, second_lastSavedMoney, purchaseSite, second_ItemPriceEuro,
-                second_SendToMe, second_SellerId, second_ArrivalTitle, second_Gkoo_ItemNumber,
+                second_Shipping_Address, second_SellerId, second_ArrivalTitle, second_Gkoo_ItemNumber,
                 second_ItemName, second_BrandName, second_NumberItem, second_PaymentArt, second_transferData);
         
         //### THIRD ITEM
@@ -105,8 +107,10 @@ public class EbayAuctionBuyingCalculator {
         double third_ItemPriceEuro = 48.96;
         //적립금
         int third_lastSavedMoney = 244700;
-        // 직접 수령
-        boolean third_SendToMe = false;
+        
+        // 배송지 설정 ILOG, ISYS , MARCHI
+        Shipping_Address third_Shipping_Address = Shipping_Address.ILOG;
+        
         //이베이 셀러 아이디
         String third_SellerId = "slotcar-de";
         //배송
@@ -119,7 +123,7 @@ public class EbayAuctionBuyingCalculator {
         String third_BrandName = "Grundig";
         //아이템 개수
         int third_NumberItem = 6;
-      //결제수단 송금 : T, 페이팔 : P
+        //결제수단 송금 : T, 페이팔 : P
         String third_PaymentArt = "P";
         //송금 수취인 이름
         String third_MoneyReceiver = "";
@@ -133,7 +137,7 @@ public class EbayAuctionBuyingCalculator {
         TransferData third_transferData = new TransferData(third_MoneyReceiver, third_IBAN, third_BIC, third_EbayItemnumber);
         
         EbayItem third_ebayItem = new EbayItem(paramDate, third_lastSavedMoney, purchaseSite, third_ItemPriceEuro,
-                third_SendToMe, third_SellerId, third_ArrivalTitle, third_Gkoo_ItemNumber,
+                third_Shipping_Address, third_SellerId, third_ArrivalTitle, third_Gkoo_ItemNumber,
                 third_ItemName, third_BrandName, third_NumberItem, third_PaymentArt, third_transferData);
         
         StringBuilder results = new StringBuilder(); 
@@ -158,8 +162,8 @@ public class EbayAuctionBuyingCalculator {
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         var paramItemPriceEuro = ebayitem.getItemPriceEuro();
 
-        // 직접 수령
-        boolean sendToMe = ebayitem.isSendToMe();
+        // 배송지 설정 ILOG, ISYS , MARCHI
+        Shipping_Address shippingAddress = ebayitem.getShippingAddress();
         
         //이베이 셀러 아이디
         var paramSellerId = ebayitem.getSellerId();
@@ -205,7 +209,7 @@ public class EbayAuctionBuyingCalculator {
         //이베이 셀러 배송 메세지 확인
         results.append("## 셀러 배송 메세지");
         results.append('\n');
-        results.append(getDeliverySellerMessage(paramArrivalTitle, sendToMe));
+        results.append(getDeliverySellerMessage(paramArrivalTitle, shippingAddress));
         results.append('\n');
 //        System.out.println("## 셀러 배송 메세지");
 //        System.out.println(getDeliverySellerMessage(paramArrivalTitle, sendToMe));
@@ -228,7 +232,7 @@ public class EbayAuctionBuyingCalculator {
 //        System.out.println(calc.convertRowExcel());
               
         //배송내역 변수
-        String arrivalTitle = getArrivalTitle(paramArrivalTitle, sendToMe);
+        String arrivalTitle = getArrivalTitle(paramArrivalTitle, shippingAddress);
         String paymentArt = paramPaymentArt; //결제수단 송금 - 1, 페이팔 - 2
         String sellerId = paramSellerId;
         String brandName = paramBrandName;
@@ -247,7 +251,7 @@ public class EbayAuctionBuyingCalculator {
 //        System.out.println("## 배송내역");
 //        System.out.println(delivery.convertRowExcel());
         
-        DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle, sendToMe);
+        DeliveryRegister delRegi = new DeliveryRegister(itemName, brandName, site, numberItem, onePrice, arrivalTitle, shippingAddress);
         results.append('\n');
         results.append('\n');
         results.append("## 배송등록");
@@ -259,7 +263,7 @@ public class EbayAuctionBuyingCalculator {
         
         if(paramPaymentArt == "T") {
             TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, 
-            		paramEbayItemnumber, paramArrivalTitle, paramBIC, sendToMe);
+            		paramEbayItemnumber, paramArrivalTitle, paramBIC, shippingAddress);
             results.append('\n');
             results.append('\n');
             results.append("## 송금신청");
@@ -281,21 +285,73 @@ public class EbayAuctionBuyingCalculator {
         }
     }
     
-    public static String getArrivalTitle(String paramArrivalTitle, boolean sendToMe) {
-        String arrivalTitle;
-        arrivalTitle = sendToMe ?  "iSYS " +  paramArrivalTitle: "ilogexpress " + paramArrivalTitle;
-        return arrivalTitle;
+    public static String getArrivalTitle(String paramArrivalTitle, Shipping_Address shippingAddress) {
+        String title = null;
+        switch(shippingAddress) {
+            case ILOG:
+                title = "ilogexpress " + paramArrivalTitle;
+                break;
+            case MARCHI:
+                title = "Marchi " + paramArrivalTitle;
+                break;
+            case ISYS:
+                title = "iSYS " + paramArrivalTitle;
+                break;
+        }
+        return title;
     }
     
-    public static String getArrivalTitleForSeller(String paramArrivalTitle, boolean sendToMe) {
-        String arrivalTitle;
-        arrivalTitle = sendToMe ?  "Sanghun Cho, iSYS sofware GmbH" : "ilogexpress " + paramArrivalTitle;
-        return arrivalTitle;
+    public static String getArrivalAddressILOG(String paramArrivalTitle) {
+        return "Hallo," + '\n' 
+                + "Bitte schreiben Sie richtig folgende Adresse und Empfänger auf dem Paket, damit unserer Mitarbeiter dieses Paket sortieren kann." + '\n'
+                + "Empfänger: ilogexpress " + paramArrivalTitle + '\n'
+                + "Adresse:" + '\n'
+                + "Richard Wagner straße.12" + '\n'
+                + "D-65830 Kriftel" + '\n'
+                + "Deutschland" + '\n'
+                + "Danke im Voraus!" + '\n' 
+                + "Mit freundlichen Grüßen";
     }
     
-    public static String getDeliverySellerMessage(String arrivalTitle, boolean sendToMe) {
-        return "Hallo," + '\n' + "Bitte schreiben Sie richtig [ " + getArrivalTitleForSeller(arrivalTitle, sendToMe) +
-                " ] auf Empfänger im Paket, " + '\n' + "damit unserer Mitarbeiter dieses Paket sortieren kann." + '\n' + "Danke im Voraus!" + '\n' + "Mit freundlichen Grüßen";
+    public static String getArrivalAddressISYS(String paramArrivalTitle) {
+        return "Hallo," + '\n' 
+                + "Bitte schreiben Sie richtig folgende Adresse und Empfänger auf dem Paket, damit unserer Mitarbeiter dieses Paket sortieren kann." + '\n'
+                + "Empfänger: Sanghun Cho, iSYS sofware GmbH" + '\n'
+                + "Adresse:" + '\n'
+                + "Grillparzer straße.10" + '\n'
+                + "D-81675 München" + '\n'
+                + "Deutschland" + '\n'
+                + "Danke im Voraus!" + '\n' 
+                + "Mit freundlichen Grüßen";
+    }
+    
+    public static String getArrivalAddressMARCHI(String paramArrivalTitle) {
+        return "Hallo," + '\n' 
+                + "Bitte schreiben Sie richtig folgende Adresse und Empfänger auf dem Paket" + '\n'
+                + "Empfänger: Sanghun Cho" + '\n'
+                + "Adresse:" + '\n'
+                + "Marchionini straße.7, Dachgeshoss" + '\n'
+                + "D-81377 München" + '\n'
+                + "Deutschland" + '\n'
+                + "Danke im Voraus!" + '\n' 
+                + "Mit freundlichen Grüßen";
+    }
+    
+    
+    public static String getDeliverySellerMessage(String arrivalTitle, Shipping_Address shippingAddress) {
+        String message = null;
+        switch(shippingAddress) {
+            case ILOG:
+                message = getArrivalAddressILOG(arrivalTitle);
+                break;
+            case MARCHI:
+                message = getArrivalAddressMARCHI(arrivalTitle);
+                break;
+            case ISYS:
+                message = getArrivalAddressISYS(arrivalTitle);
+                break;
+        }
+        return message;
     }
     
     public static double priceFormat(double price) {
@@ -346,7 +402,7 @@ public class EbayAuctionBuyingCalculator {
         }
     }
     
-    enum Lieferadresse {
-        ILOG, ISYS, MARCH
+    public enum Shipping_Address {
+        ILOG, ISYS, MARCHI
     }
 }

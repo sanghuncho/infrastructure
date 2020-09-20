@@ -1,5 +1,7 @@
 package ebayService;
 
+import application.EbayAuctionBuyingCalculator.Shipping_Address;
+
 public class TransferMoney {
     private String moneyReceiver;
     private String bankIban;
@@ -8,16 +10,27 @@ public class TransferMoney {
     private String usage;
     
     public TransferMoney(String moneyReceiver, String bankIban, double transferAmountMoney,
-            String ebayItemnumber, String arrivalTitle, String bic, boolean sendToMe) {
+            String ebayItemnumber, String arrivalTitle, String bic, Shipping_Address shippingAddress) {
         this.moneyReceiver = moneyReceiver;
         this.bankIban = bankIban;
         this.transferAmountMoney = transferAmountMoney;
-        this.usage = getUsageMessage(ebayItemnumber, arrivalTitle, sendToMe);
+        this.usage = getUsageMessage(ebayItemnumber, arrivalTitle, shippingAddress);
         this.bic = bic;
     }
     
-    private String getUsageMessage(String ebayItemnumber, String arrivalTitle, boolean sendToMe) {
-        String deliveryAddr = sendToMe ? "Sanghun Cho, iSYS software GmbH" : "ilogexpress " + arrivalTitle;
+    private String getUsageMessage(String ebayItemnumber, String arrivalTitle, Shipping_Address shippingAddress) {
+        String deliveryAddr="";
+        switch(shippingAddress) {
+            case ILOG:
+                deliveryAddr = "ilogexpress " + arrivalTitle;
+                break;
+            case MARCHI:
+                deliveryAddr = "Sanghun Cho, Marchionini straße.7";
+                break;
+            case ISYS:
+                deliveryAddr = "Sanghun Cho, iSYS software GmbH";
+                break;
+        }
         return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse:" + deliveryAddr;
     }
     
