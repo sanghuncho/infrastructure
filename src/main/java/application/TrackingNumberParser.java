@@ -15,22 +15,31 @@ public class TrackingNumberParser {
     public static void main( String[] args ) throws IOException {
     	List<String> itemTitleList = 
     			Arrays.asList(
-    			        "pauls", //Heinos 150, 161 :OK
-    			        "profan",//156 :OK
-    			        "mechanic", //157 :OK
-    			        "Atun", //186, 187 :OK
-    					"Jingsaw"
-    					,"Prolo"
-    					,"Sabine",
-    					"Didez", //145, 146, 149
-    					"Losti", //158
-    					"Phono", //159
-    					"Tube4", //160
-    					"Trackis", //163
-    					"V2ap", //164
-    					"ilogexpress-2", //134-2
-    					"Mibu21-1", //151-1
-    					"Mibu21-2", //151-2
+//    			        "pauls", //Heinos 150, 161 :OK
+//    			        "profan",//156 :OK
+//    			        "mechanic", //157 :OK
+//    			        "Atun", //186, 187 :OK
+//    			        "Sabine", //141 :OK
+//    			        "Losti", //158 OK
+    			        //"Didez", //145, 146, 149 :OK
+    			        //"Phono", //159 :OK
+    			        //"Tube4", //160 :OK
+    			        //"Trackis", //163 :OK
+    			        //"V2ap", //164 :OK
+    			        //"Ronja", //165 :OK
+    			        //"Kurprinz", //167 :OK
+    			        //"Schneebaer", //166 :OK
+//    			        "Mibu21-1", //151-1 :OK
+//    			        "Mibu21-2", //151-2 :OK
+    			        "prolo-2", // 같은 이름으로 2개 홈페이지 확인
+    			        "ilogexpress-2", //134-2 jugmusik
+    					"Prolo",
+    					"Sixty",
+    					"Andreas",
+    					"VintagePapa",
+    					"Ohmcounter",
+    					"Xmpoint",
+    					"Jingsaw",//??
     					""
     					);
     	

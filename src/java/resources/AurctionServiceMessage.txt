@@ -88,8 +88,69 @@ Haben Sie schon verschickt?
 Wenn Sie schon verschickt haben, können Sie bei mir die Sendungsnummer mitteilen?
 
 Viele Grüße
- 
+
+...
+
+Hallo
+
+Haben Sie schon verschickt?
+
+Wenn Sie schon verschickt haben, können Sie bei mir die Sendungsnummer mitteilen?
+
+Viele Grüße
 
 
+## 구매전 셀러에게 배송 주소 확인
+
+Hallo
+
+Ich würde vor der Bezahlung die Lieferadresse aufmerksam machen.
+
+Vollständige Lieferadresse:
+ilogexpress GK32
+Richard Wagner str.12
+65830 Kriftel
+Deutschland
+
+Manchmal hat Ebay nicht aktuelle Lieferadresse beim Verkäufer gezeigt, 
+sondern alte Adresse aus Datenbank genommen und dem Verkäufer gezeigt.
+Daher habe ich Schwierigkeit erfahren, dass das Paket nicht sortiert und nicht gefunden werden konnte,
+
+Wenn Sie einverstanden sind, wäre eine kurze Meldung sehr super und hilfreich.
+
+Mit freundlichen Grüßen
+
+## 회사로 배송함
+
+Hallo
+
+Ich würde die Lieferadresse nochmal aufmerksam machen.
+
+Vollständige Lieferadresse:
+Sanghun Cho
+Grillparzerstraße 10
+iSYS Software GmbH
+81675 München
+Deutschland
+
+Manchmal hat Ebay nicht aktuelle Lieferadresse beim Verkäufer gezeigt, 
+sondern alte Adresse aus Datenbank genommen und dem Verkäufer gezeigt.
+Daher habe ich Schwierigkeit erfahren, dass das Paket nicht sortiert und nicht gefunden werden konnte,
+
+Mit freundlichen Grüßen
 
 
+## Marchioninistr 로 배송함
+
+Hallo,
+Bitte schreiben Sie richtig 
+
+"Sanghun Cho
+Marchioninistr, 7
+81377 München
+Deutschland" 
+
+auf Empfänger im Paket, 
+
+Danke im Voraus!
+Mit freundlichen Grüßen

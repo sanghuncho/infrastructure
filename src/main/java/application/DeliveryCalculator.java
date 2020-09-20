@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import application.DeliveryMoneyTransfer.TransferMoney;
 import ebayService.RowExcelDeliveryWeight;
 import util.Formatter;
 
@@ -24,63 +23,54 @@ public class DeliveryCalculator {
         //TODO : 합포장시 3000원추가 
         
         //배송 날짜
-        var paramDate = "18.08.2020";
+        var paramDate = "2020.09.19";
         
         //적립금
-        var pramLastSaved = 194800;
+        var pramLastSaved = 135900;
         
         ////////배송상품 1
-        //ilogexpress ilogexpress-1
-        //58.00cm x  51.00cm x  31.00cm,   9.20Kg
-        //43.80
-        String title_one = "Tube4";
-        VolumeWeight volumeWeight_one = new VolumeWeight(48, 20, 19);
-        double realWeight_one = 1.0;
-        double deliveryPrice_one = 10.80;
+        String title_one = "Ohmcounter";
+        VolumeWeight volumeWeight_one = new VolumeWeight(40, 30, 19);
+        double realWeight_one = 3.2;
+        double deliveryPrice_one = 13.2;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
         //지쿠 아이템번호
-        var paramItemNumber = 12;
+        var paramItemNumber = 171;
         //송장번호
         var paramTrackingNumber = "";
         //배송무게
-        var paramDeliveryWeight = 3;
+        var paramDeliveryWeight = 4;
         ////////배송상품 1
         
         //--------------------------------------
         
         ////////배송상품 2
-        //Sabine
-        //60.00cm x  39.00cm x  42.00cm,   5.24Kg
-        //43.20
-        String title_two = "Trackis";
-        VolumeWeight volumeWeight_two = new VolumeWeight(53, 35, 52);
-        double realWeight_two = 5.60;
-        double deliveryPrice_two = 43.20;
+        String title_two = "Xmpoint";
+        VolumeWeight volumeWeight_two = new VolumeWeight(35, 25, 5);
+        double realWeight_two = 0.80;
+        double deliveryPrice_two = 6.00;
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
         
         //지쿠 아이템번호
-        var paramItemNumber_se = 163;
+        var paramItemNumber_se = 172;
         //송장번호
         var paramTrackingNumber_se = "";
         //배송무게
-        var paramDeliveryWeight_se = 17;
+        var paramDeliveryWeight_se = 1;
         ////////배송상품 2
         
         //--------------------------------------
         
         ////////배송상품 3
-        //Micorobe
-        //36.00cm x  27.00cm x  17.00cm,   1.50Kg
-        //10.80
-        String title_three = "V2ap";
-        VolumeWeight volumeWeight_three = new VolumeWeight(31, 22, 41);
-        double realWeight_three = 6.9;
-        double deliveryPrice_three = 20.40;
+        String title_three = "Jingsaw";
+        VolumeWeight volumeWeight_three = new VolumeWeight(20, 30, 52);
+        double realWeight_three = 2.78;
+        double deliveryPrice_three = 18.80;
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
         //지쿠 아이템번호
-        var paramItemNumber_thr = 164;
+        var paramItemNumber_thr = 174;
         //송장번호
         var paramTrackingNumber_thr = "";
         //배송무게
@@ -120,7 +110,7 @@ public class DeliveryCalculator {
     
     public static String getDeliveryWeight(VolumeWeight volumeWeight, double realWeight, double transferBankValue) {
         double vWeight = volumeWeight.getVolumeWeight();
-        double basisPrice = transferBankValue-6;
+        double basisPrice = transferBankValue - 6;
         double firmaWeight = basisPrice == 0 ? 1 : 1 + (basisPrice/2.4);
         
         StringBuilder sb = new StringBuilder("부피무게: ");  

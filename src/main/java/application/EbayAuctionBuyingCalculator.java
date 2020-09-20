@@ -9,15 +9,16 @@ import ebayService.EbayCalculator;
 import ebayService.EbayDelivery;
 import ebayService.TransferMoney;
 
+// moondrive2012 아이디 구매체크
 public class EbayAuctionBuyingCalculator {
     public static double excahgeRateEuro = 1450;
     private static String DeliveryCompany = 
-            "http://www.ilogexpress.com/login";
+            "http://www.ilogexpress.com/login";//PLZ 65830
     
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "21.08.2020";
+        var paramDate = "2020.09.18";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -25,35 +26,37 @@ public class EbayAuctionBuyingCalculator {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 38.99;
+        double first_ItemPriceEuro = 68.55;
         //적립금
-        int first_lastSavedMoney = 753700;
-        // 직접 수령
+        int first_lastSavedMoney = 248300;
+        
+        // 배송지 설정 아이로그, 회사 , March 집
         boolean first_SendToMe = false;
+        
         //이베이 셀러 아이디
-        String first_SellerId = "floriaspengle-9";
+        String first_SellerId = "occasio-praeceps";
         //배송
-        String first_ArrivalTitle = "Floria";
+        String first_ArrivalTitle = "occasio";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 256;
+        int first_Gkoo_ItemNumber = 298;
         //아이템 이름
-        String first_ItemName = "used Dr Böhm Speakers Pair 30cm";
+        String first_ItemName = "used Carl Zeiss Monokular";
         //ToDO: translation to englisch
         //아이템 브랜드 이름
-        String first_BrandName = "No brand";
+        String first_BrandName = "Carl Zeiss";
         //아이템 개수
-        int first_NumberItem = 2;
+        int first_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P
-        String first_PaymentArt = "P";
+        String first_PaymentArt = "T";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "harald Jährig";
+        String first_MoneyReceiver = "Götz Krause";
         //IBAN
-        String first_IBAN = "DE29120400000049313000";
+        String first_IBAN = "DE17100500001062382354";
         //BIC for Check
-        String first_BIC = "COBADEBB120";
+        String first_BIC = "BELADEBE";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "193603648761 193603661560"; 
+        String first_EbayItemnumber = "402404882111"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
@@ -81,15 +84,15 @@ public class EbayAuctionBuyingCalculator {
         //아이템 개수
         int second_NumberItem = 6;
         //결제수단 송금 : T, 페이팔 : P
-        String second_PaymentArt = "P";
+        String second_PaymentArt = "T";
         //송금 수취인 이름
-        String second_MoneyReceiver = "andreas moeritz";
+        String second_MoneyReceiver = "";
         //IBAN
-        String second_IBAN = "DE90550905000000183168";
+        String second_IBAN = "";
         //BIC for Check
         String second_BIC = "";
         //이베이 아이템 번호
-        String second_EbayItemnumber = "293633999669"; 
+        String second_EbayItemnumber = ""; 
         
         TransferData second_transferData = new TransferData(second_MoneyReceiver, second_IBAN, second_BIC, second_EbayItemnumber);
         
@@ -119,13 +122,13 @@ public class EbayAuctionBuyingCalculator {
       //결제수단 송금 : T, 페이팔 : P
         String third_PaymentArt = "P";
         //송금 수취인 이름
-        String third_MoneyReceiver = "andreas moeritz";
+        String third_MoneyReceiver = "";
         //IBAN
-        String third_IBAN = "DE90550905000000183168";
+        String third_IBAN = "";
         //BIC for Check
         String third_BIC = "";
         //이베이 아이템 번호
-        String third_EbayItemnumber = "293633999669"; 
+        String third_EbayItemnumber = ""; 
         
         TransferData third_transferData = new TransferData(third_MoneyReceiver, third_IBAN, third_BIC, third_EbayItemnumber);
         
@@ -341,5 +344,9 @@ public class EbayAuctionBuyingCalculator {
             int newPrice = (int) Math.round(price/power);
             return (newPrice*power);
         }
+    }
+    
+    enum Lieferadresse {
+        ILOG, ISYS, MARCH
     }
 }
