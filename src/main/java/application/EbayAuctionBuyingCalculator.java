@@ -11,6 +11,7 @@ import ebayService.TransferMoney;
 
 // moondrive2012 아이디 구매체크
 public class EbayAuctionBuyingCalculator {
+    //https://search.naver.com/search.naver?where=nexearch&query=%EC%9C%A0%EB%A1%9C+%ED%99%98%EC%9C%A8&ie=utf8&sm=tab_she&qdt=0
     public static double excahgeRateEuro = 1450;
     private static String DeliveryCompany = 
             "http://www.ilogexpress.com/login";//PLZ 65830
@@ -18,7 +19,7 @@ public class EbayAuctionBuyingCalculator {
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "2020.09.18";
+        var paramDate = "2020.10.26";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -26,37 +27,37 @@ public class EbayAuctionBuyingCalculator {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 68.55;
+        double first_ItemPriceEuro = 181.00;
         //적립금
-        int first_lastSavedMoney = 248300;
+        int first_lastSavedMoney = 0;
         
         // 배송지 설정 ILOG, ISYS , MARCHI
         Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
-        String first_SellerId = "occasio-praeceps";
+        String first_SellerId = "nicole1-2-3";
         //배송
-        String first_ArrivalTitle = "occasio";
+        String first_ArrivalTitle = "GK1";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 298;
+        int first_Gkoo_ItemNumber = 1;
         //아이템 이름
-        String first_ItemName = "used Carl Zeiss Monokular";
-        //ToDO: translation to englisch
+        String first_ItemName = "used cherry Tastatur Keyboard G80-3000HPU ohne Windows Taste englisch";
+        //ToDo: google or ? translation to englisch
         //아이템 브랜드 이름
-        String first_BrandName = "Carl Zeiss";
+        String first_BrandName = "cherry";
         //아이템 개수
         int first_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P
         String first_PaymentArt = "T";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "Götz Krause";
+        String first_MoneyReceiver = "Nicole Gottmanns";
         //IBAN
-        String first_IBAN = "DE17100500001062382354";
-        //BIC for Check
-        String first_BIC = "BELADEBE";
+        String first_IBAN = "DE80500105175412092512";
+        //BIC for Chec
+        String first_BIC = "INGDDEFF";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "402404882111"; 
+        String first_EbayItemnumber = "353241582685"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
@@ -66,25 +67,25 @@ public class EbayAuctionBuyingCalculator {
         
         //### SECOND ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double second_ItemPriceEuro = 48.96;
+        double second_ItemPriceEuro = 48.76;
         //적립금
-        int second_lastSavedMoney = 244700;
+        int second_lastSavedMoney = 39800;
         
         // 배송지 설정 ILOG, ISYS , MARCHI
-        Shipping_Address second_Shipping_Address = Shipping_Address.ILOG;
+        Shipping_Address second_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
-        String second_SellerId = "slotcar-de";
+        String second_SellerId = "sessel127";
         //배송
-        String second_ArrivalTitle = "Slotcar";
+        String second_ArrivalTitle = "GK46";
         //지쿠 아이템아이디
-        int second_Gkoo_ItemNumber = 198;
+        int second_Gkoo_ItemNumber = 318;
         //아이템 이름
-        String second_ItemName = "used 6 Vintage Grundig Speakers";
+        String second_ItemName = "used Telefunken Speakers";
         //아이템 브랜드 이름
-        String second_BrandName = "Grundig";
+        String second_BrandName = "TELEFUNKEN";
         //아이템 개수
-        int second_NumberItem = 6;
+        int second_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P
         String second_PaymentArt = "T";
         //송금 수취인 이름

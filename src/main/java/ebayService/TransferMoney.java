@@ -35,17 +35,19 @@ public class TransferMoney {
     }
     
     public String convertTransferMoneyData() {
-        StringBuilder sb = new StringBuilder("Empfänger  " + moneyReceiver);  
+        StringBuilder sb = new StringBuilder("Empfänger:  " + moneyReceiver);  
         sb.append("\n");
-        sb.append("IBAN  " + bankIban);
+        sb.append("IBAN:  " + bankIban);
         sb.append("\n");
-        sb.append("Betrag " + String.valueOf(transferAmountMoney));
+        sb.append("BIC: " + bic);
+        sb.append("\n");
+        sb.append("Betrag:  " + String.valueOf(transferAmountMoney));
         sb.append("\n");
         sb.append("\n");
         sb.append(usage);
         sb.append("\n");
         sb.append("\n");
-        sb.append("Check!! -- Name, IBAN, BIC, Betrag, Termin, Lieferadresse");
+        sb.append("Check!! --> Name, IBAN, BIC, Betrag, Termin, Lieferadresse");
         sb.append("\n");
         sb.append("\n");
         sb.append("송금 신청후 check bezahlt markiert in ebay!!");

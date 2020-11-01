@@ -23,58 +23,58 @@ public class DeliveryCalculator {
         //TODO : 합포장시 3000원추가 
         
         //배송 날짜
-        var paramDate = "2020.09.19";
+        var paramDate = "2020.10.13";
         
         //적립금
-        var pramLastSaved = 135900;
+        var pramLastSaved = 641300;
         
         ////////배송상품 1
-        String title_one = "Ohmcounter";
-        VolumeWeight volumeWeight_one = new VolumeWeight(40, 30, 19);
-        double realWeight_one = 3.2;
-        double deliveryPrice_one = 13.2;
+        String title_one = "GK15";
+        VolumeWeight volumeWeight_one = new VolumeWeight(15, 12, 10);
+        double realWeight_one = 0.5;
+        double deliveryPrice_one = 6.0;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
         //지쿠 아이템번호
-        var paramItemNumber = 171;
+        var paramItemNumber = 276;
         //송장번호
         var paramTrackingNumber = "";
         //배송무게
-        var paramDeliveryWeight = 4;
+        var paramDeliveryWeight = 1;
         ////////배송상품 1
         
         //--------------------------------------
         
         ////////배송상품 2
-        String title_two = "Xmpoint";
-        VolumeWeight volumeWeight_two = new VolumeWeight(35, 25, 5);
-        double realWeight_two = 0.80;
-        double deliveryPrice_two = 6.00;
+        String title_two = "GK25";
+        VolumeWeight volumeWeight_two = new VolumeWeight(46, 34, 18);
+        double realWeight_two = 2.80;
+        double deliveryPrice_two = 15.60;
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
         
         //지쿠 아이템번호
-        var paramItemNumber_se = 172;
+        var paramItemNumber_se = 289;
         //송장번호
         var paramTrackingNumber_se = "";
         //배송무게
-        var paramDeliveryWeight_se = 1;
+        var paramDeliveryWeight_se = 5;
         ////////배송상품 2
         
         //--------------------------------------
         
         ////////배송상품 3
-        String title_three = "Jingsaw";
-        VolumeWeight volumeWeight_three = new VolumeWeight(20, 30, 52);
-        double realWeight_three = 2.78;
-        double deliveryPrice_three = 18.80;
+        String title_three = "GK26";
+        VolumeWeight volumeWeight_three = new VolumeWeight(29, 19, 19);
+        double realWeight_three = 1.35;
+        double deliveryPrice_three = 8.40;
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
         //지쿠 아이템번호
-        var paramItemNumber_thr = 174;
+        var paramItemNumber_thr = 290;
         //송장번호
         var paramTrackingNumber_thr = "";
         //배송무게
-        var paramDeliveryWeight_thr = 7;
+        var paramDeliveryWeight_thr = 2;
         ////////배송상품 3
        
         

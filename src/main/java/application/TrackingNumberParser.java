@@ -2,7 +2,10 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -13,7 +16,13 @@ import org.jsoup.select.Elements;
 public class TrackingNumberParser {
     private static final String DIR_HTML = "C:/Users/sanghuncho/Documents/Gkoo/ILogYou Express.html";
     public static void main( String[] args ) throws IOException {
-    	List<String> itemTitleList = 
+        
+        Date currentDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.of("Europe/Berlin")).toInstant());
+        Date currentDateClone = Date.from(LocalDate.now().atStartOfDay(ZoneId.of("Europe/Berlin")).toInstant());
+        
+        System.out.println(currentDate.after(currentDateClone));
+        
+        List<String> itemTitleList = 
     			Arrays.asList(
 //    			        "pauls", //Heinos 150, 161 :OK
 //    			        "profan",//156 :OK
@@ -31,15 +40,20 @@ public class TrackingNumberParser {
     			        //"Schneebaer", //166 :OK
 //    			        "Mibu21-1", //151-1 :OK
 //    			        "Mibu21-2", //151-2 :OK
-    			        "prolo-2", // 같은 이름으로 2개 홈페이지 확인
-    			        "ilogexpress-2", //134-2 jugmusik
+    			        //"Sixty", //168
+//    			        "prolo-2", // 같은 이름으로 2개 홈페이지 확인 OK
+//    			        "Andreas", OK
+//    			        "ilogexpress-2", //134-2 jugmusik OK
+//   					"VintagePapa", OK
+//    					"Ohmcounter", OK
+//    					"Xmpoint", OK
+    			        "Jingsaw",//??
     					"Prolo",
-    					"Sixty",
-    					"Andreas",
-    					"VintagePapa",
-    					"Ohmcounter",
-    					"Xmpoint",
-    					"Jingsaw",//??
+    					"Resopa",
+    					"Nauti",
+    					"GK15",
+    					"GK25",
+    					"GK26",
     					""
     					);
     	
@@ -97,4 +111,5 @@ public class TrackingNumberParser {
         	}
         }
     }
+    
 }

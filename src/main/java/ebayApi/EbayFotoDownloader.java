@@ -42,8 +42,8 @@ public class EbayFotoDownloader {
     
     public static void main( String[] args ) throws IOException {
         
-    	List<String> itemNumberEbayList = Arrays.asList("224111632120");
-        int startItemNumberEbay = 256;
+    	List<String> itemNumberEbayList = Arrays.asList("353241582685");
+        int startItemNumberEbay = 1;
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
         	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);
