@@ -20,18 +20,23 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 
 public class ReportApp {
+    
+    private static final String googleTranslate = "https://translate.google.com/";
+
     public static void main (String[] args) {
         JasperReport jasperReport=null;
         JasperPrint jasperPrint=null;
         
-        String productName = "달마이어 프로도모 분쇄커피 500g";
+        String productName = "페나텐 베이비 얼굴&바디크림 100ml";
+        String DIR_FILE = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/페나텐/";
         ReportProducer producer = new ReportProducer();
         producer.create(productName);
         HashMap<String, Object> parameter = (HashMap<String, Object>) producer.getParameters();
         try {
-            jasperReport = JasperCompileManager.compileReport("src/main/resources/forms/productDescription.jrxml");
+            jasperReport = JasperCompileManager.compileReport("src/main/resources/forms/penaten.jrxml");
             jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, "C:/Users/sanghuncho/Documents/GKoo_Store_Project/커피/달마이어/testDecription.html");
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, DIR_FILE + productName  + ".html");
+            //JasperExportManager.exportReportToXmlFile(jasperPrint, DIR_FILE + productName, false);
         } catch (JRException e) {
             System.out.println(e);
         }
@@ -41,7 +46,7 @@ public class ReportApp {
         Image jasperImage = null;
         try {
             jasperImage = JasperPrintManager.printPageToImage(jasperPrint, 0, 1.6f);
-            File outputfile = new File("C:/Users/sanghuncho/Documents/GKoo_Store_Project/커피/달마이어/" + productName + ".png");
+            File outputfile = new File(DIR_FILE + productName + ".png");
             try {
                 ImageIO.write((RenderedImage) jasperImage, "png", outputfile);
             } catch (IOException e) {

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="productDescription" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec4bc3b3-d144-4ad2-a327-d0c538193c2d">
+	<parameter name="title" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement mode="Opaque" x="80" y="0" width="400" height="30" backcolor="rgba(80, 200, 120, 0.78431374)" uuid="e6b87cd8-7925-43d6-9e35-84e6456abe38">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="171" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="0" width="100" height="20" uuid="cb7d7f40-dfeb-4ac4-8c9e-1ccef56c41c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[유세린]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="500" height="111" uuid="b0b5c76b-6812-4b28-bce3-9c97a63c6ac0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" markup="html">
+					<font size="12"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[피부 가려움, 발진, 트러블 진정케어 브랜드
+유세린은 독일에서 피부전문병원과 전문 피부관리업계에서 
+인정하는 의료화장품으로 높은 효능과 우수한 성능으로 
+피부과 전문의들이 적극적으로 추천하는 기능성화장품입니다.
+100년 독일피부과학이 만들어내는 기능성화장품
+피부에 대한 높은 이해와 함께 스킨케어의 혁신을 이루어나가는 유세린은 뛰어난 피부개선과 높은 안전성을 약속합니다.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="20" width="100" height="20" uuid="3eeb2515-53e7-4959-b0ab-ae2e4dc18773">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="151" width="100" height="20" uuid="f1157815-a935-4cb5-b95e-3208b838c2e9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="171" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="796b5229-4cff-4b67-b561-3e5e27137e91">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[상품 안내]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="30" y="40" width="500" height="111" uuid="6fe04044-6472-404c-b4f8-533af0ca2902">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[피부속 보습에서 탄력까지 케어해주는 상품입니다
+히아루론산 미스트 스프레이로 피부속 수분을 보충해줄수 있습니다.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="6d15384d-c720-46ec-b090-eff5377af776">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="150" width="100" height="20" uuid="c556f32a-518b-43d5-85ed-7b0e66438294">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="171">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="9691a4d0-2834-4b24-b4b5-db731925c144">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[사용법]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="500" height="111" uuid="fe06543b-72c8-470f-af96-1fb460147228">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[피부건조함을 느낄때 수시로 뿌려주면 좋습니다.
+스킨대용으로로 사용가능합니다
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="66503114-aea9-4204-956e-5eca995f76ec">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="151" width="100" height="20" uuid="fff88742-4ca7-4986-9be5-f282f07d9338">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="151">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="eb63aca8-0bfc-4ba6-b282-3505b252cf19">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="500" height="111" uuid="1f16cec4-b9d7-4c19-86fa-a1c4fcc4e61a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Butan-1,3-diol, Hyaluronsäure, Natriumsalz, Dexpanthenol, Pantolacton, Arginin hydrochlorid, Wasser, gereinigtes, Glycerol, Glycerolglucosid, Natrium citrat, Citronensäure, Trinatrium edetat, Natriumhydroxid zur pH-Wert-Einstellung, Hexan-1,2-diol, Phenoxyethanol
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="6f02db38-ab31-4e97-9650-c98326425eff">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[성분표]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

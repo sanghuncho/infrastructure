@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="productDescription" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec4bc3b3-d144-4ad2-a327-d0c538193c2d">
+	<parameter name="title" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement mode="Opaque" x="80" y="0" width="400" height="30" backcolor="rgba(80, 200, 120, 0.78431374)" uuid="e6b87cd8-7925-43d6-9e35-84e6456abe38">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="200" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="0" width="100" height="20" uuid="cb7d7f40-dfeb-4ac4-8c9e-1ccef56c41c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[비오텀]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="30" y="40" width="500" height="140" uuid="b0b5c76b-6812-4b28-bce3-9c97a63c6ac0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" markup="none">
+					<font size="12"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[비오텀은 천연 & 유기농 화장품으로 단순한 화장품 그 이상으로 민감한 피부, 건조한 피부, 
+아토 피지막힘 지루성 피부를 개선 아름답게 가꾸어줍니다. 
+전제품이 BDIH 인증에 따라 고농도 천연 및 유기농 성분을 사용하였으며 
+인공적인 부가물질, 합성색소, 합성향료, 실리콘 및 파라핀 등의 석유화학 성분이 
+전혀 첨가 되지 않는 제품만을 생산합니다. 
+일반화장품에 사용하는 계면활성제를 전혀 사용하지 않고 피부막과 
+유사한 구조를 띄는 천연계면활성제를 사용하요 피부가 건강해지고 아름답게 가꾸어줍니다.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="20" width="100" height="20" uuid="3eeb2515-53e7-4959-b0ab-ae2e4dc18773">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="180" width="100" height="20" uuid="f1157815-a935-4cb5-b95e-3208b838c2e9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="171" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="796b5229-4cff-4b67-b561-3e5e27137e91">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[상품 안내]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="30" y="40" width="500" height="111" uuid="6fe04044-6472-404c-b4f8-533af0ca2902">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[고품질 유기농 징크크림으로 수분 및 영양공급으로 피부를 깨끗하고 생기있게 가꾸어줍니다. 
+과다한 피지 분비부위에 발라주면 징크성분의 뛰어난 수렴작용으로 피부진정작용이 있습니다. 
+피부가 자극을 받고 예민할 경우 잠들기전에 발라주면 수분공급과 재생효과를 얻을수 있습니다]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="6d15384d-c720-46ec-b090-eff5377af776">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="150" width="100" height="20" uuid="c556f32a-518b-43d5-85ed-7b0e66438294">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="140">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="9691a4d0-2834-4b24-b4b5-db731925c144">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[사용법]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="500" height="80" uuid="fe06543b-72c8-470f-af96-1fb460147228">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[필요부위에 소량만 손에 덜어 톡톡 두들기며 펴 발라주세요]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="66503114-aea9-4204-956e-5eca995f76ec">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="120" width="100" height="20" uuid="fff88742-4ca7-4986-9be5-f282f07d9338">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="151">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="eb63aca8-0bfc-4ba6-b282-3505b252cf19">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="500" height="111" uuid="1f16cec4-b9d7-4c19-86fa-a1c4fcc4e61a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[AQUA, HELINATHUS ANNUUS*, BUXUS CHINENSIS*, LAC*, ALCOHOL, GLYCERIN, POLYGLYCERYL-2-DIPOLYHYDROXY-STEARATE, MAGNESIUM STEARATE, CERA ALBA, ZINK OXIDE, TOCOPHEROL, ORYZANOL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="6f02db38-ab31-4e97-9650-c98326425eff">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[성분표]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
