@@ -10,61 +10,244 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import FactoryExcel.SmartStore;
+import crawlerBrandEntities.MassItemMoncler;
+import crawlerEntities.BaseItem;
 import crawlerEntities.MassItem;
+import util.Formatter;
+import util.ImageDownloader;
 
 public class CrawlerMoncler {
-    public static String CHROME_DRIVER_PATH =  "C:/Users/sanghuncho/Programme/";
-    public static String HTML_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/의류/moncler.html";
-    public static String DIR_MAIN_IMAGES = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/의류/moncler.html";
-    
-    public static final String BRAND_NAME = "몽클레어";
-    public static final String ITEM_CATEGORY = "여성 숏자켓";
-    public static final String CATEGORY_ID = "50000814";
-    
     private static final Logger LOGGER = LogManager.getLogger();
+    //save images and create csv
+    public static String DIR_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/의류/moncler";
+    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/men_short_jacket";
+    public static String HTML_BRAND = DIR_BRAND_CATEGORY + "/moncler_men_short_jacket.html";
+    public static String DIR_MAIN_IMAGES = DIR_BRAND_CATEGORY + "/main_images/";
+    public static String DIR_CSV_FILE = DIR_BRAND_CATEGORY;
+    
+    //data for csv
+    public static final String BRAND_NAME = "몽클레어";
+    public static final String ITEM_CATEGORY = "남성 숏패딩";
+    public static final String ITEM_TITLE_PREFIX = BRAND_NAME + " " + ITEM_CATEGORY;
+    public static final String CATEGORY_ID = "50000837";
+
+    public static final String SIZE_GUIDE = "men";//women, child
+    private static final String [] ITEM_SIZE = {"00", "0", "1", "2", "3", "4", "5", "6"};
+    
+    public static final List<String> ITEM_SIZE_LIST = Arrays.asList(ITEM_SIZE);
+    
+    public static List<String> itemSameTitleTester = new ArrayList<>();
     
     public static void main(String[] args) throws IOException {
-        String categotyUrl = "https://store.moncler.com/de-de/damen/autumn-winter/kurze-daunenjacken";
-        List<String> itemUrlList = getItemUrlList(categotyUrl);
+        /**
+         * call from web and not all urls can be gathered
+         */
+//        String categotyUrl = "https://store.moncler.com/de-de/damen/autumn-winter/kurze-daunenjacken";
+//        List<String> itemUrlList = getItemUrlList(categotyUrl);
         
-        String itemUrl = "https://store.moncler.com/de-de/kurze-jacken_cod16301891330574505.html#dept=EU_Short_Down_Jackets_Women_AW";
-        MassItem massItem = createMassItem(itemUrl, new MassItem(BRAND_NAME, ITEM_CATEGORY, CATEGORY_ID));
+        /**
+         * save manually html in local and gthering urls
+         */
+        List<String> itemUrlList = getItemUrlList();
+        
+        //String itemUrl = "https://store.moncler.com/de-de/jacken_cod17476499599651498.html#dept=EU_Blazers_Men_AW";
                 
-        //extractItemImages(itemUrl);
+        List<MassItem> massItemList = new ArrayList<>();
+        int number = 1;
+        for(String itemUrl : itemUrlList) {
+            MassItem massItem = createMassItem(itemUrl, new MassItem(BRAND_NAME, ITEM_CATEGORY, CATEGORY_ID));
+            massItemList.add(massItem);
+            LOGGER.info("MassItem is created:" + number);
+            number++;
+        }
         
-        //List<String> extractItemBaseInfo = extractItemTitle(itemUrl);
+        List<BaseItem> baseItemList = new ArrayList<>();
+        for(MassItem massItem : massItemList) {
+            MassItemMoncler massItemMoncler = new MassItemMoncler(massItem);
+            baseItemList.add(massItemMoncler);
+        }
         
-        //extractItemPrice(itemUrl);
-        
-        //extractItemColors(itemUrl);
-        
-        //extractItemSize(itemUrl);
-        
+        //System.out.println(massItemMoncler.getItemImageLinkList());
+        SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_TITLE_PREFIX, baseItemList, DIR_CSV_FILE);
+        smartStore.createCSV();
+        //create csv file https://www.baeldung.com/apache-commons-csv
     }
     
     public static MassItem createMassItem(final String itemUrl, MassItem item) {
         //pipeline
         
-        //1. extractItemImage
+        //1. extractItemTitle 
+        String itemTitle = "";
+        try {
+            itemTitle = extractItemTitle(itemUrl, item);
+            System.out.println(itemTitle);
+        } catch (IOException e) {
+            LOGGER.error("Error extractItemTitle:" + itemUrl);
+        }
         
-        //2. extractItemTitle
+        //2. downloading main image
+        try {
+            downloadingMainImage(itemTitle, itemUrl, item);
+        } catch (IOException e) {
+            LOGGER.error("Error downloadingMainImage:" + itemUrl);
+        }
         
-        //3. extractItemPrice
+        //3. extractItemColors, baseImages
+        try {
+            extractItemColors(itemUrl, item);
+        } catch (IOException e) {
+            LOGGER.error("Error extractItemColors:" + itemUrl);
+        }
         
-        //4. extractItemColors
+        //4. extractDetailImages
+        extractDetailImages(itemUrl, item);
         
-        //5. extractItemSize
+        //4. extractItemPrice
+        try {
+            extractItemPrice(itemUrl, item);
+        } catch (IOException e) {
+            LOGGER.error("Error extractItemPrice:" + itemUrl);
+        }
+        
+        //5. setitemSize
+        item.setItemSizes(ITEM_SIZE_LIST);
         
         return item;
     }
     
-    //saving the main image in directory -> gathering the detail images as link
+    public static void extractItemColors(final String itemUrl, MassItem item) throws IOException {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = Jsoup.connect(itemUrl).get();
+        
+        Element body = doc.body();
+        //System.out.println(body);
+        
+        //Elements elements = body.getElementsByClass("HTMLListColorSelector");
+        //System.out.println(doc.getElementsByTag("li"));
+        
+        Elements elementsTag = doc.getElementsByTag("li");
+        
+        Elements elementTagList = new Elements();
+        List<String> colorsList = new ArrayList<>();
+        List<String> baseImageList = new ArrayList<>();
+        
+        for(Element tag : elementsTag) {
+            if(tag.hasAttr("data-ytos-color-identifier")) {
+                //System.out.println(tag);
+                elementTagList.add(tag);
+            }
+        }
+        
+        for(Element color : elementTagList) {
+            colorsList.add(color.attr("data-ytos-color-identifier"));
+            //System.out.println(color.attr("data-ytos-color-identifier"));
+            baseImageList.add(color.getElementsByTag("img").attr("src"));
+            //System.out.println(color.getElementsByTag("img"));
+        }
+        
+        item.setItemColors(colorsList);
+        item.setBaseImages(baseImageList);
+    }
+    
+    public static void extractItemPrice(final String itemUrl, MassItem item) throws IOException {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = Jsoup.connect(itemUrl).get();
+        
+        Element body = doc.body();
+        //System.out.println(body);
+        
+        Elements elements = body.getElementsByClass("item__top__price ");
+        String priceEuro = "";
+        if (elements == null || elements.size() == 0) {
+            priceEuro = "0";
+            LOGGER.warn("the price is not known!" + item.getItemTitle());
+        } else {
+            priceEuro = elements.get(0).getElementsByClass("itemPrice").text();
+        }
+            
+        //System.out.println(elements.get(0).getElementsByClass("itemPrice").text());
+        
+        //formatted price
+        
+        item.setItemPriceEuro(Double.valueOf(Formatter.deleteNonDigits(priceEuro)));
+    }
+    
+    public static void extractDetailImages(final String itemUrl, MassItem item) {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(itemUrl).get();
+        } catch (IOException e) {
+            LOGGER.error("Error connection jsoup:" + itemUrl);
+        }
+        
+        Element body = doc.body();
+        //System.out.println(body);
+        // f r e d b 
+        Elements elements = body.getElementsByClass("image");
+        Elements images = elements.get(0).getElementsByClass("pdp__showcase__product-picture__desktop__product-image__selected-shot");
+        
+        //String imageSet = images.get(0).attr("srcset").toString();
+        String imageSet = images.get(0).attr("src").toString();
+        List<String> imageList = Arrays.asList(imageSet.split(",", -1));
+        
+        List<String> formattedImageList = new ArrayList<>();
+                
+        //for(String image : imageList) {
+        for(String image : item.getBaseImages()) {
+            //System.out.println(image.split(" ")[0]);
+            String frontImage = image.split(" ")[0];
+            String baseImage = frontImage.split("_1")[0];
+            
+            formattedImageList.add(baseImage+"_13_f");
+            formattedImageList.add(baseImage+"_13_r");
+            formattedImageList.add(baseImage+"_13_d");
+            formattedImageList.add(baseImage+"_13_a");
+            formattedImageList.add(baseImage+"_13_b");
+            formattedImageList.add(baseImage+"_13_e");
+        }
+        
+        item.setItemDetailImages(formattedImageList);
+    }
+    
+    public static void downloadingMainImage(final String itemTitle, final String itemUrl, MassItem item) throws IOException {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = Jsoup.connect(itemUrl).get();
+        
+        Element body = doc.body();
+        //System.out.println(body);
+        
+        Elements elements = body.getElementsByClass("image");
+        
+        /**  save the main image process  */ 
+        Elements images = elements.get(0).getElementsByClass("pdp__showcase__product-picture__desktop__product-image__selected-shot");
+        //System.out.println(elements.get(0).getElementsByClass("pdp__showcase__product-picture__desktop__product-image__selected-shot"));
+        String mainImageUrl = images.get(0).attr("src").toString();
+        savingMainImage(itemTitle, DIR_MAIN_IMAGES, mainImageUrl);
+        
+        item.setMainImageName(itemTitle);
+    }
+    
+    /**
+     * saving the main image in directory -> gathering the detail images as link
+     * 
+     * @param itemUrl
+     * @param item
+     * @return
+     * @throws IOException
+     */
     public static List<MassItem> extractItemImages(final String itemUrl, MassItem item) throws IOException {
         Objects.requireNonNull(itemUrl);
 
@@ -72,10 +255,13 @@ public class CrawlerMoncler {
         
         Element body = doc.body();
         System.out.println(body);
-        System.out.println("--------------");
+        
         Elements elements = body.getElementsByClass("image");
-        //System.out.println(elements.get(0).getElementsByClass("pdp__showcase__product-picture__desktop__product-image__selected-shot"));
+         
         Elements images = elements.get(0).getElementsByClass("pdp__showcase__product-picture__desktop__product-image__selected-shot");
+        //System.out.println(elements.get(0).getElementsByClass("pdp__showcase__product-picture__desktop__product-image__selected-shot"));
+        String mainImageUrl = images.get(0).attr("src").toString();
+        
         //System.out.println(images.get(0).attr("src").toString());
         //System.out.println(images.get(0).attr("srcset").toString());
         String imageSet = images.get(0).attr("srcset").toString();
@@ -86,92 +272,50 @@ public class CrawlerMoncler {
         //System.out.println(convertedCountriesList.get(0).split(" ")[0]);
         
         return null;
-   }
-    
-    public static void savingMainImage(final String itemUrl, String directory) {
-        
     }
     
-    public static void extractItemSize(final String brandUrl) throws IOException {
-        Objects.requireNonNull(brandUrl);
+    public static String extractItemTitle(final String itemUrl, MassItem item) throws IOException {
+        Objects.requireNonNull(itemUrl);
 
-        Document doc = Jsoup.connect(brandUrl).get();
+        Document doc = Jsoup.connect(itemUrl).get();
         
         Element body = doc.body();
         //System.out.println(body);
         
-        Elements elements = body.getElementsByClass("HTMLListColorSelector");
-        //System.out.println(doc.getElementsByTag("li"));
-        Elements elementsTag = doc.getElementsByTag("li");
-        
-        Elements elementTagList = new Elements();
-        
-        for(Element tag : elementsTag) {
-            if(tag.hasAttr("data-ytos-color-identifier")) {
-                //System.out.println(tag);
-                elementTagList.add(tag);
-                //System.out.println("=============");
-            }
-        }
-        
-        for(Element color : elementTagList) {
-            System.out.println(color.attr("data-ytos-color-identifier"));
-        }
-    }
-    
-    public static void extractItemColors(final String brandUrl) throws IOException {
-        Objects.requireNonNull(brandUrl);
-
-        Document doc = Jsoup.connect(brandUrl).get();
-        
-        Element body = doc.body();
-        //System.out.println(body);
-        
-        Elements elements = body.getElementsByClass("HTMLListColorSelector");
-        //System.out.println(doc.getElementsByTag("li"));
-        Elements elementsTag = doc.getElementsByTag("li");
-        
-        Elements elementTagList = new Elements();
-        
-        for(Element tag : elementsTag) {
-            if(tag.hasAttr("data-ytos-color-identifier")) {
-                //System.out.println(tag);
-                elementTagList.add(tag);
-                //System.out.println("=============");
-            }
-        }
-        
-        for(Element color : elementTagList) {
-            System.out.println(color.attr("data-ytos-color-identifier"));
-        }
-    }
-    
-    public static void extractItemPrice(final String brandUrl) throws IOException {
-        Objects.requireNonNull(brandUrl);
-
-        Document doc = Jsoup.connect(brandUrl).get();
-        
-        Element body = doc.body();
-        //System.out.println(body);
-        
-        Elements elements = body.getElementsByClass("item__top__price ");
-        //item__top__base-info
-        System.out.println(elements.get(0).getElementsByClass("itemPrice").text());
-    }
-    
-    public static List<String> extractItemTitle(final String brandUrl) throws IOException {
-        Objects.requireNonNull(brandUrl);
-
-        Document doc = Jsoup.connect(brandUrl).get();
-        
-        Element body = doc.body();
-        //System.out.println(body);
         Elements elements = body.getElementsByClass("item__top__base-info");
-        //item__top__base-info
-        System.out.println(elements.get(0).getElementsByClass("item__top__base-info__title").text());
+        String itemTitle = elements.get(0).getElementsByClass("item__top__base-info__title").text();
+        //System.out.println(elements.get(0).getElementsByClass("item__top__base-info__title").text());
         
-        return null;
-   }
+        String validTitle = getValidItemTitle(itemTitle);
+        item.setItemTitle(validTitle);
+        return validTitle;
+    }
+    
+    private static String getValidItemTitle(String itemTitle) {
+        Objects.requireNonNull(itemTitle);
+        
+        String validTitle = "";
+        //List<String> matchedItems = itemSameTitleTester.stream().filter(title -> title.contains(itemTitle)).collect(Collectors.toList());;
+        List<String> matchedItems = new ArrayList<>();
+        for(String title : itemSameTitleTester) {
+            if(title.contains(itemTitle)) {
+                matchedItems.add(title);
+            }
+        }
+        int matchedItemSize = matchedItems.size();
+        if(matchedItemSize>0) {
+            validTitle = itemTitle + "_" + String.valueOf(matchedItemSize+1);
+        } else {
+            validTitle = itemTitle;
+        }
+        
+        itemSameTitleTester.add(validTitle);
+        return validTitle;
+    }
+    
+    public static void savingMainImage(final String imageName, String directory, final String imageUrl) {
+        ImageDownloader.run(imageName, directory, imageUrl);
+    }
     
     public static List<MassItem> extractItemImages(final String brandUrl) throws IOException {
         Objects.requireNonNull(brandUrl);
