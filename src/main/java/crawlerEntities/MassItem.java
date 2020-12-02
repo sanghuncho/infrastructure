@@ -1,6 +1,7 @@
 package crawlerEntities;
 
 import java.util.List;
+import crawlerApp.CrawlerMoncler.Gender;
 
 public class MassItem {
     
@@ -8,6 +9,7 @@ public class MassItem {
     private String itemCategory;
     private String categoryId;
     private String itemTitle;
+    private Gender gender;
     private double itemPriceEuro;
     private double itemPriceWon;
     private String mainImageName;
@@ -15,6 +17,16 @@ public class MassItem {
     private List<String> baseImages;
     private List<String> itemColors;
     private List<String> itemSizes;
+    private String itemVolume;
+    private String itemDescription;
+    private String itemUsage;
+    
+    public MassItem(String brandname, String itemcategory, String categoryid, Gender gender) {
+        this.brandName = brandname;
+        this.itemCategory = itemcategory;
+        this.categoryId = categoryid;
+        this.gender = gender;
+    }
     
     public MassItem(String brandname, String itemcategory, String categoryid) {
         this.brandName = brandname;
@@ -121,5 +133,33 @@ public class MassItem {
 
     public void setBaseImages(List<String> baseImages) {
         this.baseImages = baseImages;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public String getItemVolume() {
+        return itemVolume;
+    }
+
+    public void setItemVolume(String itemVolume) {
+        this.itemVolume = itemVolume;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public String getItemUsage() {
+        return itemUsage;
+    }
+
+    public void setItemUsage(String itemUsage) {
+        this.itemUsage = itemUsage;
     }
 }

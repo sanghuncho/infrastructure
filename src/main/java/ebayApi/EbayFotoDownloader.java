@@ -42,8 +42,8 @@ public class EbayFotoDownloader {
     
     public static void main( String[] args ) throws IOException {
         
-    	List<String> itemNumberEbayList = Arrays.asList("353241582685");
-        int startItemNumberEbay = 1;
+    	List<String> itemNumberEbayList = Arrays.asList("124444220990");
+        int startItemNumberEbay = 352;
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
         	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);
@@ -52,7 +52,7 @@ public class EbayFotoDownloader {
     
     private static void retrieveProductData(String itemNumberEbay, int itemNumberGkoo) throws IOException {
         OAuth2Api oauth2Api = new OAuth2Api();
-        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/java/resources/ebay-config.yaml"));
+        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/main/resources/ebay-config.yaml"));
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
         //System.out.println(rep.getAccessToken().get().getToken());
         

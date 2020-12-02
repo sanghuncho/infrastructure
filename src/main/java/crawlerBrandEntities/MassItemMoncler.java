@@ -3,6 +3,7 @@ package crawlerBrandEntities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import crawlerApp.CrawlerMoncler.Gender;
 import crawlerEntities.BaseItem;
 import crawlerEntities.MassItem;
 
@@ -33,7 +34,7 @@ public class MassItemMoncler extends BaseItem {
         String imagesCommaSeparated = detailImageUrlList.stream().collect(Collectors.joining(","));
         
         //addSizeTable 
-        return addAlignment(addTopBottomInfo(addSizeInfo(addBuyingInfo(imagesCommaSeparated))));
+        return addAlignment(addTopBottomInfo(addSizeInfo(addBuyingInfo(imagesCommaSeparated), massItem.getGender())));
     }
     
     private String transformToHtml(String itemImage) {
@@ -61,17 +62,21 @@ public class MassItemMoncler extends BaseItem {
         StringBuilder imageBuilder = new StringBuilder();
         imageBuilder.append(itemImagesHtml);
         imageBuilder.append(", ");
-        imageBuilder.append("<img src=\"https://moondrive81.cafe24.com/GKoo/gkooStoreInfo.png\"/>");
+        imageBuilder.append("<img style=\"padding-bottom: 10px;\" src=\"https://moondrive81.cafe24.com/GKoo/gkooStoreInfo.png\"/>");
         return imageBuilder.toString();
     }
     
     //men https://moondrive81.cafe24.com/GKoo/women_size_guide_moncler.png
     //women https://moondrive81.cafe24.com/GKoo/women_size_guide_moncler.png
-    private String addSizeInfo(String itemImagesHtml) {
+    private String addSizeInfo(String itemImagesHtml, Gender gender) {
         StringBuilder imageBuilder = new StringBuilder();
         imageBuilder.append(itemImagesHtml);
         imageBuilder.append(", ");
-        imageBuilder.append("<img src=\"https://moondrive81.cafe24.com/GKoo/men_size_guide_moncler.png\"/>");
+        if (gender.equals(Gender.MALE)) {
+            imageBuilder.append("<img style=\"padding-bottom: 10px;\" src=\"https://moondrive81.cafe24.com/GKoo/men_size_guide_moncler.png\"/>");
+        } else if (gender.equals(Gender.FEMALE)){
+            imageBuilder.append("<img style=\"padding-bottom: 10px;\" src=\"https://moondrive81.cafe24.com/GKoo/women_size_guide_moncler.png\"/>");
+        }
         return imageBuilder.toString();
     }
     
@@ -82,14 +87,6 @@ public class MassItemMoncler extends BaseItem {
         imageBuilder.append(itemImagesHtml);
         imageBuilder.append(", ");
         imageBuilder.append("<img src=\"https://moondrive81.cafe24.com/GKoo/gkoo_info_bottom.jpg\"/>");
-        return imageBuilder.toString();
-    }
-    
-    private String addSizeTable(String itemImagesHtml) {
-        StringBuilder imageBuilder = new StringBuilder();
-        imageBuilder.append("<img style=\"padding-bottom: 10px;\" src=\"https://moondrive81.cafe24.com/GKoo/gkoo_info_top.png\"/>");
-        imageBuilder.append(", ");
-        
         return imageBuilder.toString();
     }
     

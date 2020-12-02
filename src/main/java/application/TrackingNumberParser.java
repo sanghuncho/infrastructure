@@ -47,13 +47,20 @@ public class TrackingNumberParser {
 //   					"VintagePapa", OK
 //    					"Ohmcounter", OK
 //    					"Xmpoint", OK
-    			        "Jingsaw",//??
-    					"Prolo",
-    					"Resopa",
-    					"Nauti",
-    					"GK15",
-    					"GK25",
-    					"GK26",
+    			        //"Jingsaw", OK
+    					//"Prolo", OK
+    					//"Resopa", OK
+    					//"Nauti", OK
+    					//"GK15", OK
+    					//"GK25", OK
+    					//"GK26", OK,
+    			        //"Pumpkin",
+    			        //"Rore",
+    			        //"GK30",
+    			        //"GK38",
+    			        "Dino",
+    			        "Cornel",
+    			        "Hifi",
     					""
     					);
     	

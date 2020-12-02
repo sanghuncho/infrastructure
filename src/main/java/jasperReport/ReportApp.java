@@ -27,13 +27,13 @@ public class ReportApp {
         JasperReport jasperReport=null;
         JasperPrint jasperPrint=null;
         
-        String productName = "페나텐 베이비 얼굴&바디크림 100ml";
-        String DIR_FILE = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/페나텐/";
+        String productName = "게볼 메드 리피트 풋크림 125ml";
+        String DIR_FILE = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/게볼/";
         ReportProducer producer = new ReportProducer();
         producer.create(productName);
         HashMap<String, Object> parameter = (HashMap<String, Object>) producer.getParameters();
         try {
-            jasperReport = JasperCompileManager.compileReport("src/main/resources/forms/penaten.jrxml");
+            jasperReport = JasperCompileManager.compileReport("src/main/resources/forms/gehwol.jrxml");
             jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
             JasperExportManager.exportReportToHtmlFile(jasperPrint, DIR_FILE + productName  + ".html");
             //JasperExportManager.exportReportToXmlFile(jasperPrint, DIR_FILE + productName, false);

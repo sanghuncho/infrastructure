@@ -1,4 +1,4 @@
-package FactoryExcel;
+package factoryExcel;
 
 import java.io.File;
 import java.io.FileWriter;

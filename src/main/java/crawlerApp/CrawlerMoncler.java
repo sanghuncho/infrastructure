@@ -17,36 +17,36 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import FactoryExcel.SmartStore;
 import crawlerBrandEntities.MassItemMoncler;
 import crawlerEntities.BaseItem;
 import crawlerEntities.MassItem;
+import factoryExcel.SmartStore;
 import util.Formatter;
 import util.ImageDownloader;
 
 public class CrawlerMoncler {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(CrawlerMoncler.class);
     //save images and create csv
     public static String DIR_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/의류/moncler";
-    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/men_short_jacket";
-    public static String HTML_BRAND = DIR_BRAND_CATEGORY + "/moncler_men_short_jacket.html";
+    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/men_long_jacket";
+    public static String HTML_BRAND = DIR_BRAND_CATEGORY + "/moncler_men_long_jacket.html";
     public static String DIR_MAIN_IMAGES = DIR_BRAND_CATEGORY + "/main_images/";
     public static String DIR_CSV_FILE = DIR_BRAND_CATEGORY;
+    public enum Gender { MALE, FEMALE, KIDS }
     
     //data for csv
     public static final String BRAND_NAME = "몽클레어";
-    public static final String ITEM_CATEGORY = "남성 숏패딩";
-    public static final String ITEM_TITLE_PREFIX = BRAND_NAME + " " + ITEM_CATEGORY;
+    public static final String ITEM_CATEGORY = "남성 롱패딩";
     public static final String CATEGORY_ID = "50000837";
-
-    public static final String SIZE_GUIDE = "men";//women, child
+    public static Gender CATEGORY_GENDER = Gender.MALE;
     private static final String [] ITEM_SIZE = {"00", "0", "1", "2", "3", "4", "5", "6"};
     
+    public static final String ITEM_TITLE_PREFIX = BRAND_NAME + " " + ITEM_CATEGORY;
     public static final List<String> ITEM_SIZE_LIST = Arrays.asList(ITEM_SIZE);
-    
     public static List<String> itemSameTitleTester = new ArrayList<>();
     
     public static void main(String[] args) throws IOException {
+        LOGGER.info("Crawler starts:" + BRAND_NAME + " " + ITEM_CATEGORY);
         /**
          * call from web and not all urls can be gathered
          */
@@ -63,7 +63,7 @@ public class CrawlerMoncler {
         List<MassItem> massItemList = new ArrayList<>();
         int number = 1;
         for(String itemUrl : itemUrlList) {
-            MassItem massItem = createMassItem(itemUrl, new MassItem(BRAND_NAME, ITEM_CATEGORY, CATEGORY_ID));
+            MassItem massItem = createMassItem(itemUrl, new MassItem(BRAND_NAME, ITEM_CATEGORY, CATEGORY_ID, CATEGORY_GENDER));
             massItemList.add(massItem);
             LOGGER.info("MassItem is created:" + number);
             number++;
@@ -79,6 +79,7 @@ public class CrawlerMoncler {
         SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_TITLE_PREFIX, baseItemList, DIR_CSV_FILE);
         smartStore.createCSV();
         //create csv file https://www.baeldung.com/apache-commons-csv
+        LOGGER.info("Crawling is end:" + BRAND_NAME + " " + ITEM_CATEGORY);
     }
     
     public static MassItem createMassItem(final String itemUrl, MassItem item) {
@@ -88,7 +89,7 @@ public class CrawlerMoncler {
         String itemTitle = "";
         try {
             itemTitle = extractItemTitle(itemUrl, item);
-            System.out.println(itemTitle);
+            //System.out.println(itemTitle);
         } catch (IOException e) {
             LOGGER.error("Error extractItemTitle:" + itemUrl);
         }
@@ -170,7 +171,7 @@ public class CrawlerMoncler {
         String priceEuro = "";
         if (elements == null || elements.size() == 0) {
             priceEuro = "0";
-            LOGGER.warn("the price is not known!" + item.getItemTitle());
+            LOGGER.error("the price is not known! - " + item.getItemTitle() + ":" + itemUrl);
         } else {
             priceEuro = elements.get(0).getElementsByClass("itemPrice").text();
         }
@@ -401,12 +402,12 @@ public class CrawlerMoncler {
      * @throws IOException
      */
     public static List<String> getItemUrlList() throws IOException {        
+        List<String> itemUrls = new ArrayList<>();
         File input = new File(HTML_BRAND);
         Document doc = Jsoup.parse(input, "UTF-8", "");
         Element body = doc.body();
         Elements elements = body.getElementsByClass("product-images");
         
-        List<String> itemUrls = new ArrayList<>();
         
         for(Element elem : elements) {
             //Element elem = elements.get(1);

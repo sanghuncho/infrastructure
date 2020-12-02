@@ -23,9 +23,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="30" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-		</band>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<detail>
 		<band height="200" splitType="Stretch">
@@ -40,19 +38,26 @@
 				<text><![CDATA[브랜드]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ElementGroupHeight" x="30" y="60" width="500" height="120" uuid="b0b5c76b-6812-4b28-bce3-9c97a63c6ac0">
+				<reportElement stretchType="ElementGroupHeight" x="0" y="40" width="550" height="140" uuid="b0b5c76b-6812-4b28-bce3-9c97a63c6ac0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" markup="none">
 					<font size="12"/>
 					<paragraph lineSpacingSize="2.0"/>
 				</textElement>
-				<text><![CDATA[140년 역사를 지닌 독일화장품 풋라인으로 전 세계인들에게 
-발전문 케어제품으로 인정받고 있습니다. 
+				<text><![CDATA[140년 역사를 지닌 독일화장품 풋라인으로 전 세계인들에게 발전문 케어제품으로 인정받고 있습니다. 
 Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡에 본사를 두고 있습니다. 
-게볼에서 생산되는 제품들은 로즈마리, 라벤더, 민트 및 호호바와 아보카도 등과 
-같이 천연 자연추출물을 함유하고 있으며 비타민 역시 풍부하게 포함해서 영양공급에 탁월한 제품입니다. ]]></text>
+게볼에서 생산되는 제품들은 로즈마리, 라벤더, 민트 및 호호바와 아보카도등과 같이 
+천연 자연추출물을 함유하고 있으며 비타민 역시 풍부하게 포함해서 영양공급에 탁월한 제품입니다. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="20" width="100" height="20" uuid="3eeb2515-53e7-4959-b0ab-ae2e4dc18773">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="230" y="180" width="100" height="20" uuid="f1157815-a935-4cb5-b95e-3208b838c2e9">
@@ -77,7 +82,7 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 				<text><![CDATA[상품 안내]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ElementGroupHeight" x="30" y="40" width="500" height="111" uuid="6fe04044-6472-404c-b4f8-533af0ca2902">
+				<reportElement stretchType="ElementGroupHeight" x="0" y="40" width="550" height="111" uuid="6fe04044-6472-404c-b4f8-533af0ca2902">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -85,7 +90,12 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 					<font size="12"/>
 					<paragraph lineSpacingSize="2.0"/>
 				</textElement>
-				<text><![CDATA[천연허브 오일과 농축무어 추출물을 함유하고 있습니다. 건조하고 민감한 피부에 적합하며 천연에서 얻은 밀배아, 호호바, 아보카도 및 천연 허브오일은 피부를 부드럽고 산뜻하게 만들어드립니다. 아보카도 오일에서 추출한 펜타놀 B5와 고농축 비타민 E 성분은 피부를 환하게 합니다.]]></text>
+				<text><![CDATA[우레아 10%성분과 조류추출물(대표적: 미역, 돌말류..), 알란토인(주로 여러해살이 풀인 캄프리 (comfrey), 
+상수리나무, 밀의 싹 등에서 추출한 천연물질이다), 산자나무오일과 아보카도 오일성분들이
+유수분조절에 균형을 가져다 줍니다.
+발피부의 수분저장능력을 높아지게 하며 혈액순환의 균형을 가져다주어 굳은살은 부드럽게 되며 새롭게 
+만들어지는 굳은살을 줄여주는 효과를 가져다 줍니다.
+건조한 피부와 민감성 피부에 적합합니다.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="6d15384d-c720-46ec-b090-eff5377af776">
@@ -126,7 +136,7 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 					<font size="12"/>
 					<paragraph lineSpacingSize="2.0"/>
 				</textElement>
-				<text><![CDATA[매일 아침/저녁으로 세안후에 얼굴에 골고루 펴 발라줍니다. ]]></text>
+				<text><![CDATA[필요한 부위에 매일 발라주면 효과적인 발냄새 제거와 무좀예방에 도움을 줄수 있습니다.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="230" y="20" width="100" height="20" uuid="66503114-aea9-4204-956e-5eca995f76ec">
@@ -167,7 +177,7 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 					<font size="12" isBold="false"/>
 					<paragraph lineSpacingSize="2.0"/>
 				</textElement>
-				<text><![CDATA[Aqua,Petrolatum,Propylene,Glycol,Ozokerite, Hydrogenated Castol Oil,Glyceryl Lsostearate, Polyglyceryl-3 Oleate,Triticum Vulgare Germ Oil, Panthenol, Isopropyl Palmilate, Shangum (Peat Moors) Extract, Jojoba Oil, Avocado Oil, Tocopheryl Acetate, Ascorbyl Palmitate, Citric Acid, Glyceryl Stearate, Ethylparaben, Lmidazolidinyl Urea, Magnesium Sulfate, Alcohol denat]]></text>
+				<text><![CDATA[Aqua (Water), Urea, Persea Gratissima (Avocado) Oil, Glycerin, Polyglyceryl-3 Methylglucose Distearate, Isopropyl Palmitate, Octyldodecanol, Glyceryl Stearate, Cetyl Alcohol, PPG-3 Benzyl Ether Myristate, Myristyl Myristate, Triethyl Citrate, Hydrolyzed Algin, Chlorella Vulgaris Extract, Maris Aqua (Sea Water), Farnesol, Hippophae Rhamnoides (Seabuckthorn) Extract, Allantoin, Xanthan Gum, Phenoxyethanol, Methylparaben, Ethylparaben, Caprylyl Glycol, Propylene Glycol, BHT, Ascorbyl Palmitate, Citric Acid.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="230" y="0" width="100" height="20" uuid="6f02db38-ab31-4e97-9650-c98326425eff">
@@ -180,4 +190,10 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>

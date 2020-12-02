@@ -23,37 +23,37 @@ public class DeliveryCalculator {
         //TODO : 합포장시 3000원추가 
         
         //배송 날짜
-        var paramDate = "2020.10.13";
+        var paramDate = "2020.11.29";
         
         //적립금
-        var pramLastSaved = 641300;
+        var pramLastSaved = 294500;
         
         ////////배송상품 1
-        String title_one = "GK15";
-        VolumeWeight volumeWeight_one = new VolumeWeight(15, 12, 10);
-        double realWeight_one = 0.5;
-        double deliveryPrice_one = 6.0;
+        String title_one = "Ch38";
+        VolumeWeight volumeWeight_one = new VolumeWeight(32, 32, 18);
+        double realWeight_one = 2.10;
+        double deliveryPrice_one = 12.0;
         System.out.println(title_one + " = " + getDeliveryWeight(volumeWeight_one, realWeight_one, deliveryPrice_one));
         
         //지쿠 아이템번호
-        var paramItemNumber = 276;
+        var paramItemNumber = 192;
         //송장번호
         var paramTrackingNumber = "";
         //배송무게
-        var paramDeliveryWeight = 1;
+        var paramDeliveryWeight = 4;
         ////////배송상품 1
         
         //--------------------------------------
         
         ////////배송상품 2
-        String title_two = "GK25";
-        VolumeWeight volumeWeight_two = new VolumeWeight(46, 34, 18);
-        double realWeight_two = 2.80;
+        String title_two = "Marbrin";
+        VolumeWeight volumeWeight_two = new VolumeWeight(40, 30, 25);
+        double realWeight_two = 2.60;
         double deliveryPrice_two = 15.60;
         System.out.println(title_two + " = " + getDeliveryWeight(volumeWeight_two, realWeight_two, deliveryPrice_two));
         
         //지쿠 아이템번호
-        var paramItemNumber_se = 289;
+        var paramItemNumber_se = 194;
         //송장번호
         var paramTrackingNumber_se = "";
         //배송무게
@@ -63,18 +63,18 @@ public class DeliveryCalculator {
         //--------------------------------------
         
         ////////배송상품 3
-        String title_three = "GK26";
-        VolumeWeight volumeWeight_three = new VolumeWeight(29, 19, 19);
-        double realWeight_three = 1.35;
-        double deliveryPrice_three = 8.40;
+        String title_three = "Marbin";
+        VolumeWeight volumeWeight_three = new VolumeWeight(19, 19, 17);
+        double realWeight_three = 1.00;
+        double deliveryPrice_three = 6.00;
         System.out.println(title_three + " = " + getDeliveryWeight(volumeWeight_three, realWeight_three, deliveryPrice_three));
         
         //지쿠 아이템번호
-        var paramItemNumber_thr = 290;
+        var paramItemNumber_thr = 195;
         //송장번호
         var paramTrackingNumber_thr = "";
         //배송무게
-        var paramDeliveryWeight_thr = 2;
+        var paramDeliveryWeight_thr = 1;
         ////////배송상품 3
        
         

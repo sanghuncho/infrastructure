@@ -10,7 +10,19 @@
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
   </properties>
-    
+  
+  <dependencyManagement>
+	  <dependencies>
+	    <dependency>
+	      <groupId>com.google.cloud</groupId>
+	      <artifactId>libraries-bom</artifactId>
+	      <version>16.1.0</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>
+	  </dependencies>
+  </dependencyManagement>
+  
   <dependencies>
    	<dependency>
 	    <groupId>com.ebay.auth</groupId>
@@ -42,6 +54,12 @@
 	<dependency>
     	<groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-web</artifactId>
+	    <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+        </exclusions>
 	    <version>2.3.1.RELEASE</version>
 	</dependency>
 	
@@ -118,7 +136,20 @@
 	    <artifactId>commons-csv</artifactId>
 	    <version>1.8</version>
 	</dependency>
-   
+	
+	<!-- google translator api -->
+	<dependency>
+	    <groupId>com.google.cloud</groupId>
+	    <artifactId>google-cloud-translate</artifactId>
+	</dependency>
+    
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.13.1</version>
+	    <scope>test</scope>
+	</dependency>
    </dependencies>
    
     <build>

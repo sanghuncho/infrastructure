@@ -19,7 +19,7 @@ public class EbayAuctionBuyingCalculator {
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "2020.10.26";
+        var paramDate = "2020.12.01";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -27,37 +27,37 @@ public class EbayAuctionBuyingCalculator {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 181.00;
+        double first_ItemPriceEuro = 46.49;
         //적립금
-        int first_lastSavedMoney = 0;
+        int first_lastSavedMoney = 27500;
         
-        // 배송지 설정 ILOG, ISYS , MARCHI
+        // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
-        String first_SellerId = "nicole1-2-3";
+        String first_SellerId = "howe1000_76";
         //배송
-        String first_ArrivalTitle = "GK1";
+        String first_ArrivalTitle = "GK77";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 1;
+        int first_Gkoo_ItemNumber = 352;
         //아이템 이름
-        String first_ItemName = "used cherry Tastatur Keyboard G80-3000HPU ohne Windows Taste englisch";
+        String first_ItemName = "used Sommer Cable Speaker Cable SC-Dual Blue 2x2 5m";
         //ToDo: google or ? translation to englisch
         //아이템 브랜드 이름
-        String first_BrandName = "cherry";
+        String first_BrandName = "Sommer Cable";
         //아이템 개수
         int first_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P
-        String first_PaymentArt = "T";
+        String first_PaymentArt = "P";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "Nicole Gottmanns";
+        String first_MoneyReceiver = "";
         //IBAN
-        String first_IBAN = "DE80500105175412092512";
-        //BIC for Chec
-        String first_BIC = "INGDDEFF";
+        String first_IBAN = "";
+        //BIC for Check
+        String first_BIC = "";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "353241582685"; 
+        String first_EbayItemnumber = "124444220990"; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
@@ -71,7 +71,7 @@ public class EbayAuctionBuyingCalculator {
         //적립금
         int second_lastSavedMoney = 39800;
         
-        // 배송지 설정 ILOG, ISYS , MARCHI
+        // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address second_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
@@ -109,7 +109,7 @@ public class EbayAuctionBuyingCalculator {
         //적립금
         int third_lastSavedMoney = 244700;
         
-        // 배송지 설정 ILOG, ISYS , MARCHI
+        // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address third_Shipping_Address = Shipping_Address.ILOG;
         
         //이베이 셀러 아이디
@@ -163,7 +163,7 @@ public class EbayAuctionBuyingCalculator {
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
         var paramItemPriceEuro = ebayitem.getItemPriceEuro();
 
-        // 배송지 설정 ILOG, ISYS , MARCHI
+        // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address shippingAddress = ebayitem.getShippingAddress();
         
         //이베이 셀러 아이디
@@ -298,6 +298,9 @@ public class EbayAuctionBuyingCalculator {
             case ISYS:
                 title = "iSYS " + paramArrivalTitle;
                 break;
+            case MANNHARDT:
+                title = "Mannhardt " + paramArrivalTitle;
+                break;
         }
         return title;
     }
@@ -331,8 +334,20 @@ public class EbayAuctionBuyingCalculator {
                 + "Bitte schreiben Sie richtig folgende Adresse und Empfänger auf dem Paket" + '\n'
                 + "Empfänger: Sanghun Cho" + '\n'
                 + "Adresse:" + '\n'
-                + "Marchionini straße.7, Dachgeshoss" + '\n'
+                + "Marchionini straße.7, Dachgeshoss(" + paramArrivalTitle + ")" + '\n'
                 + "D-81377 München" + '\n'
+                + "Deutschland" + '\n'
+                + "Danke im Voraus!" + '\n' 
+                + "Mit freundlichen Grüßen";
+    }
+    
+    public static String getArrivalAddressMANNAHRDT(String paramArrivalTitle) {
+        return "Hallo," + '\n' 
+                + "Bitte schreiben Sie richtig folgende Adresse und Empfänger auf dem Paket" + '\n'
+                + "Empfänger: Sanghun Cho, c/o Park" + '\n'
+                + "Adresse:" + '\n'
+                + "Mannhardt straße.10, 4 Stock(" + paramArrivalTitle + ")" + '\n'
+                + "D-80538 München" + '\n'
                 + "Deutschland" + '\n'
                 + "Danke im Voraus!" + '\n' 
                 + "Mit freundlichen Grüßen";
@@ -350,6 +365,9 @@ public class EbayAuctionBuyingCalculator {
                 break;
             case ISYS:
                 message = getArrivalAddressISYS(arrivalTitle);
+                break;
+            case MANNHARDT:
+                message = getArrivalAddressMANNAHRDT(arrivalTitle);
                 break;
         }
         return message;
@@ -404,6 +422,6 @@ public class EbayAuctionBuyingCalculator {
     }
     
     public enum Shipping_Address {
-        ILOG, ISYS, MARCHI
+        ILOG, ISYS, MARCHI, MANNHARDT
     }
 }

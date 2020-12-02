@@ -30,6 +30,9 @@ public class TransferMoney {
             case ISYS:
                 deliveryAddr = "Sanghun Cho, iSYS software GmbH";
                 break;
+            case MANNHARDT:
+                deliveryAddr = "Sanghun Cho, Mannhardtstr.10";
+                break;
         }
         return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse:" + deliveryAddr;
     }

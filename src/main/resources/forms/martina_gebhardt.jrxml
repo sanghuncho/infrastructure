@@ -64,6 +64,12 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<image hAlign="Center">
+				<reportElement x="227" y="20" width="100" height="40" uuid="022394bb-69eb-4da8-8f2e-ad12a4b21e2f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/마티나겝하르트/martinagebhardt.png"]]></imageExpression>
+			</image>
 		</band>
 		<band height="171" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -180,4 +186,10 @@ Eduard Gerlach 라는 독일약사에 의해 창시된 회사로 독일 뤼벡�
 			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>
