@@ -76,7 +76,7 @@ public class CrawlerMoncler {
         }
         
         //System.out.println(massItemMoncler.getItemImageLinkList());
-        SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_TITLE_PREFIX, baseItemList, DIR_CSV_FILE);
+        SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_TITLE_PREFIX, baseItemList, DIR_CSV_FILE, null);
         smartStore.createCSV();
         //create csv file https://www.baeldung.com/apache-commons-csv
         LOGGER.info("Crawling is end:" + BRAND_NAME + " " + ITEM_CATEGORY);

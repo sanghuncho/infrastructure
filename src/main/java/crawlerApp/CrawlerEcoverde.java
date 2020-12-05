@@ -1,6 +1,5 @@
 package crawlerApp;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +10,59 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import crawlerBrandEntities.MassItemMoncler;
-import crawlerEntities.BaseItem;
+import crawlerBrandEntities.MassItemEcoverde;
+import crawlerEntities.BaseItemCosmetic;
 import crawlerEntities.MassItem;
 import factoryExcel.SmartStore;
 import util.Formatter;
+import util.ImageDownloader;
 
 public class CrawlerEcoverde {
     private static final Logger LOGGER = LogManager.getLogger(CrawlerEcoverde.class);
-    public static String DIR_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/의류/moncler";
-    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/men_long_jacket";
-    public static String HTML_BRAND = DIR_BRAND_CATEGORY + "/moncler_men_long_jacket.html";
-    
-    public static final String BRAND_NAME = "비오텀";
+    public static String DIR_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/ecoverde";
+    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/eyecare/";
+    public static String DIR_MAIN_IMAGES = DIR_BRAND_CATEGORY + "main_images/";
+    public static String DIR_POI_FILE = DIR_BRAND_CATEGORY;
+
     public static final String ITEM_CATEGORY = "아이케어";
-    public static final String CATEGORY_ID = "50000837";
+    public static final String CATEGORY_ID = "50000441";
     
     public static void main(String[] args) throws IOException {
-        //LOGGER.info("Crawler starts:" + BRAND_NAME + " " + ITEM_CATEGORY);
-        /**
-         * call from web and not all urls can be gathered
-         */
+        LOGGER.info("CrawlerEcoverde starts ===>>> " + ITEM_CATEGORY);
+        
+        /** crawler */
+        createAllMassItem();
+        
+        /** To test create one massItem */
+        //createEachMassItem();
+    }
+    
+    private static void createAllMassItem() throws IOException {
+        String categotyUrl = "https://www.ecco-verde.de/gesicht/augen?";
+        List<String> itemUrlList = getItemUrlList(categotyUrl);
+        
+        List<MassItem> massItemList = new ArrayList<>();
+        int number = 1;
+        for(String itemUrl : itemUrlList) {
+            MassItem massItem = createMassItem(itemUrl, new MassItem("", ITEM_CATEGORY, CATEGORY_ID));
+            massItemList.add(massItem);
+            LOGGER.info("MassItem is created:" + number);
+            number++;
+        }
+        
+        List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
+        for(MassItem massItem : massItemList) {
+            MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
+            baseItemCosmeticList.add(massItemEcoverde);
+        }
+        
+        SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_CATEGORY, null, DIR_POI_FILE, baseItemCosmeticList);
+        
+        smartStore.createPOI();
+        LOGGER.info("CrawlerEcoverde is end <<<=== "  + ITEM_CATEGORY);
+    }
+    
+    private static void createEachMassItem() throws IOException {
         String categotyUrl = "https://www.ecco-verde.de/gesicht/augen?";
         List<String> itemUrlList = getItemUrlList(categotyUrl);
         
@@ -95,35 +126,36 @@ public class CrawlerEcoverde {
             LOGGER.error("Error extractItemIngredients:" + itemUrl);
         }
         
-//        
-//        //3. downloading main image
-//        try {
-//            //downloadingMainImage(itemTitle, itemUrl, item);
-//        } catch (IOException e) {
-//            LOGGER.error("Error downloadingMainImage:" + itemUrl);
-//        }
-//        
-//        //3. extractItemColors, baseImages
-//        try {
-//            //extractItemColors(itemUrl, item);
-//        } catch (IOException e) {
-//            LOGGER.error("Error extractItemColors:" + itemUrl);
-//        }
-//        
-//        //4. extractDetailImages
-//        //extractDetailImages(itemUrl, item);
-//        
-//        //4. extractItemPrice
-//        try {
-//            //extractItemPrice(itemUrl, item);
-//        } catch (IOException e) {
-//            LOGGER.error("Error extractItemPrice:" + itemUrl);
-//        }
-        
-        //5. setitemSize
-        //item.setItemSizes(ITEM_SIZE_LIST);
-        
+        //6. downloading main image
+        try {
+            downloadingMainImage(itemBrand, itemTitle, itemUrl, item);
+        } catch (IOException e) {
+            LOGGER.error("Error downloadingMainImage:" + itemUrl);
+        }
         return item;
+    }
+    
+    public static void downloadingMainImage(final String itemBrand, final String itemTitle, final String itemUrl, MassItem item) throws IOException {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = Jsoup.connect(itemUrl).get();
+        
+        Element body = doc.body();
+        
+        Elements elements = body.getElementsByClass("bigslider__img");
+        //System.out.println(itemBrand + " " + itemTitle);
+        //System.out.println(elements.get(0).attr("href"));
+        
+        /**  save the main image process  */ 
+        
+        String mainImageUrl = elements.get(0).attr("href");
+        String itemFullName = itemBrand + " " + itemTitle;
+        item.setMainImageName(itemFullName);
+        savingMainImage(itemFullName, DIR_MAIN_IMAGES, mainImageUrl);
+    }
+    
+    private static void savingMainImage(final String imageName, String directory, final String imageUrl) {
+        ImageDownloader.runWithResizing(imageName, directory, imageUrl, 500, 500);
     }
     
     public static String extractItemBrand(final String itemUrl, MassItem item) throws IOException {
@@ -215,7 +247,13 @@ public class CrawlerEcoverde {
         Elements elements = body.getElementsByClass("variant-content");
         //System.out.println(elements.get(0).text());
         //item.setItemPriceEuro(validPrice);
-        String volume = elements.get(0).text();
+        String volume = null;
+        if(elements.size() == 0) {
+            volume = "";
+            LOGGER.warn("Volume of item is not known:" + itemUrl);
+        } else {
+            volume = elements.get(0).text();
+        }
         
         item.setItemVolume(volume);
         return volume;
@@ -240,33 +278,30 @@ public class CrawlerEcoverde {
         if (orgDescription.contains("Anwendung:")) {
             description = Formatter.splitAfterWord(orgDescription, "Anwendung:").get(0);
             origUsage = Formatter.splitAfterWord(orgDescription, "Anwendung:").get(1);
+            String usage = origUsage.charAt(0) == ' ' ? origUsage.substring(1) : origUsage;
+            item.setItemUsage(usage);
         } else {
             description = orgDescription;
-            LOGGER.warn("item usage is not found:" + itemUrl);
+            item.setItemUsage("");
+            LOGGER.warn("Usage of item is not found:" + itemUrl);
         }
         
-        String usage = origUsage.charAt(0) == ' ' ? origUsage.substring(1) : origUsage;
         item.setItemDescription(description);
-        item.setItemUsage(usage);
-        System.out.println(description);
-        System.out.println(usage);
+        //System.out.println(description);
+        //System.out.println(usage);
     }
     
     public static String extractItemIngredients(final String itemUrl, MassItem item) throws IOException {
         Objects.requireNonNull(itemUrl);
-
         Document doc = Jsoup.connect(itemUrl).get();
-        
         Element body = doc.body();
         //System.out.println(body);
         
-        //Elements elements = body.getElementsByClass("variant-content");
+        Elements elements = body.getElementsByClass("product-ingredients inci");
         //System.out.println(elements.get(0).text());
-        //item.setItemPriceEuro(validPrice);
-        //String volume = elements.get(0).text();
-        
-        //item.setItemVolume(volume);
-        return "";
+        String ingredients = elements.get(0).text();
+        item.setItemIngredients(ingredients);
+        return ingredients;
     }
     
     public static List<String> getItemUrlList(final String categotyUrl) throws IOException {
@@ -287,7 +322,7 @@ public class CrawlerEcoverde {
         Elements elementLinks = elements.get(0).getElementsByClass("product-v2  w4of ga-product");
         //System.out.println(elements.get(0).getElementsByClass("product-v2  w4of ga-product").get(0));
         for(Element link : elementLinks) {
-            String url = "https://www.ecco-verde.de/" + link.getElementsByClass("product__title").get(0).getElementsByClass("productVariants").attr("href");
+            String url = "https://www.ecco-verde.de" + link.getElementsByClass("product__title").get(0).getElementsByClass("productVariants").attr("href");
             //System.out.println("https://www.ecco-verde.de/" + link.getElementsByClass("product__title").get(0).getElementsByClass("productVariants").attr("href"));
             itemUrls.add(url);
         }

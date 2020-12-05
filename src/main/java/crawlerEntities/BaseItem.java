@@ -1,6 +1,7 @@
 package crawlerEntities;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BaseItem {
@@ -16,6 +17,7 @@ public abstract class BaseItem {
     }
     
     public int calculatePriceWon(double totalPriceEuro) {
+        Objects.nonNull(totalPriceEuro);
         double commision = 0;
         double productPriceWon = excahgeRateEuro*totalPriceEuro;
         if(isMinimumCommision(excahgeRateEuro, totalPriceEuro)) {

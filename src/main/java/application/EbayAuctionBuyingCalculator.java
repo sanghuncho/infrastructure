@@ -19,7 +19,7 @@ public class EbayAuctionBuyingCalculator {
     public static void main( String[] args ) throws IOException
     {
     	//날짜
-        var paramDate = "2020.12.01";
+        var paramDate = "2020.12.03";
         //정산할 아이템수
         int calculateted_Items_Number = 1;
         //아이템 구매 사이트
@@ -27,24 +27,24 @@ public class EbayAuctionBuyingCalculator {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 46.49;
+        double first_ItemPriceEuro = 50.00;
         //적립금
-        int first_lastSavedMoney = 27500;
+        int first_lastSavedMoney = 261600;
         
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
-        String first_SellerId = "howe1000_76";
+        String first_SellerId = "universx";
         //배송
-        String first_ArrivalTitle = "GK77";
+        String first_ArrivalTitle = "GK81";
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 352;
+        int first_Gkoo_ItemNumber = 356;
         //아이템 이름
-        String first_ItemName = "used Sommer Cable Speaker Cable SC-Dual Blue 2x2 5m";
+        String first_ItemName = "Speaker Vintage NORDMENDE Arabella";
         //ToDo: google or ? translation to englisch
         //아이템 브랜드 이름
-        String first_BrandName = "Sommer Cable";
+        String first_BrandName = "No brand";
         //아이템 개수
         int first_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P
@@ -57,7 +57,7 @@ public class EbayAuctionBuyingCalculator {
         //BIC for Check
         String first_BIC = "";
         //이베이 아이템 번호
-        String first_EbayItemnumber = "124444220990"; 
+        String first_EbayItemnumber = ""; 
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         

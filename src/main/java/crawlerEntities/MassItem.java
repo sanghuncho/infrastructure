@@ -20,6 +20,7 @@ public class MassItem {
     private String itemVolume;
     private String itemDescription;
     private String itemUsage;
+    private String itemIngredients;
     
     public MassItem(String brandname, String itemcategory, String categoryid, Gender gender) {
         this.brandName = brandname;
@@ -161,5 +162,13 @@ public class MassItem {
 
     public void setItemUsage(String itemUsage) {
         this.itemUsage = itemUsage;
+    }
+
+    public String getItemIngredients() {
+        return itemIngredients;
+    }
+
+    public void setItemIngredients(String itemIngredients) {
+        this.itemIngredients = itemIngredients;
     }
 }
