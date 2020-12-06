@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class SolidTranslator {
-    public static HashMap<String, String> itemBrandTranslator = new HashMap<String, String>();
-    
-    public static void initBrandTranslator() {
-        itemBrandTranslator.put("logona", "로고나");
-        itemBrandTranslator.put("weleda", "벨레다");
-    }
+    public static final HashMap<String, String> itemBrandTranslator = new HashMap<String, String>() {
+        {
+            //Caution! lowCase
+            put("logona", "로고나");
+            put("weleda", "벨레다");
+            put("martina gebhardt", "마르티나 겝하르트");
+         }
+    };
     
     public static String getBrandNameKor(String brandName) {
         Objects.nonNull(brandName);

@@ -1,9 +1,7 @@
 package util;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
-import crawlerApp.CrawlerEcoverde;
 
 public class ImageDownloader {
     private static final Logger LOGGER = LogManager.getLogger(ImageDownloader.class);
@@ -28,6 +25,7 @@ public class ImageDownloader {
             image = ImageIO.read(url);
             imageAddr = imageDir + imageFullname;
             ImageIO.write(image, "jpg", new File(imageAddr));
+            // check whether it was downloaded!
         } catch(IOException e){
             LOGGER.error("Error running of ImageDownloader:" + imageUrl, e);
         }

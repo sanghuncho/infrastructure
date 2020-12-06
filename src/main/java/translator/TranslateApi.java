@@ -7,7 +7,7 @@ import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.translate.*;
 
 public class TranslateApi {
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    private static Translate getTranslateApi() throws FileNotFoundException, IOException {
         Translate translate = TranslateOptions
                 .newBuilder()
                 .setCredentials(
@@ -15,14 +15,15 @@ public class TranslateApi {
                                 .fromStream(new FileInputStream(
                                         "C:/Users/sanghuncho/Documents/Google_Cloud/gkoo-translator-68c45ea2878f.json")))
                 .build().getService();
-        
+        return translate;
+    }
+    
+    public static String doTranslateDEtoKor(String sentences) throws FileNotFoundException, IOException {
         Translation translation =
-                translate.translate(
-                    "Neutral Augencreme",
+                getTranslateApi().translate(sentences,
                     Translate.TranslateOption.sourceLanguage("de"),
                     Translate.TranslateOption.targetLanguage("ko"),
                     Translate.TranslateOption.model("nmt"));
-        
-        System.out.printf("Translated Text:\n\t%s\n", translation.getTranslatedText());
+        return translation.getTranslatedText();
     }
 }

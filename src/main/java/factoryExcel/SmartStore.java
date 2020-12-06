@@ -114,7 +114,7 @@ public class SmartStore {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LOGGER.info("POI is created");//https://howtodoinjava.com/java/library/readingwriting-excel-files-in-java-poi-tutorial/
+        LOGGER.info("POI is created");
     }
     
     private Object[] createItemRow(BaseItemCosmetic item) {
@@ -137,8 +137,11 @@ public class SmartStore {
         itemRow[7] = item.getMainImageFileName();
         //추가 이미지 파일명
         itemRow[8] = "";
+        
         //상품 상세정보
-        itemRow[9] = item.getItemFullDescription();
+        //itemRow[9] = item.getItemFullDescriptionDE();
+        itemRow[9] = item.getItemFullDescriptionKOR();
+        
         //판매자 상품코드
         itemRow[10] = "";
         //판매자 바코드

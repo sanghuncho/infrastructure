@@ -15,6 +15,7 @@ import crawlerEntities.BaseItemCosmetic;
 import crawlerEntities.MassItem;
 import factoryExcel.SmartStore;
 import util.Formatter;
+import util.GrobalDefined;
 import util.ImageDownloader;
 
 public class CrawlerEcoverde {
@@ -27,7 +28,7 @@ public class CrawlerEcoverde {
     public static final String ITEM_CATEGORY = "아이케어";
     public static final String CATEGORY_ID = "50000441";
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         LOGGER.info("CrawlerEcoverde starts ===>>> " + ITEM_CATEGORY);
         
         /** crawler */
@@ -37,7 +38,7 @@ public class CrawlerEcoverde {
         //createEachMassItem();
     }
     
-    private static void createAllMassItem() throws IOException {
+    private static void createAllMassItem() throws Exception {
         String categotyUrl = "https://www.ecco-verde.de/gesicht/augen?";
         List<String> itemUrlList = getItemUrlList(categotyUrl);
         
@@ -47,8 +48,13 @@ public class CrawlerEcoverde {
             MassItem massItem = createMassItem(itemUrl, new MassItem("", ITEM_CATEGORY, CATEGORY_ID));
             massItemList.add(massItem);
             LOGGER.info("MassItem is created:" + number);
-            number++;
+            //number++;
+            break;
         }
+        
+        //Translate the description and usage
+        
+        
         
         List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
         for(MassItem massItem : massItemList) {
@@ -62,7 +68,7 @@ public class CrawlerEcoverde {
         LOGGER.info("CrawlerEcoverde is end <<<=== "  + ITEM_CATEGORY);
     }
     
-    private static void createEachMassItem() throws IOException {
+    private static void createEachMassItem() throws Exception {
         String categotyUrl = "https://www.ecco-verde.de/gesicht/augen?";
         List<String> itemUrlList = getItemUrlList(categotyUrl);
         
@@ -70,7 +76,7 @@ public class CrawlerEcoverde {
         MassItem massItem = createMassItem(itemUrl, new MassItem("", ITEM_CATEGORY, CATEGORY_ID));
     }
     
-    public static MassItem createMassItem(final String itemUrl, MassItem item) {
+    public static MassItem createMassItem(final String itemUrl, MassItem item) throws Exception {
         //pipeline
         
         //1. extractItemBrand 
@@ -252,14 +258,15 @@ public class CrawlerEcoverde {
             volume = "";
             LOGGER.warn("Volume of item is not known:" + itemUrl);
         } else {
-            volume = elements.get(0).text();
+            String rawVolume = elements.get(0).text();
+            volume = Formatter.splitAfterWord(rawVolume, "Inhalt:").get(1);
         }
         
         item.setItemVolume(volume);
         return volume;
     }
     
-    public static void extractItemDescription(final String itemUrl, MassItem item) throws IOException {
+    public static void extractItemDescription(final String itemUrl, MassItem item) throws Exception {
         Objects.requireNonNull(itemUrl);
 
         Document doc = Jsoup.connect(itemUrl).get();
@@ -273,7 +280,7 @@ public class CrawlerEcoverde {
         //item.setItemPriceEuro(validPrice);
         String orgDescription = elements.get(0).text();
         
-        String description=""; 
+        String description=null; 
         String origUsage="";
         if (orgDescription.contains("Anwendung:")) {
             description = Formatter.splitAfterWord(orgDescription, "Anwendung:").get(0);
@@ -282,8 +289,13 @@ public class CrawlerEcoverde {
             item.setItemUsage(usage);
         } else {
             description = orgDescription;
-            item.setItemUsage("");
-            LOGGER.warn("Usage of item is not found:" + itemUrl);
+            String grobalUsage = GrobalDefined.grobalDefinedUsage.get(item.getItemCategory());
+            if (grobalUsage == null) {
+                throw new Exception("Grobal usage is not defined:" + item.getItemCategory());
+            }
+            item.setItemUsage(grobalUsage);
+            item.setGrobalUsage(true);
+            LOGGER.warn("Usage of item is not found, therefore grobal usage has used:" + itemUrl);
         }
         
         item.setItemDescription(description);

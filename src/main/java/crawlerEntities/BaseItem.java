@@ -8,7 +8,7 @@ public abstract class BaseItem {
     private static final String COMPANY_LOGO = "https://moondrive81.cafe24.com/GKoo/gkoo_comany_logo.png";
     private static double excahgeRateEuro = 1400;
     private static int feePercent = 7;
-    private double minimumCommision = 13000;
+    private static double minimumCommision = 13000;
     //2자리리 내림 ex. 10511원? -> 10500원?
     private final int ROUNDED_DIGIT = 3;
     
@@ -21,7 +21,7 @@ public abstract class BaseItem {
         double commision = 0;
         double productPriceWon = excahgeRateEuro*totalPriceEuro;
         if(isMinimumCommision(excahgeRateEuro, totalPriceEuro)) {
-            commision = productPriceWon*(feePercent/100);
+            commision = productPriceWon*(feePercent/100.0);
         } else {
             commision = minimumCommision;
         }
@@ -31,7 +31,7 @@ public abstract class BaseItem {
     }
 
     private boolean isMinimumCommision(double currentEurToKRW, double totalPriceEuro) {
-        double commision = (currentEurToKRW*totalPriceEuro)*(feePercent/100);
+        int commision = (int) ((currentEurToKRW*totalPriceEuro)*(feePercent/100.0));
         if(commision >= minimumCommision) {
             return true;
         } else {

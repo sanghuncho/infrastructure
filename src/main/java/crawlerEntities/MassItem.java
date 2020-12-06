@@ -15,13 +15,24 @@ public class MassItem {
     private String mainImageName;
     private List<String> itemDetailImages;
     private List<String> baseImages;
+    //clothes proeprties
     private List<String> itemColors;
     private List<String> itemSizes;
+    //cosmetic proeprties
     private String itemVolume;
     private String itemDescription;
     private String itemUsage;
+    private boolean grobalUsage;
     private String itemIngredients;
     
+    /**
+     * Clothes
+     * 
+     * @param brandname
+     * @param itemcategory
+     * @param categoryid
+     * @param gender
+     */
     public MassItem(String brandname, String itemcategory, String categoryid, Gender gender) {
         this.brandName = brandname;
         this.itemCategory = itemcategory;
@@ -29,10 +40,18 @@ public class MassItem {
         this.gender = gender;
     }
     
+    /**
+     * Cosmetic
+     * 
+     * @param brandname
+     * @param itemcategory
+     * @param categoryid
+     */
     public MassItem(String brandname, String itemcategory, String categoryid) {
         this.brandName = brandname;
         this.itemCategory = itemcategory;
         this.categoryId = categoryid;
+        this.grobalUsage = false; //default
     }
     
     public String getBrandName() {
@@ -75,8 +94,6 @@ public class MassItem {
         this.itemPriceWon = itemPriceWon;
     }
 
-    //<p style="text-align:center;"><img style="padding-bottom: 20px;" src="https://cdn.yoox.biz/41/41982122le_13_f.jpg" />, 
-    //<img src="https://cdn.yoox.biz/41/41982122le_13_r.jpg"/></p>
     public List<String> getItemDetailImages() {
         return itemDetailImages;
     }
@@ -148,6 +165,7 @@ public class MassItem {
         this.itemVolume = itemVolume;
     }
 
+    
     public String getItemDescription() {
         return itemDescription;
     }
@@ -170,5 +188,13 @@ public class MassItem {
 
     public void setItemIngredients(String itemIngredients) {
         this.itemIngredients = itemIngredients;
+    }
+
+    public boolean isGrobalUsage() {
+        return grobalUsage;
+    }
+
+    public void setGrobalUsage(boolean grobalUsage) {
+        this.grobalUsage = grobalUsage;
     }
 }

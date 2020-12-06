@@ -24,4 +24,12 @@ public class Formatter {
                 .collect(Collectors.toList());
         return convertedStringList;
     }
+    
+    public static String setLinebreakAfterPunct(String sentences) {
+        return sentences.replaceAll("\\.\\s?","\\.\n");
+    }
+    
+    public static String setLinebreakAfterPunctHtml(String sentences) {
+        return sentences.replaceAll("\\.\\s?","\\.<br>");
+    }
 }

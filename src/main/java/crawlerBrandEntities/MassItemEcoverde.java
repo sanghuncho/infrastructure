@@ -1,11 +1,18 @@
 package crawlerBrandEntities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import crawlerApp.CrawlerEcoverde;
 import crawlerEntities.BaseItemCosmetic;
 import crawlerEntities.MassItem;
+import translator.SolidTranslator;
+import translator.TranslateApi;
+import util.Formatter;
 
 public class MassItemEcoverde extends BaseItemCosmetic {
+    private static final Logger LOGGER = LogManager.getLogger(CrawlerEcoverde.class);
 
     private MassItem massItem;
     private String companyLogo;
@@ -18,6 +25,43 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     public MassItemEcoverde(MassItem massItem) {
         this.massItem = massItem;
         this.priceWon = super.calculatePriceWon(massItem.getItemPriceEuro());
+        invokeTranslateApi(massItem);
+    }
+    
+    private void invokeTranslateApi(MassItem massItem) {
+        String description = massItem.getItemDescription();
+        if (description != null) {
+            String translatedDescription = "";
+            try {
+                translatedDescription = TranslateApi.doTranslateDEtoKor(description);
+            } catch (FileNotFoundException e) {
+                LOGGER.error("TranslatedDescription has error:" + description, e);
+            } catch (IOException e) {
+                LOGGER.error("TranslatedDescription has error:" + description, e);
+            }
+            setItemDescriptionKor(translatedDescription);
+        } else {
+            setItemDescriptionKor("");
+            LOGGER.error("Description is not found! No transation:" + massItem.getItemTitle());
+        }
+        
+        String usage = massItem.getItemUsage();
+        if(massItem.isGrobalUsage()) {
+            setItemUsageKor(usage);
+        } else if (usage != null && !massItem.isGrobalUsage()) {
+            String translatedUsage = "";
+            try {
+                translatedUsage = TranslateApi.doTranslateDEtoKor(usage);
+            } catch (FileNotFoundException e) {
+                LOGGER.error("TranslatedUsage has error:" + usage, e);
+            } catch (IOException e) {
+                LOGGER.error("TranslatedUsage has error:" + usage, e);
+            }
+            setItemUsageKor(translatedUsage);
+        } else {
+            setItemUsageKor("");
+            LOGGER.error("Usage is not found! No transation:" + massItem.getItemTitle());
+        }
     }
     
     @Override
@@ -28,7 +72,8 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     @Override
     public String getItemFullname() {
         StringBuilder fullnameBd = new StringBuilder();
-        fullnameBd.append(massItem.getBrandName());
+        //fullnameBd.append(massItem.getBrandName());
+        fullnameBd.append(SolidTranslator.getBrandNameKor(massItem.getBrandName()));
         fullnameBd.append(" ");
         fullnameBd.append(massItem.getItemTitle());
         fullnameBd.append(" ");
@@ -70,38 +115,63 @@ public class MassItemEcoverde extends BaseItemCosmetic {
         this.priceWon = priceWon;
     }
     
-//    public String getItemFullDescription() {
-//        return super.getItemFullDescription(getItemFullname(), massItem.getBrandName(), 
-//                massItem.getItemDescription(), massItem.getItemUsage(), massItem.getItemIngredients());
-//    }
+    
+    /**
+     * raw german description and usage
+     * smartstore.createItemRow
+     */
     @Override
-    public String getItemFullDescription() {
+    public String getItemFullDescriptionDE() {
       StringBuilder result = new StringBuilder();
       result.append(getItemFullNameHtml(getItemFullname()));
       result.append(getItemBrandNameHtml(massItem.getBrandName()));
       result.append(getEmptyLineHtml());
-      result.append(getItemDescriptionHtml(massItem.getItemDescription()));
+      result.append(getItemDescriptionHtml(Formatter.setLinebreakAfterPunctHtml(massItem.getItemDescription())));
       result.append(getEmptyLineHtml());
-      result.append(getItemUsageHtml(massItem.getItemUsage()));
+      result.append(getItemUsageHtml(Formatter.setLinebreakAfterPunctHtml(massItem.getItemUsage())));
       result.append(getEmptyLineHtml());
       result.append(getItemIngredientHtml(massItem.getItemIngredients()));
       
-      return result.toString();
-        
-//        return super.getItemFullDescription(getItemFullname(), massItem.getBrandName(), 
-//                massItem.getItemDescription(), massItem.getItemUsage(), massItem.getItemIngredients());
+      return addAlignment(addTopBottomInfo(result.toString()));
+    }
+    
+    /**
+     * translated korean description and usage from google translate api
+     * smartstore.createItemRow
+     */
+    @Override
+    public String getItemFullDescriptionKOR() {
+      StringBuilder result = new StringBuilder();
+      result.append(getItemFullNameHtml(getItemFullname()));
+      result.append(getItemBrandNameHtml(massItem.getBrandName()));
+      result.append(getEmptyLineHtml());
+      result.append(getItemDescriptionHtml(Formatter.setLinebreakAfterPunctHtml(getItemDescriptionKor())));
+      result.append(getEmptyLineHtml());
+      result.append(getItemUsageHtml(Formatter.setLinebreakAfterPunctHtml(getItemUsageKor())));
+      result.append(getEmptyLineHtml());
+      result.append(getItemIngredientHtml(massItem.getItemIngredients()));
+      
+      return addAlignment(addTopBottomInfo(result.toString()));
     }
 
     @Override
     public String getItemFullnameWithPrefix() {
         return "[" + massItem.getItemCategory() + "]" + " " + getItemFullname();
     }
-    
-    // <p style="text-align: center;"><strong>르네휘테르 쿠비시아 샴푸 600ml</strong></p>
-    // <p style="text-align: center;"><strong>르네휘테르</strong></p>
-    // <p style="text-align: center;">&nbsp;</p>
-    // <p style="text-align: center;"><strong>아이템 </strong><strong>설명</strong></p>
-    // <p style="text-align: center;">&nbsp;</p>
-    // <p style="text-align: center;"><strong>사용법</strong></p>
-    // <p style="text-align: center;">적당량을 덜어서 두피와 모발에 골고루 발라 마사지 하듯 부드럽게 거품을 내어 깨끗하게 헹궈주세요.</p>
+
+    public String getItemDescriptionKor() {
+        return itemDescriptionKor;
+    }
+
+    public void setItemDescriptionKor(String itemDescriptionKor) {
+        this.itemDescriptionKor = itemDescriptionKor;
+    }
+
+    public String getItemUsageKor() {
+        return itemUsageKor;
+    }
+
+    public void setItemUsageKor(String itemUsageKor) {
+        this.itemUsageKor = itemUsageKor;
+    }
 }
