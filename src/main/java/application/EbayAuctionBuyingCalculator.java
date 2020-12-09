@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import application.EbayItem.TransferData;
+import ebayApi.EbayBaseData;
+import ebayApi.EbayUtil;
 import ebayService.DeliveryRegister;
 import ebayService.EbayCalculator;
 import ebayService.EbayDelivery;
@@ -18,37 +20,32 @@ public class EbayAuctionBuyingCalculator {
     
     public static void main( String[] args ) throws IOException
     {
-    	//날짜
-        var paramDate = "2020.12.03";
-        //정산할 아이템수
-        int calculateted_Items_Number = 1;
-        //아이템 구매 사이트
-        var purchaseSite = "www.ebay.de";
-        
-        //### FIRST ITEM
-        //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = 50.00;
+        //==========================================================================
         //적립금
-        int first_lastSavedMoney = 261600;
+        int first_lastSavedMoney = 732900;
+
+        //날짜
+        var paramDate = "2020.12.09";
+
+        //이베이 아이템 번호
+        String first_EbayItemnumber = "293864192127"; 
         
+        //지쿠 아이템아이디
+        int first_Gkoo_ItemNumber = 363;
+
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
-        
-        //이베이 셀러 아이디
-        String first_SellerId = "universx";
+
         //배송
-        String first_ArrivalTitle = "GK81";
-        //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 356;
-        //아이템 이름
-        String first_ItemName = "Speaker Vintage NORDMENDE Arabella";
-        //ToDo: google or ? translation to englisch
-        //아이템 브랜드 이름
-        String first_BrandName = "No brand";
-        //아이템 개수
-        int first_NumberItem = 1;
+        String first_ArrivalTitle = "GK88";
+        
         //결제수단 송금 : T, 페이팔 : P
-        String first_PaymentArt = "P";
+        String first_PaymentArt = "T";
+        
+        // input total price manually 
+        //double first_ItemPriceEuro = 39.12;
+        
+        //==========================================================================
         
         //송금 수취인 이름
         String first_MoneyReceiver = "";
@@ -56,8 +53,31 @@ public class EbayAuctionBuyingCalculator {
         String first_IBAN = "";
         //BIC for Check
         String first_BIC = "";
-        //이베이 아이템 번호
-        String first_EbayItemnumber = ""; 
+        
+        EbayBaseData ebayBaseData = EbayUtil.getEbayBaseData(first_EbayItemnumber);
+        
+        //정산할 아이템수
+        int calculateted_Items_Number = 1;
+        
+        //아이템 구매 사이트
+        var purchaseSite = "www.ebay.de";
+        
+        //### FIRST ITEM
+        //아이템 가격 + 아이템 배송비 == 구매대행 송금액
+        double first_ItemPriceEuro = ebayBaseData.getItemTotalPrice();
+        
+        //이베이 셀러 아이디
+        String first_SellerId = ebayBaseData.getSellerId();
+       
+        //아이템 이름
+        String first_ItemName = ebayBaseData.getItemName();
+        
+        //ToDo: google or ? translation to englisch
+        //아이템 브랜드 이름
+        String first_BrandName = ebayBaseData.getBrandName();
+        
+        //아이템 개수
+        int first_NumberItem = 1;
         
         TransferData first_transferData = new TransferData(first_MoneyReceiver, first_IBAN, first_BIC, first_EbayItemnumber);
         
@@ -75,15 +95,15 @@ public class EbayAuctionBuyingCalculator {
         Shipping_Address second_Shipping_Address = Shipping_Address.MARCHI;
         
         //이베이 셀러 아이디
-        String second_SellerId = "sessel127";
+        String second_SellerId = "";
         //배송
-        String second_ArrivalTitle = "GK46";
+        String second_ArrivalTitle = "GK00";
         //지쿠 아이템아이디
-        int second_Gkoo_ItemNumber = 318;
+        int second_Gkoo_ItemNumber = 0;
         //아이템 이름
-        String second_ItemName = "used Telefunken Speakers";
+        String second_ItemName = "";
         //아이템 브랜드 이름
-        String second_BrandName = "TELEFUNKEN";
+        String second_BrandName = "";
         //아이템 개수
         int second_NumberItem = 1;
         //결제수단 송금 : T, 페이팔 : P

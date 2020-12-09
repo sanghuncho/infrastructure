@@ -32,4 +32,8 @@ public class Formatter {
     public static String setLinebreakAfterPunctHtml(String sentences) {
         return sentences.replaceAll("\\.\\s?","\\.<br>");
     }
+    
+    public static String formatWithoutComma(String sentences) {
+        return sentences.replaceAll(",","");
+    }
 }

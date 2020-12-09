@@ -5,6 +5,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import com.ebay.api.client.auth.oauth2.CredentialUtil;
 import com.ebay.api.client.auth.oauth2.OAuth2Api;
@@ -30,7 +32,7 @@ import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
 * @since  27.06.2020
 *
 */
-public class EbayFotoDownloader {
+public class EbayUtil {
     //NOTE: Change this env to Environment.PRODUCTION to run this test in PRODUCTION
     private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
     private static final String IMAGE_DIR_HOME = "C:/Users/sanghuncho/Pictures/ebay/";
@@ -42,12 +44,60 @@ public class EbayFotoDownloader {
     
     public static void main( String[] args ) throws IOException {
         
-    	List<String> itemNumberEbayList = Arrays.asList("264949694548");
-        int startItemNumberEbay = 356;
+    	List<String> itemNumberEbayList = Arrays.asList("293864192127");
+        int startItemNumberEbay = 363;
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
         	retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay+i);
         }
+    }
+    
+    public static EbayBaseData getEbayBaseData(String itemNumberEbay) throws RestClientException, IOException {
+        String getItemId = BROWSE_API + itemNumberEbay;
+        RestTemplate restTemplate = new RestTemplate();
+        
+        ResponseEntity<String> response = restTemplate.exchange(getItemId, 
+                HttpMethod.GET, getHttpEntity(), String.class);
+ 
+        String result = response.getBody();
+        JSONObject myObject = new JSONObject(result);
+        
+        String itemName = myObject.getString("title");
+        
+        JSONObject priceObject = myObject.getJSONObject("price");
+        String price = priceObject.getString("convertedFromValue");
+        
+        JSONObject sellerObject = myObject.getJSONObject("seller");
+        String sellerId = sellerObject.getString("username");
+        
+        String brandName = myObject.has("brand") ?  myObject.getString("brand") : "No brand";
+        
+        EbayBaseData baseData = new EbayBaseData(itemName, brandName, price, sellerId);
+        String shippingCost = EbayShippingDetails.getShippingCost(itemNumberEbay);
+        
+        if(shippingCost == "" || shippingCost == null) {
+            System.out.println("shippingCost is unknown!");
+        } else {
+            baseData.setShippingServiceCost(shippingCost);
+        }
+        
+        return baseData;
+    }
+    
+    private static HttpEntity<String> getHttpEntity() throws IOException{
+        OAuth2Api oauth2Api = new OAuth2Api();
+        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/main/resources/ebay-config.yaml"));
+        OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + rep.getAccessToken().get().getToken() );
+        headers.set("X-EBAY-C-ENDUSERCTX", "contextualLocation=country=<2_character_country_code>,zip=<zip_code>" );
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+ 
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        
+        return entity;
     }
     
     private static void retrieveProductData(String itemNumberEbay, int itemNumberGkoo) throws IOException {
@@ -73,6 +123,7 @@ public class EbayFotoDownloader {
                 HttpMethod.GET, entity, String.class);
  
         String result = response.getBody();
+        //System.out.println(result);
         JSONObject myObject = new JSONObject(result);
         String title = myObject.getString("title");
         

@@ -1,6 +1,7 @@
 package ebayApi;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import com.ebay.api.client.auth.oauth2.OAuth2Api;
 import com.ebay.api.client.auth.oauth2.model.Environment;
 import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
 
-public class GetShippingCost {
+public class EbayShippingDetails {
     //NOTE: Change this env to Environment.PRODUCTION to run this test in PRODUCTION
     private static final Environment EXECUTION_ENV = Environment.PRODUCTION;
     
@@ -28,16 +29,46 @@ public class GetShippingCost {
     private static final int PRETTY_PRINT_INDENT_FACTOR = 4;
     public static void main( String[] args ) throws IOException {
         
-        List<String> itemNumberEbayList = Arrays.asList("362711397474");
+        List<String> itemNumberEbayList = Arrays.asList("293864192127");
         
         for (int i=0; i< itemNumberEbayList.size(); i++) {
             retrieveShippingCostData(itemNumberEbayList.get(i));
         }
     }
     
+    public static String getShippingCost(String itemNumberEbay) throws IOException {
+        OAuth2Api oauth2Api = new OAuth2Api();
+        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/main/resources/ebay-config.yaml"));
+        OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
+
+        String shopping_url="https://open.api.ebay.com/shopping?callname=GetShippingCosts&responseencoding=XML&appid=SanghunC-gkoo-PRD-1c8e8a00c-ff329d94&siteid=77&version=863&ItemID=" + itemNumberEbay +
+                "&DestinationCountryCode=DE&IncludeDetails=true&QuantitySold=1";
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML }));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+   
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+ 
+        RestTemplate restTemplate = new RestTemplate();
+ 
+        ResponseEntity<String> response = restTemplate.exchange(shopping_url, 
+                HttpMethod.GET, entity, String.class);
+ 
+        String result = response.getBody();
+        JSONObject soapDatainJsonObject = XML.toJSONObject(result);
+        JSONObject itemObjectJson = soapDatainJsonObject.getJSONObject("GetShippingCostsResponse");
+        JSONObject shippingDetails = itemObjectJson.getJSONObject("ShippingDetails");
+
+        JSONObject shippingServiceOption = shippingDetails.getJSONObject("ShippingServiceOption");
+        JSONObject shippingServiceCost = shippingServiceOption.getJSONObject("ShippingServiceCost");
+        String shippingCost = shippingServiceCost.get("content").toString();
+        return shippingCost;
+    }
+    
     private static void retrieveShippingCostData(String itemNumberEbay) throws IOException {
         OAuth2Api oauth2Api = new OAuth2Api();
-        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/java/resources/ebay-config.yaml"));
+        CredentialUtil.load(new FileInputStream("C://Users/sanghuncho/git/infrastructure/src/main/resources/ebay-config.yaml"));
         OAuthResponse rep = oauth2Api.getApplicationToken(EXECUTION_ENV, authorizationScopesList);
 
         String shopping_url="https://open.api.ebay.com/shopping?callname=GetShippingCosts&responseencoding=XML&appid=SanghunC-gkoo-PRD-1c8e8a00c-ff329d94&siteid=77&version=863&ItemID=" + itemNumberEbay +
