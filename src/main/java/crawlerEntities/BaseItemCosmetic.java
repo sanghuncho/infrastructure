@@ -151,4 +151,6 @@ public abstract class BaseItemCosmetic {
     public abstract String getItemFullDescriptionDE();
     
     public abstract String getItemFullDescriptionKOR();
+    
+    public abstract String getItemBrandName();
 }

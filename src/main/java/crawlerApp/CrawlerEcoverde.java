@@ -26,7 +26,8 @@ public class CrawlerEcoverde {
     public static String DIR_POI_FILE = DIR_BRAND_CATEGORY;
 
     public static final String ITEM_CATEGORY = "아이케어";
-    public static final String CATEGORY_ID = "50000441";
+    //public static final String CATEGORY_ID = "50000441";
+    public static final String CATEGORY_ID = "[56168] 뷰티>스킨>크림>아이크림";
     
     public static void main(String[] args) throws Exception {
         LOGGER.info("CrawlerEcoverde starts ===>>> " + ITEM_CATEGORY);
@@ -52,10 +53,6 @@ public class CrawlerEcoverde {
             break;
         }
         
-        //Translate the description and usage
-        
-        
-        
         List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
         for(MassItem massItem : massItemList) {
             MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
@@ -63,8 +60,8 @@ public class CrawlerEcoverde {
         }
         
         SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_CATEGORY, null, DIR_POI_FILE, baseItemCosmeticList);
+        smartStore.createExcel();
         
-        smartStore.createPOI();
         LOGGER.info("CrawlerEcoverde is end <<<=== "  + ITEM_CATEGORY);
     }
     

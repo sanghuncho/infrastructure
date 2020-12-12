@@ -174,4 +174,9 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     public void setItemUsageKor(String itemUsageKor) {
         this.itemUsageKor = itemUsageKor;
     }
+
+    @Override
+    public String getItemBrandName() {
+        return massItem.getBrandName();
+    }
 }

@@ -1,5 +1,6 @@
 package application;
 
+import application.EbayAuctionBuyingCalculator.Ebay_Account;
 import application.EbayAuctionBuyingCalculator.Shipping_Address;
 import ebayService.TransferMoney;
 
@@ -10,6 +11,9 @@ public class EbayItem {
     private double itemPriceEuro;
     // 직접 수령
     private Shipping_Address shippingAddress;
+    
+    private Ebay_Account ebayAccount;
+    
     //이베이 셀러 아이디
     private String sellerId;
     //배송
@@ -29,7 +33,7 @@ public class EbayItem {
     
     public EbayItem (String purchaseDate, int lastSavedMoney, String purchaseSite, double itemPriceEuro, Shipping_Address shippingAddress, 
             String sellerId, String arrivalTitle, int gkooItemNumber, String itemName,
-            String brandName, int numberOfItem, String paymentArt, TransferData transferData) {
+            String brandName, int numberOfItem, String paymentArt, TransferData transferData, Ebay_Account ebayAccount) {
     	this.purchaseDate = purchaseDate;
     	this.lastSavedMoney = lastSavedMoney;
     	this.purchaseSite = purchaseSite;
@@ -43,6 +47,7 @@ public class EbayItem {
         this.numberOfItem = numberOfItem;
         this.paymentArt = paymentArt;
         this.transferData = transferData;
+        this.setEbayAccount(ebayAccount);
     }
 
 	public String getPurchaseDate() {
@@ -147,6 +152,14 @@ public class EbayItem {
 
     public void setShippingAddress(Shipping_Address shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public Ebay_Account getEbayAccount() {
+        return ebayAccount;
+    }
+
+    public void setEbayAccount(Ebay_Account ebayAccount) {
+        this.ebayAccount = ebayAccount;
     }
 
     public static class TransferData {

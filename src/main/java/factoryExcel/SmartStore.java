@@ -59,8 +59,9 @@ public class SmartStore {
         //createPOI();
     }
     
-    public void createPOI() {
-        LOGGER.info("Creating POI starts...");
+    //cosmetic
+    public void createExcel() {
+        LOGGER.info("Creating the excel for smartstore starts...");
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet(itemTitlePrefix);
         
@@ -106,7 +107,7 @@ public class SmartStore {
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(CrawlerEcoverde.DIR_POI_FILE + itemTitlePrefix + ".xlsx");
+            FileOutputStream outputStream = new FileOutputStream(CrawlerEcoverde.DIR_POI_FILE + itemTitlePrefix + "_smartstore.xlsx");
             workbook.write(outputStream);
             workbook.close();
         } catch (FileNotFoundException e) {
@@ -114,7 +115,7 @@ public class SmartStore {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LOGGER.info("POI is created");
+        LOGGER.info("the excel for smartstore is created");
     }
     
     private Object[] createItemRow(BaseItemCosmetic item) {

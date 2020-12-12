@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import application.EbayItem.TransferData;
 import ebayApi.EbayBaseData;
 import ebayApi.EbayUtil;
@@ -10,6 +9,7 @@ import ebayService.DeliveryRegister;
 import ebayService.EbayCalculator;
 import ebayService.EbayDelivery;
 import ebayService.TransferMoney;
+import util.DateUtil;
 
 // moondrive2012 아이디 구매체크
 public class EbayAuctionBuyingCalculator {
@@ -22,30 +22,25 @@ public class EbayAuctionBuyingCalculator {
     {
         //==========================================================================
         //적립금
-        int first_lastSavedMoney = 732900;
-
-        //날짜
-        var paramDate = "2020.12.09";
+        int first_lastSavedMoney = 301200;
 
         //이베이 아이템 번호
-        String first_EbayItemnumber = "293864192127"; 
+        String first_EbayItemnumber = "264961619958"; 
         
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 363;
+        int first_Gkoo_ItemNumber = 368;
 
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
 
+        // 이베이 어카운트 MOONDRIVE, MOONDRIVE2011, SMSACHOO
+        Ebay_Account first_account = Ebay_Account.MOONDRIVE;
+        
         //배송
-        String first_ArrivalTitle = "GK88";
+        String first_ArrivalTitle = "GK93";
         
         //결제수단 송금 : T, 페이팔 : P
-        String first_PaymentArt = "T";
-        
-        // input total price manually 
-        //double first_ItemPriceEuro = 39.12;
-        
-        //==========================================================================
+        String first_PaymentArt = "P";
         
         //송금 수취인 이름
         String first_MoneyReceiver = "";
@@ -54,7 +49,16 @@ public class EbayAuctionBuyingCalculator {
         //BIC for Check
         String first_BIC = "";
         
-        EbayBaseData ebayBaseData = EbayUtil.getEbayBaseData(first_EbayItemnumber);
+        double first_ItemPriceEuro = 0;
+        // input total price manually 
+        //first_ItemPriceEuro = 60.65;
+        //boolean autoPrice = false;
+        boolean autoPrice = true;
+        //==========================================================================
+        //날짜
+        var paramDate = DateUtil.getToday();
+
+        EbayBaseData ebayBaseData = EbayUtil.getEbayBaseData(first_EbayItemnumber, autoPrice);
         
         //정산할 아이템수
         int calculateted_Items_Number = 1;
@@ -64,7 +68,9 @@ public class EbayAuctionBuyingCalculator {
         
         //### FIRST ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
-        double first_ItemPriceEuro = ebayBaseData.getItemTotalPrice();
+        if(autoPrice) {
+            first_ItemPriceEuro = ebayBaseData.getItemTotalPrice();
+        }
         
         //이베이 셀러 아이디
         String first_SellerId = ebayBaseData.getSellerId();
@@ -83,7 +89,7 @@ public class EbayAuctionBuyingCalculator {
         
         EbayItem first_ebayItem = new EbayItem(paramDate, first_lastSavedMoney, purchaseSite, first_ItemPriceEuro,
                 first_Shipping_Address, first_SellerId, first_ArrivalTitle, first_Gkoo_ItemNumber,
-                first_ItemName, first_BrandName, first_NumberItem, first_PaymentArt, first_transferData);
+                first_ItemName, first_BrandName, first_NumberItem, first_PaymentArt, first_transferData, first_account);
         
         //### SECOND ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
@@ -93,6 +99,9 @@ public class EbayAuctionBuyingCalculator {
         
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address second_Shipping_Address = Shipping_Address.MARCHI;
+        
+        // 이베이 어카운트 MOONDRIVE, MOONDRIVE2011, SMSACHOO
+        Ebay_Account second_account = Ebay_Account.SMSACHOO;
         
         //이베이 셀러 아이디
         String second_SellerId = "";
@@ -121,7 +130,7 @@ public class EbayAuctionBuyingCalculator {
         
         EbayItem second_ebayItem = new EbayItem(paramDate, second_lastSavedMoney, purchaseSite, second_ItemPriceEuro,
                 second_Shipping_Address, second_SellerId, second_ArrivalTitle, second_Gkoo_ItemNumber,
-                second_ItemName, second_BrandName, second_NumberItem, second_PaymentArt, second_transferData);
+                second_ItemName, second_BrandName, second_NumberItem, second_PaymentArt, second_transferData, second_account);
         
         //### THIRD ITEM
         //아이템 가격 + 아이템 배송비 == 구매대행 송금액
@@ -131,6 +140,9 @@ public class EbayAuctionBuyingCalculator {
         
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address third_Shipping_Address = Shipping_Address.ILOG;
+        
+        // 이베이 어카운트 MOONDRIVE, MOONDRIVE2011, SMSACHOO
+        Ebay_Account third_account = Ebay_Account.SMSACHOO;
         
         //이베이 셀러 아이디
         String third_SellerId = "slotcar-de";
@@ -159,7 +171,7 @@ public class EbayAuctionBuyingCalculator {
         
         EbayItem third_ebayItem = new EbayItem(paramDate, third_lastSavedMoney, purchaseSite, third_ItemPriceEuro,
                 third_Shipping_Address, third_SellerId, third_ArrivalTitle, third_Gkoo_ItemNumber,
-                third_ItemName, third_BrandName, third_NumberItem, third_PaymentArt, third_transferData);
+                third_ItemName, third_BrandName, third_NumberItem, third_PaymentArt, third_transferData, third_account);
         
         StringBuilder results = new StringBuilder(); 
         
@@ -185,6 +197,9 @@ public class EbayAuctionBuyingCalculator {
 
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address shippingAddress = ebayitem.getShippingAddress();
+        
+        // 이베이 어카운트 MOONDRIVE, MOONDRIVE2011, SMSACHOO
+        Ebay_Account ebayAccount = ebayitem.getEbayAccount();
         
         //이베이 셀러 아이디
         var paramSellerId = ebayitem.getSellerId();
@@ -253,7 +268,7 @@ public class EbayAuctionBuyingCalculator {
 //        System.out.println(calc.convertRowExcel());
               
         //배송내역 변수
-        String arrivalTitle = getArrivalTitle(paramArrivalTitle, shippingAddress);
+        String arrivalTitle = getArrivalTitle(paramArrivalTitle, shippingAddress, ebayAccount);
         String paymentArt = paramPaymentArt; //결제수단 송금 - 1, 페이팔 - 2
         String sellerId = paramSellerId;
         String brandName = paramBrandName;
@@ -306,7 +321,7 @@ public class EbayAuctionBuyingCalculator {
         }
     }
     
-    public static String getArrivalTitle(String paramArrivalTitle, Shipping_Address shippingAddress) {
+    public static String getArrivalTitle(String paramArrivalTitle, Shipping_Address shippingAddress, Ebay_Account ebayAccount) {
         String title = null;
         switch(shippingAddress) {
             case ILOG:
@@ -322,7 +337,21 @@ public class EbayAuctionBuyingCalculator {
                 title = "Mannhardt " + paramArrivalTitle;
                 break;
         }
-        return title;
+        //MOONDRIVE, MOONDRIVE2011, SMSACHOO
+        String result = null;
+        switch(ebayAccount) {
+            case MOONDRIVE:
+                result = title;
+                break;
+            case MOONDRIVE2011:
+                result = title + "(moondrive2012)";
+                break;
+            case SMSACHOO:
+                result = title + "(smsachoo)";
+                break;
+        }
+        
+        return result;
     }
     
     public static String getArrivalAddressILOG(String paramArrivalTitle) {
@@ -443,5 +472,9 @@ public class EbayAuctionBuyingCalculator {
     
     public enum Shipping_Address {
         ILOG, ISYS, MARCHI, MANNHARDT
+    }
+    
+    public enum Ebay_Account {
+        MOONDRIVE, MOONDRIVE2011, SMSACHOO
     }
 }
