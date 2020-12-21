@@ -1,5 +1,6 @@
 package ebayService;
 
+import application.EbayAuctionBuyingCalculator.Ebay_Account;
 import application.EbayAuctionBuyingCalculator.Shipping_Address;
 
 public class TransferMoney {
@@ -10,15 +11,15 @@ public class TransferMoney {
     private String usage;
     
     public TransferMoney(String moneyReceiver, String bankIban, double transferAmountMoney,
-            String ebayItemnumber, String arrivalTitle, String bic, Shipping_Address shippingAddress) {
+            String ebayItemnumber, String arrivalTitle, String bic, Shipping_Address shippingAddress, Ebay_Account ebay_account) {
         this.moneyReceiver = moneyReceiver;
         this.bankIban = bankIban;
         this.transferAmountMoney = transferAmountMoney;
-        this.usage = getUsageMessage(ebayItemnumber, arrivalTitle, shippingAddress);
+        this.usage = getUsageMessage(ebayItemnumber, arrivalTitle, shippingAddress, ebay_account);
         this.bic = bic;
     }
     
-    private String getUsageMessage(String ebayItemnumber, String arrivalTitle, Shipping_Address shippingAddress) {
+    private String getUsageMessage(String ebayItemnumber, String arrivalTitle, Shipping_Address shippingAddress, Ebay_Account ebay_account) {
         String deliveryAddr="";
         switch(shippingAddress) {
             case ILOG:
@@ -34,7 +35,23 @@ public class TransferMoney {
                 deliveryAddr = "Sanghun Cho, Mannhardtstr.10";
                 break;
         }
-        return "Ebay id: arumpark, Artikelnummer: " + ebayItemnumber + ", Lieferadresse:" + deliveryAddr;
+        return "Ebay id: " + getEbayAccount(ebay_account) + ", Artikelnummer: " + ebayItemnumber + ", Lieferadresse:" + deliveryAddr;
+    }
+    
+    private String getEbayAccount(Ebay_Account ebay_account) {
+        String ebayAccount="";
+        switch(ebay_account) {
+            case MOONDRIVE:
+                ebayAccount = "arumpark";
+                break;
+            case MOONDRIVE2012:
+                ebayAccount = "moondrive2012";
+                break;
+            case SMSACHOO:
+                ebayAccount = "san 9166";
+                break;
+        }
+        return ebayAccount;
     }
     
     public String convertTransferMoneyData() {

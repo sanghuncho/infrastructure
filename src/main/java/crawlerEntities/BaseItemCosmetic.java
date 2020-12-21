@@ -37,6 +37,20 @@ public abstract class BaseItemCosmetic {
         int ceiledProductResult = mathCeilDigit(ROUNDED_DIGIT, productPriceWon);
         return ceiledFeeResult + ceiledProductResult;
     }
+    
+    public int calculatePriceWonWithExtraFee(double totalPriceEuro, int extraFeeWon) {
+        Objects.nonNull(totalPriceEuro);
+        double commision = 0;
+        final double productPriceWon = excahgeRateEuro*totalPriceEuro;
+        if(isMinimumCommision(excahgeRateEuro, totalPriceEuro)) {
+            commision = productPriceWon*(feePercent/100.0);
+        } else {
+            commision = minimumCommision;
+        }
+        int ceiledFeeResult = mathCeilDigit(ROUNDED_DIGIT, commision);
+        int ceiledProductResult = mathCeilDigit(ROUNDED_DIGIT, productPriceWon);
+        return ceiledFeeResult + ceiledProductResult + extraFeeWon;
+    }
 
     private boolean isMinimumCommision(double currentEurToKRW, double totalPriceEuro) {
         int commision = (int) ((currentEurToKRW*totalPriceEuro)*(feePercent/100.0));
@@ -67,11 +81,11 @@ public abstract class BaseItemCosmetic {
     
     public String addTopBottomInfo(String itemImagesHtml) {
         StringBuilder imageBuilder = new StringBuilder();
-        imageBuilder.append("<img style=\"padding-bottom: 30px;\" src=\"https://moondrive81.cafe24.com/GKoo/gkoo_info_top.png\"/>");
+        imageBuilder.append("<p style=\"text-align:center;\"><img style=\"padding-bottom: 30px;\" src=\"https://moondrive81.cafe24.com/GKoo/gkoo_info_top.png\"/></p>");
         imageBuilder.append(", ");
         imageBuilder.append(itemImagesHtml);
         imageBuilder.append(", ");
-        imageBuilder.append("<img src=\"https://moondrive81.cafe24.com/GKoo/gkoo_info_bottom.jpg\"/>");
+        imageBuilder.append("<p style=\"text-align:center;\"><img src=\"https://moondrive81.cafe24.com/GKoo/gkoo_info_bottom.jpg\"/></p>");
         return imageBuilder.toString();
     }
     
@@ -153,4 +167,8 @@ public abstract class BaseItemCosmetic {
     public abstract String getItemFullDescriptionKOR();
     
     public abstract String getItemBrandName();
+    
+    public abstract String getItemTitleDE();
+    
+    public abstract MassItem getMassItem();
 }

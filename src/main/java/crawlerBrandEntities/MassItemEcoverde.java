@@ -24,8 +24,8 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     
     public MassItemEcoverde(MassItem massItem) {
         this.massItem = massItem;
-        this.priceWon = super.calculatePriceWon(massItem.getItemPriceEuro());
-        invokeTranslateApi(massItem);
+        this.priceWon = super.calculatePriceWonWithExtraFee(massItem.getItemPriceEuro(), massItem.getExtraDeliveryFee());
+        //invokeTranslateDescriptionApi(massItem);
     }
     
     private void invokeTranslateApi(MassItem massItem) {
@@ -64,6 +64,24 @@ public class MassItemEcoverde extends BaseItemCosmetic {
         }
     }
     
+    private void invokeTranslateDescriptionApi(MassItem massItem) {
+        String description = massItem.getItemDescription();
+        if (description != null) {
+            String translatedDescription = "";
+            try {
+                translatedDescription = TranslateApi.doTranslateDEtoKor(description);
+            } catch (FileNotFoundException e) {
+                LOGGER.error("TranslatedDescription has error:" + description, e);
+            } catch (IOException e) {
+                LOGGER.error("TranslatedDescription has error:" + description, e);
+            }
+            setItemDescriptionKor(translatedDescription);
+        } else {
+            setItemDescriptionKor("");
+            LOGGER.error("Description is not found! No transation:" + massItem.getItemTitle());
+        }
+    }
+    
     @Override
     public String getCategoryId() {
         return massItem.getCategoryId();
@@ -91,6 +109,7 @@ public class MassItemEcoverde extends BaseItemCosmetic {
         return massItem.getMainImageFileName();
     }
 
+    @Override
     public MassItem getMassItem() {
         return massItem;
     }
@@ -141,17 +160,18 @@ public class MassItemEcoverde extends BaseItemCosmetic {
      */
     @Override
     public String getItemFullDescriptionKOR() {
+      invokeTranslateDescriptionApi(massItem);
       StringBuilder result = new StringBuilder();
       result.append(getItemFullNameHtml(getItemFullname()));
       result.append(getItemBrandNameHtml(massItem.getBrandName()));
       result.append(getEmptyLineHtml());
       result.append(getItemDescriptionHtml(Formatter.setLinebreakAfterPunctHtml(getItemDescriptionKor())));
       result.append(getEmptyLineHtml());
-      result.append(getItemUsageHtml(Formatter.setLinebreakAfterPunctHtml(getItemUsageKor())));
+      result.append(getItemUsageHtml(Formatter.setLinebreakAfterPunctHtml(massItem.getItemUsage())));
       result.append(getEmptyLineHtml());
       result.append(getItemIngredientHtml(massItem.getItemIngredients()));
       
-      return addAlignment(addTopBottomInfo(result.toString()));
+      return addTopBottomInfo(result.toString());
     }
 
     @Override
@@ -178,5 +198,10 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     @Override
     public String getItemBrandName() {
         return massItem.getBrandName();
+    }
+
+    @Override
+    public String getItemTitleDE() {
+        return massItem.getItemTitleDE();
     }
 }

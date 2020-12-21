@@ -23,7 +23,7 @@ public class DeliveryCalculator {
         //TODO : 합포장시 3000원추가 
         
         //배송 날짜
-        var paramDate = "2020.11.29";
+        var paramDate = "2020.12.14";
         
         //적립금
         var pramLastSaved = 294500;

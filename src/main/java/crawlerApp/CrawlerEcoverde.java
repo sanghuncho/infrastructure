@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 import crawlerBrandEntities.MassItemEcoverde;
 import crawlerEntities.BaseItemCosmetic;
 import crawlerEntities.MassItem;
+import factoryExcel.Coopang;
 import factoryExcel.SmartStore;
 import util.Formatter;
 import util.GrobalDefined;
@@ -21,22 +22,105 @@ import util.ImageDownloader;
 public class CrawlerEcoverde {
     private static final Logger LOGGER = LogManager.getLogger(CrawlerEcoverde.class);
     public static String DIR_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/ecoverde";
-    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/eyecare/";
+    public final static String BRAND_NAME = "알바(Alba)";
+    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/" + BRAND_NAME + "/";
     public static String DIR_MAIN_IMAGES = DIR_BRAND_CATEGORY + "main_images/";
-    public static String DIR_POI_FILE = DIR_BRAND_CATEGORY;
+    public static String DIR_EXCEL_FILE = DIR_BRAND_CATEGORY;
 
-    public static final String ITEM_CATEGORY = "아이케어";
-    //public static final String CATEGORY_ID = "50000441";
-    public static final String CATEGORY_ID = "[56168] 뷰티>스킨>크림>아이크림";
+    public static final String ITEM_CATEGORY = "";
+    public static final String CATEGORY_ID_SMARTSTORE = "";
+    public static final String CATEGORY_ID_COOPANG = "";
+    public static final boolean TRANSLATE = false;
     
     public static void main(String[] args) throws Exception {
-        LOGGER.info("CrawlerEcoverde starts ===>>> " + ITEM_CATEGORY);
+        LOGGER.info("CrawlerEcoverde starts ===>>> " + BRAND_NAME);
         
+        /** To test create block massItem */
+        createBlockMassItemReady();
+
         /** crawler */
-        createAllMassItem();
+        //createAllMassItem();
         
         /** To test create one massItem */
         //createEachMassItem();
+    }
+    
+    private static void createBlockMassItemReady() throws Exception {
+        List<String> itemUrlList = new ArrayList<>();
+        List<MassItem> massItemList = new ArrayList<>();
+        
+        itemUrlList.add("https://www.ecco-verde.de/alva/for-him-reactivate-koffein-shampoo");
+        MassItem massItem_1 = new MassItem(BRAND_NAME, "남성용 리엑티브 카페인샴푸", "50000297", "200ml", 200, null);
+        massItemList.add(massItem_1);
+        
+        itemUrlList.add("https://www.ecco-verde.de/alva/teebaumoel");
+        MassItem massItem_2 = new MassItem(BRAND_NAME, "티트리 오일", "50000297", "10ml", 100, GrobalDefined.grobalDefinedUsage.get("티트리오일"));
+        massItemList.add(massItem_2);
+        
+        itemUrlList.add("https://www.ecco-verde.de/alva/sanddorn-feuchtigkeitscreme");
+        MassItem massItem_3 = new MassItem(BRAND_NAME, "산돈 수분크림", "50000440", "50ml", 0, GrobalDefined.grobalDefinedUsage.get("수분크림"));
+        massItemList.add(massItem_3);
+        
+        createBlockMassItem(itemUrlList, massItemList);
+    }
+    
+    private static void createBlockMassItem(List<String> itemUrlList, List<MassItem> massItemList) throws Exception {
+        for(int i=0; i<itemUrlList.size(); i++) {
+            createBlockMassItem(itemUrlList.get(i), massItemList.get(i));
+            LOGGER.info("MassItem is created:" + i);
+        }
+        
+        List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
+        for(MassItem massItem : massItemList) {
+            MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
+            baseItemCosmeticList.add(massItemEcoverde);
+        }
+        
+        SmartStore smartStore = new SmartStore(BRAND_NAME, baseItemCosmeticList);
+        smartStore.createExcelBlockEcoverde();
+        
+        //Coopang API 사용등록
+        Coopang coopang = new Coopang(BRAND_NAME, baseItemCosmeticList);
+        coopang.createExcelBlockEcoverde();
+        
+        LOGGER.info("CrawlerEcoverde is end <<<=== "  + BRAND_NAME);
+    }
+    
+    public static void createBlockMassItem(final String itemUrl, MassItem item) throws Exception {
+
+        //1. extractItemTitle 
+        try {
+            extractItemPrice(itemUrl, item);
+            //System.out.println(itemTitle);
+        } catch (IOException e) {
+            LOGGER.error("Error extractItemPrice:" + itemUrl);
+        }
+        
+        //2. extractItem
+        try {
+            extractItemSimpleDescription(itemUrl, item);
+            //System.out.println(itemTitle);
+        } catch (IOException e) {
+            LOGGER.error("Error extractItemDescription:" + itemUrl);
+        }
+        
+        //3. extractItemIngredients 
+        try {
+            extractItemIngredients(itemUrl, item);
+            //System.out.println(itemTitle);
+        } catch (IOException e) {
+            LOGGER.error("Error extractItemIngredients:" + itemUrl);
+        }
+        
+        //5. downloading main image
+        try {
+            downloadingMainImage(item.getBrandName(), item.getItemTitle(), itemUrl, item);
+        } catch (IOException e) {
+            LOGGER.error("Error downloadingMainImage:" + itemUrl);
+        }
+        
+        //6. get itemTitleDE
+        item.setItemTitleDE(extractItemTitleDE(itemUrl, item));
     }
     
     private static void createAllMassItem() throws Exception {
@@ -46,11 +130,12 @@ public class CrawlerEcoverde {
         List<MassItem> massItemList = new ArrayList<>();
         int number = 1;
         for(String itemUrl : itemUrlList) {
-            MassItem massItem = createMassItem(itemUrl, new MassItem("", ITEM_CATEGORY, CATEGORY_ID));
+            //MassItem massItem = createMassItem(itemUrl, new MassItem("", ITEM_CATEGORY, CATEGORY_ID));
+            MassItem massItem = createMassItem(itemUrl, new MassItem(ITEM_CATEGORY));
             massItemList.add(massItem);
             LOGGER.info("MassItem is created:" + number);
-            //number++;
-            break;
+            number++;
+            //break;
         }
         
         List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
@@ -59,18 +144,31 @@ public class CrawlerEcoverde {
             baseItemCosmeticList.add(massItemEcoverde);
         }
         
-        SmartStore smartStore = new SmartStore(CATEGORY_ID, ITEM_CATEGORY, null, DIR_POI_FILE, baseItemCosmeticList);
-        smartStore.createExcel();
+        SmartStore smartStore = new SmartStore(CATEGORY_ID_SMARTSTORE, ITEM_CATEGORY, baseItemCosmeticList);
+        smartStore.createExcelEcoverde();
+        
+        Coopang coopang = new Coopang(CATEGORY_ID_COOPANG, ITEM_CATEGORY, baseItemCosmeticList);
+        coopang.createExcelEcoverde();
         
         LOGGER.info("CrawlerEcoverde is end <<<=== "  + ITEM_CATEGORY);
     }
     
     private static void createEachMassItem() throws Exception {
-        String categotyUrl = "https://www.ecco-verde.de/gesicht/augen?";
-        List<String> itemUrlList = getItemUrlList(categotyUrl);
+        String itemUrl = "https://www.ecco-verde.de/lavera/neutral-augencreme";
+        MassItem massItem = createMassItem(itemUrl, new MassItem(ITEM_CATEGORY));
         
-        String itemUrl = "https://www.ecco-verde.de//lavera/neutral-augencreme";
-        MassItem massItem = createMassItem(itemUrl, new MassItem("", ITEM_CATEGORY, CATEGORY_ID));
+        List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
+        
+        MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
+        baseItemCosmeticList.add(massItemEcoverde);
+        
+        SmartStore smartStore = new SmartStore("", ITEM_CATEGORY, baseItemCosmeticList);
+        smartStore.createExcelEcoverde();
+        
+        Coopang coopang = new Coopang("", ITEM_CATEGORY, baseItemCosmeticList);
+        coopang.createExcelEcoverde();
+        
+        LOGGER.info("CrawlerEcoverde is end <<<=== "  + ITEM_CATEGORY);
     }
     
     public static MassItem createMassItem(final String itemUrl, MassItem item) throws Exception {
@@ -184,6 +282,37 @@ public class CrawlerEcoverde {
         return validBrandName;
     }
     
+    public static String extractItemTitleDE(final String itemUrl, MassItem item) throws IOException {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = Jsoup.connect(itemUrl).get();
+        
+        Element body = doc.body();
+        //System.out.println(body);
+        
+        Elements elements = body.getElementsByClass("product-page-heading");
+        String toRemoveBrand = elements.get(0).getElementsByClass("brand-name").text();
+        String itemTitleWithBrand = elements.get(0).getElementsByTag("h1").text();
+        String itemTitle = "";
+        
+        if (itemTitleWithBrand.contains(toRemoveBrand)) {
+            itemTitle = itemTitleWithBrand.replaceAll(toRemoveBrand, "");
+        }
+        
+        String validItemTitle = "";
+        if(itemTitle.charAt(0) == ' ') {
+            validItemTitle = itemTitle.substring(1);
+        } else {
+            validItemTitle = itemTitle;
+        }
+        
+        if(validItemTitle.length() > 30) {
+            LOGGER.warn("Edit the lenght under 30: " + validItemTitle);
+        }
+        //System.out.println(validItemTitle);
+        return validItemTitle;
+    }
+    
     public static String extractItemTitle(final String itemUrl, MassItem item) throws IOException {
         Objects.requireNonNull(itemUrl);
 
@@ -288,14 +417,54 @@ public class CrawlerEcoverde {
             description = orgDescription;
             String grobalUsage = GrobalDefined.grobalDefinedUsage.get(item.getItemCategory());
             if (grobalUsage == null) {
-                throw new Exception("Grobal usage is not defined:" + item.getItemCategory());
+                LOGGER.error("Grobal usage is not defined:" + item.getItemCategory());
+                item.setItemUsage("");
+            } else {
+                item.setItemUsage(grobalUsage);
+                item.setGrobalUsage(true);
+                LOGGER.warn("Usage of item is not found, therefore global usage has used:" + itemUrl);
             }
-            item.setItemUsage(grobalUsage);
-            item.setGrobalUsage(true);
-            LOGGER.warn("Usage of item is not found, therefore grobal usage has used:" + itemUrl);
         }
         
         item.setItemDescription(description);
+        //System.out.println(description);
+        //System.out.println(usage);
+    }
+    
+    public static void extractItemSimpleDescription(final String itemUrl, MassItem item) throws Exception {
+        Objects.requireNonNull(itemUrl);
+
+        Document doc = Jsoup.connect(itemUrl).get();
+        
+        Element body = doc.body();
+        //System.out.println(body);
+        
+        Elements elements = body.getElementsByClass("product-description-content");
+        //System.out.println(elements.get(0).getElementsByTag("p"));
+        //System.out.println(elements.get(0).text());
+        //item.setItemPriceEuro(validPrice);
+        String orgDescription = elements.get(0).text();
+        
+        String description=null; 
+        String origUsage="";
+        if (orgDescription.contains("Anwendung:")) {
+            description = Formatter.splitAfterWord(orgDescription, "Anwendung:").get(0);
+            
+        } else {
+            description = orgDescription;
+//            String grobalUsage = GrobalDefined.grobalDefinedUsage.get(item.getItemCategory());
+//            if (grobalUsage == null) {
+//                LOGGER.error("Grobal usage is not defined:" + item.getItemCategory());
+//                item.setItemUsage("");
+//            } else {
+//                item.setItemUsage(grobalUsage);
+//                item.setGrobalUsage(true);
+//                LOGGER.warn("Usage of item is not found, therefore global usage has used:" + itemUrl);
+//            }
+        }
+        
+        item.setItemDescription(description);
+        item.setItemUsage(item.getItemUsage());
         //System.out.println(description);
         //System.out.println(usage);
     }

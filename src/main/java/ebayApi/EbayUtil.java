@@ -5,7 +5,6 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -46,8 +45,8 @@ public class EbayUtil {
 
     public static void main(String[] args) throws IOException {
 
-        List<String> itemNumberEbayList = Arrays.asList("264961619958");
-        int startItemNumberEbay = 368;
+        List<String> itemNumberEbayList = Arrays.asList("224267196433");
+        int startItemNumberEbay = 381;
 
         for (int i = 0; i < itemNumberEbayList.size(); i++) {
             retrieveProductData(itemNumberEbayList.get(i), startItemNumberEbay + i);

@@ -22,38 +22,38 @@ public class EbayAuctionBuyingCalculator {
     {
         //==========================================================================
         //적립금
-        int first_lastSavedMoney = 301200;
+        int first_lastSavedMoney = -111100;
 
         //이베이 아이템 번호
-        String first_EbayItemnumber = "264961619958"; 
+        String first_EbayItemnumber = "224267196433"; 
         
         //지쿠 아이템아이디
-        int first_Gkoo_ItemNumber = 368;
+        int first_Gkoo_ItemNumber = 381;
 
         // 배송지 설정 ILOG, ISYS , MARCHI, MANNHARDT
         Shipping_Address first_Shipping_Address = Shipping_Address.MARCHI;
 
-        // 이베이 어카운트 MOONDRIVE, MOONDRIVE2011, SMSACHOO
-        Ebay_Account first_account = Ebay_Account.MOONDRIVE;
+        // 이베이 어카운트 MOONDRIVE, MOONDRIVE2012, SMSACHOO
+        Ebay_Account first_account = Ebay_Account.SMSACHOO;
         
         //배송
-        String first_ArrivalTitle = "GK93";
+        String first_ArrivalTitle = "GK106";
         
         //결제수단 송금 : T, 페이팔 : P
-        String first_PaymentArt = "P";
+        String first_PaymentArt = "T";
         
         //송금 수취인 이름
-        String first_MoneyReceiver = "";
+        String first_MoneyReceiver = "Josef Rentz";
         //IBAN
-        String first_IBAN = "";
+        String first_IBAN = "DE62600909007593503600";
         //BIC for Check
-        String first_BIC = "";
+        String first_BIC = "GENODEF1P20";
         
         double first_ItemPriceEuro = 0;
         // input total price manually 
-        //first_ItemPriceEuro = 60.65;
-        //boolean autoPrice = false;
-        boolean autoPrice = true;
+        first_ItemPriceEuro = 33.38;
+        boolean autoPrice = false;
+        //boolean autoPrice = true;
         //==========================================================================
         //날짜
         var paramDate = DateUtil.getToday();
@@ -224,7 +224,6 @@ public class EbayAuctionBuyingCalculator {
         //아이템 구매 사이트
         var paramSite = "www.ebay.de";
 
-        
         ////////////////////
         ////  송금시만 작성  ///
         ///////////////////
@@ -299,7 +298,7 @@ public class EbayAuctionBuyingCalculator {
         
         if(paramPaymentArt == "T") {
             TransferMoney transMoney = new TransferMoney(parmaMoneyReceiver, paramIBAN, paramItemPriceEuro, 
-            		paramEbayItemnumber, paramArrivalTitle, paramBIC, shippingAddress);
+            		paramEbayItemnumber, paramArrivalTitle, paramBIC, shippingAddress, ebayAccount);
             results.append('\n');
             results.append('\n');
             results.append("## 송금신청");
@@ -343,7 +342,7 @@ public class EbayAuctionBuyingCalculator {
             case MOONDRIVE:
                 result = title;
                 break;
-            case MOONDRIVE2011:
+            case MOONDRIVE2012:
                 result = title + "(moondrive2012)";
                 break;
             case SMSACHOO:
@@ -475,6 +474,6 @@ public class EbayAuctionBuyingCalculator {
     }
     
     public enum Ebay_Account {
-        MOONDRIVE, MOONDRIVE2011, SMSACHOO
+        MOONDRIVE, MOONDRIVE2012, SMSACHOO
     }
 }

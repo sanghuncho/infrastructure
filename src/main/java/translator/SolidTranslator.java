@@ -10,6 +10,8 @@ public class SolidTranslator {
             put("logona", "로고나");
             put("weleda", "벨레다");
             put("martina gebhardt", "마르티나 겝하르트");
+            put("lavera", "라베라");
+            put("santaverde", "산타베르데");
          }
     };
     

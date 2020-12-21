@@ -2,6 +2,7 @@ package crawlerEntities;
 
 import java.util.List;
 import crawlerApp.CrawlerMoncler.Gender;
+import util.GrobalDefined;
 
 public class MassItem {
     
@@ -24,7 +25,9 @@ public class MassItem {
     private String itemUsage;
     private boolean grobalUsage;
     private String itemIngredients;
-    
+    private int extraDeliveryFee;
+    private String itemTitleDE;
+
     /**
      * Clothes
      * 
@@ -40,17 +43,18 @@ public class MassItem {
         this.gender = gender;
     }
     
-    /**
-     * Cosmetic
-     * 
-     * @param brandname
-     * @param itemcategory
-     * @param categoryid
-     */
-    public MassItem(String brandname, String itemcategory, String categoryid) {
+    public MassItem(String brandname, String itemTitle, String categoryid, String itemVolume, int extraDeliveryFee, String usage) {
         this.brandName = brandname;
-        this.itemCategory = itemcategory;
+        this.itemTitle = itemTitle;
         this.categoryId = categoryid;
+        this.itemVolume = itemVolume;
+        this.itemCategory = GrobalDefined.categoryUsage.get(categoryid).getCategory();
+        this.extraDeliveryFee = extraDeliveryFee*3;
+        this.itemUsage = usage == null ? GrobalDefined.categoryUsage.get(categoryid).getUsage() : usage;
+    }
+    
+    public MassItem(String itemcategory) {
+        this.itemCategory = itemcategory;
         this.grobalUsage = false; //default
     }
     
@@ -196,5 +200,21 @@ public class MassItem {
 
     public void setGrobalUsage(boolean grobalUsage) {
         this.grobalUsage = grobalUsage;
+    }
+
+    public int getExtraDeliveryFee() {
+        return extraDeliveryFee;
+    }
+
+    public void setExtraDeliveryFee(int extraDeliveryFess) {
+        this.extraDeliveryFee = extraDeliveryFee;
+    }
+
+    public String getItemTitleDE() {
+        return itemTitleDE;
+    }
+
+    public void setItemTitleDE(String itemTitleDE) {
+        this.itemTitleDE = itemTitleDE;
     }
 }

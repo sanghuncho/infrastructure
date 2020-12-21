@@ -1,5 +1,10 @@
 package util_test;
 
-public class ImageDownloaderTest {
+import org.junit.Test;
 
+public class ImageDownloaderTest {
+    @Test
+    public void getRectangleImage() {
+        
+    }
 }
