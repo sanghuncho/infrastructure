@@ -63,21 +63,43 @@ public class ImageDownloader {
             int bufferedImageWidthHalf = bufferedImageWidth/2;
             int filledWithHalf = 250 - bufferedImageWidthHalf; 
             
-            BufferedImage newBufferedImage = null;
+            //control width of image
+            BufferedImage newBufferedImageValidWidth = null;
             if(bufferedImageWidth < 500) {
-                newBufferedImage = new BufferedImage(bufferedImage.getWidth() + 2 * filledWithHalf, bufferedImage.getHeight(), bufferedImage.getType());
+                newBufferedImageValidWidth = new BufferedImage(bufferedImage.getWidth() + 2 * filledWithHalf, bufferedImage.getHeight(), bufferedImage.getType());
 
-                Graphics g = newBufferedImage.getGraphics();
+                Graphics g = newBufferedImageValidWidth.getGraphics();
 
                 g.setColor(Color.white);
                 g.fillRect(0, 0, bufferedImage.getWidth() + 2 * filledWithHalf, bufferedImage.getHeight());
                 g.drawImage(bufferedImage, filledWithHalf, 0, null);
                 g.dispose();
             } else {
-                newBufferedImage = bufferedImage;
+                newBufferedImageValidWidth = bufferedImage;
             }
             
-            ImageIO.write(newBufferedImage, "jpg", new File(imageAddrResized));
+            //control height of image
+            BufferedImage newBufferedValidImage = null;
+            int bufferedImageHeight = newBufferedImageValidWidth.getHeight();
+            int bufferedImageHeightHalf = bufferedImageHeight/2;
+            int filledHeightHalf = 250 - bufferedImageHeightHalf; 
+            if(bufferedImageHeight < 500) {
+                newBufferedValidImage = new BufferedImage(newBufferedImageValidWidth.getWidth(), newBufferedImageValidWidth.getHeight() + 2 * filledHeightHalf, newBufferedImageValidWidth.getType());
+
+                Graphics g = newBufferedValidImage.getGraphics();
+
+                g.setColor(Color.white);
+                g.fillRect(0, 0, newBufferedImageValidWidth.getWidth(), newBufferedImageValidWidth.getHeight() + 2 * filledHeightHalf);
+                g.drawImage(newBufferedImageValidWidth, 0, filledHeightHalf, null);
+                g.dispose();
+            } else {
+                newBufferedValidImage = newBufferedImageValidWidth;
+            }
+            
+            //padding image
+            BufferedImage newBufferedValidImagePadding = Scalr.pad(newBufferedValidImage, 50, Color.WHITE);
+            
+            ImageIO.write(newBufferedValidImagePadding, "jpg", new File(imageAddrResized));
         } catch(IOException e){
             LOGGER.error("Error running of ImageDownloader:" + imageFullnameResized + "/" +  imageUrl, e);
         }

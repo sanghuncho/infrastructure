@@ -7,11 +7,11 @@ import org.apache.logging.log4j.Logger;
 import crawlerApp.CrawlerEcoverde;
 import crawlerEntities.BaseItemCosmetic;
 import crawlerEntities.MassItem;
-import translator.SolidTranslator;
 import translator.TranslateApi;
 import util.Formatter;
+import util.GrobalDefined;
 
-public class MassItemEcoverde extends BaseItemCosmetic {
+public class MassItemConverter extends BaseItemCosmetic {
     private static final Logger LOGGER = LogManager.getLogger(CrawlerEcoverde.class);
 
     private MassItem massItem;
@@ -22,7 +22,7 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     private String itemDescriptionKor;
     private String itemUsageKor;
     
-    public MassItemEcoverde(MassItem massItem) {
+    public MassItemConverter(MassItem massItem) {
         this.massItem = massItem;
         this.priceWon = super.calculatePriceWonWithExtraFee(massItem.getItemPriceEuro(), massItem.getExtraDeliveryFee());
         //invokeTranslateDescriptionApi(massItem);
@@ -91,8 +91,6 @@ public class MassItemEcoverde extends BaseItemCosmetic {
     public String getItemFullname() {
         StringBuilder fullnameBd = new StringBuilder();
         //fullnameBd.append(massItem.getBrandName());
-        fullnameBd.append(SolidTranslator.getBrandNameKor(massItem.getBrandName()));
-        fullnameBd.append(" ");
         fullnameBd.append(massItem.getItemTitle());
         fullnameBd.append(" ");
         fullnameBd.append(massItem.getItemVolume());
@@ -141,9 +139,13 @@ public class MassItemEcoverde extends BaseItemCosmetic {
      */
     @Override
     public String getItemFullDescriptionDE() {
+      String brandNameDE = massItem.getBrandNameDE();
+      boolean hasOverview = GrobalDefined.brandOverview.containsKey(brandNameDE);
       StringBuilder result = new StringBuilder();
       result.append(getItemFullNameHtml(getItemFullname()));
-      result.append(getItemBrandNameHtml(massItem.getBrandName()));
+      result.append(getItemBrandNameHtml(massItem.getBrandNameDE()));
+      result.append(getEmptyLineHtml());
+      result.append(hasOverview ? getItemBrandOverview(GrobalDefined.brandOverview.get(brandNameDE)) : "");
       result.append(getEmptyLineHtml());
       result.append(getItemDescriptionHtml(Formatter.setLinebreakAfterPunctHtml(massItem.getItemDescription())));
       result.append(getEmptyLineHtml());
@@ -160,10 +162,14 @@ public class MassItemEcoverde extends BaseItemCosmetic {
      */
     @Override
     public String getItemFullDescriptionKOR() {
+      String brandNameDE = massItem.getBrandNameDE();
+      boolean hasOverview = GrobalDefined.brandOverview.containsKey(brandNameDE);
       invokeTranslateDescriptionApi(massItem);
       StringBuilder result = new StringBuilder();
       result.append(getItemFullNameHtml(getItemFullname()));
-      result.append(getItemBrandNameHtml(massItem.getBrandName()));
+      result.append(getItemBrandNameHtml(massItem.getBrandNameDE()));
+      result.append(getEmptyLineHtml());
+      result.append(hasOverview ? getItemBrandOverview(GrobalDefined.brandOverview.get(brandNameDE)) : "");
       result.append(getEmptyLineHtml());
       result.append(getItemDescriptionHtml(Formatter.setLinebreakAfterPunctHtml(getItemDescriptionKor())));
       result.append(getEmptyLineHtml());
@@ -176,7 +182,7 @@ public class MassItemEcoverde extends BaseItemCosmetic {
 
     @Override
     public String getItemFullnameWithPrefix() {
-        return "[" + massItem.getItemCategory() + "]" + " " + getItemFullname();
+        return "[" + massItem.getBrandNameDE() + "]" + " " + getItemFullname();
     }
 
     public String getItemDescriptionKor() {
@@ -193,11 +199,6 @@ public class MassItemEcoverde extends BaseItemCosmetic {
 
     public void setItemUsageKor(String itemUsageKor) {
         this.itemUsageKor = itemUsageKor;
-    }
-
-    @Override
-    public String getItemBrandName() {
-        return massItem.getBrandName();
     }
 
     @Override

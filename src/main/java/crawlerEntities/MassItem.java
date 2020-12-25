@@ -1,12 +1,14 @@
 package crawlerEntities;
 
 import java.util.List;
+import crawlerApp.CrawlerEcoverde;
 import crawlerApp.CrawlerMoncler.Gender;
 import util.GrobalDefined;
 
 public class MassItem {
     
-    private String brandName;
+    private String brandNameDE;
+    private String brandNameKor;
     private String itemCategory;
     private String categoryId;
     private String itemTitle;
@@ -37,19 +39,19 @@ public class MassItem {
      * @param gender
      */
     public MassItem(String brandname, String itemcategory, String categoryid, Gender gender) {
-        this.brandName = brandname;
+        this.brandNameDE = brandname;
         this.itemCategory = itemcategory;
         this.categoryId = categoryid;
         this.gender = gender;
     }
     
-    public MassItem(String brandname, String itemTitle, String categoryid, String itemVolume, int extraDeliveryFee, String usage) {
-        this.brandName = brandname;
-        this.itemTitle = itemTitle;
+    public MassItem(String itemTitle, String categoryid, String itemVolume, int extraDeliveryFee, String usage) {
+        this.brandNameDE =  CrawlerEcoverde.BRAND_NAME_DE;
+        this.itemTitle = CrawlerEcoverde.BRAND_NAME_KOR + " " + itemTitle;
         this.categoryId = categoryid;
         this.itemVolume = itemVolume;
-        this.itemCategory = GrobalDefined.categoryUsage.get(categoryid).getCategory();
-        this.extraDeliveryFee = extraDeliveryFee*3;
+        //this.itemCategory = GrobalDefined.categoryUsage.get(categoryid).getCategory();
+        this.extraDeliveryFee = extraDeliveryFee;
         this.itemUsage = usage == null ? GrobalDefined.categoryUsage.get(categoryid).getUsage() : usage;
     }
     
@@ -58,12 +60,12 @@ public class MassItem {
         this.grobalUsage = false; //default
     }
     
-    public String getBrandName() {
-        return brandName;
+    public String getBrandNameDE() {
+        return brandNameDE;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setBrandNameDE(String brandNameDE) {
+        this.brandNameDE = brandNameDE;
     }
 
     public String getItemCategory() {
@@ -216,5 +218,13 @@ public class MassItem {
 
     public void setItemTitleDE(String itemTitleDE) {
         this.itemTitleDE = itemTitleDE;
+    }
+
+    public String getBrandNameKor() {
+        return brandNameKor;
+    }
+
+    public void setBrandNameKor(String brandNameKor) {
+        this.brandNameKor = brandNameKor;
     }
 }

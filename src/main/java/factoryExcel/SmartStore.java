@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import crawlerApp.CrawlerEcoverde;
 import crawlerEntities.BaseItem;
 import crawlerEntities.BaseItemCosmetic;
+import util.GrobalDefined;
  
 public class SmartStore {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -123,10 +126,15 @@ public class SmartStore {
     }
     
     //block cosmetic
-    public void createExcelBlockEcoverde() {
+    public void createExcelBlock(String dirExcelFile) {
         LOGGER.info("Creating the excel for smartstore starts...");
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet(brandName);
+        //excel 2007
+//        XSSFWorkbook workbook = new XSSFWorkbook();
+//        XSSFSheet sheet = workbook.createSheet(brandName);
+       
+        //excel 2007, https://www.codejava.net/coding/how-to-write-excel-files-in-java-using-apache-poi
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet(brandName);
         
         Map<String, Object[]> data = new TreeMap<String, Object[]>();     
         for (int i=0;i<massItemCosmeticList.size();i++) {
@@ -136,7 +144,7 @@ public class SmartStore {
 
 
         Set<String> keyset = data.keySet();
-        int rownum = 0;
+        int rownum = 1;
         for (String key : keyset)
         {
             Row row = sheet.createRow(rownum++);
@@ -153,7 +161,8 @@ public class SmartStore {
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(CrawlerEcoverde.DIR_EXCEL_FILE + brandName + "_smartstore_ready.xlsx");
+            //FileOutputStream outputStream = new FileOutputStream(CrawlerEcoverde.DIR_EXCEL_FILE + brandName + "_smartstore_ready.xlsx");
+            FileOutputStream outputStream = new FileOutputStream(dirExcelFile + brandName + "_smartstore_ready.xls");
             workbook.write(outputStream);
             workbook.close();
         } catch (FileNotFoundException e) {
@@ -186,7 +195,7 @@ public class SmartStore {
         itemRow[8] = "";
         
         //상품 상세정보
-        itemRow[9] = CrawlerEcoverde.TRANSLATE ? item.getItemFullDescriptionKOR() : item.getItemFullDescriptionDE();
+        itemRow[9] = GrobalDefined.TRANSLATE ? item.getItemFullDescriptionKOR() : item.getItemFullDescriptionDE();
         
         //판매자 상품코드
         itemRow[10] = item.getItemTitleDE();

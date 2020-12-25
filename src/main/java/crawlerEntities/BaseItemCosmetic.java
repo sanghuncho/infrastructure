@@ -38,7 +38,7 @@ public abstract class BaseItemCosmetic {
         return ceiledFeeResult + ceiledProductResult;
     }
     
-    public int calculatePriceWonWithExtraFee(double totalPriceEuro, int extraFeeWon) {
+    public int calculatePriceWonWithExtraFee(double totalPriceEuro, int extraFee) {
         Objects.nonNull(totalPriceEuro);
         double commision = 0;
         final double productPriceWon = excahgeRateEuro*totalPriceEuro;
@@ -49,7 +49,7 @@ public abstract class BaseItemCosmetic {
         }
         int ceiledFeeResult = mathCeilDigit(ROUNDED_DIGIT, commision);
         int ceiledProductResult = mathCeilDigit(ROUNDED_DIGIT, productPriceWon);
-        return ceiledFeeResult + ceiledProductResult + extraFeeWon;
+        return ceiledFeeResult + ceiledProductResult + extraFee*3;
     }
 
     private boolean isMinimumCommision(double currentEurToKRW, double totalPriceEuro) {
@@ -102,6 +102,12 @@ public abstract class BaseItemCosmetic {
         bd.append("<p style=\"text-align: center;\"><span style=\"font-size: 12pt;\"><strong>");
         bd.append(itemBrandname);
         bd.append("</strong></span></p>");
+        return bd.toString();
+    }
+    
+    public static String getItemBrandOverview(String brandOverviewUrl) {
+        StringBuilder bd = new StringBuilder();
+        bd.append("<p style=\"text-align:center;\"><img style=\"padding-bottom: 30px;\" src=\"" + brandOverviewUrl + "\"/></p>");
         return bd.toString();
     }
     
@@ -165,8 +171,6 @@ public abstract class BaseItemCosmetic {
     public abstract String getItemFullDescriptionDE();
     
     public abstract String getItemFullDescriptionKOR();
-    
-    public abstract String getItemBrandName();
     
     public abstract String getItemTitleDE();
     

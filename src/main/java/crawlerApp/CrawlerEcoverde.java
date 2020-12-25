@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import crawlerBrandEntities.MassItemEcoverde;
+import crawlerBrandEntities.MassItemConverter;
 import crawlerEntities.BaseItemCosmetic;
 import crawlerEntities.MassItem;
 import factoryExcel.Coopang;
@@ -22,18 +22,18 @@ import util.ImageDownloader;
 public class CrawlerEcoverde {
     private static final Logger LOGGER = LogManager.getLogger(CrawlerEcoverde.class);
     public static String DIR_BRAND = "C:/Users/sanghuncho/Documents/GKoo_Store_Project/화장품/ecoverde";
-    public final static String BRAND_NAME = "알바(Alba)";
-    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/" + BRAND_NAME + "/";
+    public final static String BRAND_NAME_KOR = "산테";
+    public final static String BRAND_NAME_DE = "Sante";
+    public static String DIR_BRAND_CATEGORY = DIR_BRAND + "/" + BRAND_NAME_KOR + "/";
     public static String DIR_MAIN_IMAGES = DIR_BRAND_CATEGORY + "main_images/";
     public static String DIR_EXCEL_FILE = DIR_BRAND_CATEGORY;
 
     public static final String ITEM_CATEGORY = "";
     public static final String CATEGORY_ID_SMARTSTORE = "";
     public static final String CATEGORY_ID_COOPANG = "";
-    public static final boolean TRANSLATE = false;
     
     public static void main(String[] args) throws Exception {
-        LOGGER.info("CrawlerEcoverde starts ===>>> " + BRAND_NAME);
+        LOGGER.info("CrawlerEcoverde starts ===>>> " + BRAND_NAME_KOR);
         
         /** To test create block massItem */
         createBlockMassItemReady();
@@ -49,44 +49,52 @@ public class CrawlerEcoverde {
         List<String> itemUrlList = new ArrayList<>();
         List<MassItem> massItemList = new ArrayList<>();
         
-        itemUrlList.add("https://www.ecco-verde.de/alva/for-him-reactivate-koffein-shampoo");
-        MassItem massItem_1 = new MassItem(BRAND_NAME, "남성용 리엑티브 카페인샴푸", "50000297", "200ml", 200, null);
+        itemUrlList.add("https://www.ecco-verde.de/sante-naturkosmetik/schuetzende-24h-feuchtigkeitscreme-1");
+        MassItem massItem_1 = new MassItem("24hour 수분크림", "50000440", "50ml", 0, GrobalDefined.grobalDefinedUsage.get("수분크림"));
         massItemList.add(massItem_1);
         
-        itemUrlList.add("https://www.ecco-verde.de/alva/teebaumoel");
-        MassItem massItem_2 = new MassItem(BRAND_NAME, "티트리 오일", "50000297", "10ml", 100, GrobalDefined.grobalDefinedUsage.get("티트리오일"));
-        massItemList.add(massItem_2);
-        
-        itemUrlList.add("https://www.ecco-verde.de/alva/sanddorn-feuchtigkeitscreme");
-        MassItem massItem_3 = new MassItem(BRAND_NAME, "산돈 수분크림", "50000440", "50ml", 0, GrobalDefined.grobalDefinedUsage.get("수분크림"));
-        massItemList.add(massItem_3);
+//        itemUrlList.add("https://www.ecco-verde.de/sante-naturkosmetik/3-min-glanz-maske");
+//        MassItem massItem_2 = new MassItem("3분 샤인 헤어마스크", "50000301", "100ml", 100, null);
+//        massItemList.add(massItem_2);
+//        
+//        itemUrlList.add("https://www.ecco-verde.de/sante-naturkosmetik/sofort-glaettende-feuchtigkeitscreme");
+//        MassItem massItem_3 = new MassItem("부드러운 수분크림", "50000440", "50ml", 0, null);
+//        massItemList.add(massItem_3);
+//        
+//        itemUrlList.add("https://www.ecco-verde.de/sante-naturkosmetik/happiness-duschgel-bio-orange-mango");
+//        MassItem massItem_4 = new MassItem("해피 유기농 오렌지-망고 샤워젤", "50000285", "200ml", 200, null);
+//        massItemList.add(massItem_4);
+//        
+//        itemUrlList.add("https://www.ecco-verde.de/sante-naturkosmetik/family-kraft-glanz-shampoo");
+//        MassItem massItem_5 = new MassItem("패밀리 에너지 샤인 샴푸", "50000297", "250ml", 0, null);
+//        massItemList.add(massItem_5);
         
         createBlockMassItem(itemUrlList, massItemList);
     }
     
     private static void createBlockMassItem(List<String> itemUrlList, List<MassItem> massItemList) throws Exception {
         for(int i=0; i<itemUrlList.size(); i++) {
-            createBlockMassItem(itemUrlList.get(i), massItemList.get(i));
+            extractBlockMassItem(itemUrlList.get(i), massItemList.get(i));
             LOGGER.info("MassItem is created:" + i);
         }
         
         List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
         for(MassItem massItem : massItemList) {
-            MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
-            baseItemCosmeticList.add(massItemEcoverde);
+            MassItemConverter massItemConverter = new MassItemConverter(massItem);
+            baseItemCosmeticList.add(massItemConverter);
         }
         
-        SmartStore smartStore = new SmartStore(BRAND_NAME, baseItemCosmeticList);
-        smartStore.createExcelBlockEcoverde();
+        SmartStore smartStore = new SmartStore(BRAND_NAME_KOR, baseItemCosmeticList);
+        smartStore.createExcelBlock(CrawlerEcoverde.DIR_EXCEL_FILE);
         
         //Coopang API 사용등록
-        Coopang coopang = new Coopang(BRAND_NAME, baseItemCosmeticList);
+        Coopang coopang = new Coopang(BRAND_NAME_KOR, baseItemCosmeticList);
         coopang.createExcelBlockEcoverde();
         
-        LOGGER.info("CrawlerEcoverde is end <<<=== "  + BRAND_NAME);
+        LOGGER.info("CrawlerEcoverde is end <<<=== "  + BRAND_NAME_KOR);
     }
     
-    public static void createBlockMassItem(final String itemUrl, MassItem item) throws Exception {
+    public static void extractBlockMassItem(final String itemUrl, MassItem item) throws Exception {
 
         //1. extractItemTitle 
         try {
@@ -114,7 +122,7 @@ public class CrawlerEcoverde {
         
         //5. downloading main image
         try {
-            downloadingMainImage(item.getBrandName(), item.getItemTitle(), itemUrl, item);
+            downloadingMainImage(item.getBrandNameKor(), item.getItemTitle(), itemUrl, item);
         } catch (IOException e) {
             LOGGER.error("Error downloadingMainImage:" + itemUrl);
         }
@@ -140,7 +148,7 @@ public class CrawlerEcoverde {
         
         List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
         for(MassItem massItem : massItemList) {
-            MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
+            MassItemConverter massItemEcoverde = new MassItemConverter(massItem);
             baseItemCosmeticList.add(massItemEcoverde);
         }
         
@@ -159,7 +167,7 @@ public class CrawlerEcoverde {
         
         List<BaseItemCosmetic> baseItemCosmeticList = new ArrayList<>();
         
-        MassItemEcoverde massItemEcoverde = new MassItemEcoverde(massItem);
+        MassItemConverter massItemEcoverde = new MassItemConverter(massItem);
         baseItemCosmeticList.add(massItemEcoverde);
         
         SmartStore smartStore = new SmartStore("", ITEM_CATEGORY, baseItemCosmeticList);
@@ -250,9 +258,9 @@ public class CrawlerEcoverde {
         /**  save the main image process  */ 
         
         String mainImageUrl = elements.get(0).attr("href");
-        String itemFullName = itemBrand + " " + itemTitle;
-        item.setMainImageName(itemFullName);
-        savingMainImage(itemFullName, DIR_MAIN_IMAGES, mainImageUrl);
+        //String itemFullName = itemBrand + " " + itemTitle;
+        item.setMainImageName(itemTitle);
+        savingMainImage(itemTitle, DIR_MAIN_IMAGES, mainImageUrl);
     }
     
     private static void savingMainImage(final String imageName, String directory, final String imageUrl) {
@@ -278,7 +286,7 @@ public class CrawlerEcoverde {
             validBrandName = brandName; 
         }
 
-        item.setBrandName(brandName);
+        item.setBrandNameDE(brandName);
         return validBrandName;
     }
     

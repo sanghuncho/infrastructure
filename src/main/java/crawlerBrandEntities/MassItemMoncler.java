@@ -119,7 +119,7 @@ public class MassItemMoncler extends BaseItem {
     }
     
     public String getItemFullname() {
-        return massItem.getBrandName() + " " + massItem.getItemCategory() + " " + massItem.getItemTitle();
+        return massItem.getBrandNameDE() + " " + massItem.getItemCategory() + " " + massItem.getItemTitle();
     }
     
     public String getCategoryId() {

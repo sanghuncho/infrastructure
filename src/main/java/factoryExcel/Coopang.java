@@ -130,8 +130,8 @@ public class Coopang {
         Object itemRow[] = new Object[66];
         //카테고리
         itemRow[0] = "";
-        //등록상품명
-        itemRow[1] = item.getItemFullnameWithPrefix();
+        //등록상품명 -- 상품노출명은 브랜드 + 아이템이름
+        itemRow[1] = item.getItemFullname();
         
         //판매시작일
         itemRow[2] = "";
@@ -142,9 +142,9 @@ public class Coopang {
         //상태설명
         itemRow[5] = "";
         //브랜드
-        itemRow[6] = item.getItemBrandName();
+        itemRow[6] = "[" + item.getMassItem().getBrandNameDE() + "]";
         //제조사
-        itemRow[7] = item.getItemBrandName();
+        itemRow[7] = item.getMassItem().getBrandNameDE();
         //검색어
         itemRow[8] = "";
         
@@ -234,7 +234,7 @@ public class Coopang {
         //상품고시정보값4
         itemRow[49] = "상품상세페이지참조";
         //상품고시정보값5
-        itemRow[50] = item.getMassItem().getBrandName();
+        itemRow[50] = item.getMassItem().getBrandNameDE();
         //상품고시정보값6
         itemRow[51] = "독일, 기타유럽국가";
         //상품고시정보값7
@@ -299,9 +299,9 @@ public class Coopang {
         //상태설명
         itemRow[5] = "";
         //브랜드
-        itemRow[6] = item.getItemBrandName();
+        itemRow[6] = item.getMassItem().getBrandNameDE();
         //제조사
-        itemRow[7] = item.getItemBrandName();
+        itemRow[7] = item.getMassItem().getBrandNameDE();
         //검색어
         itemRow[8] = "";
         
